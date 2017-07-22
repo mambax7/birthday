@@ -9,19 +9,21 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright	The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright           XOOPS Project (https://xoops.org)
  * @license             http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
- * @package	birthday
- * @since		2.5.0
- * @author 	XOOPS Module Team
- * @version	$Id $
-**/
+ * @package             birthday
+ * @since               2.5.0
+ * @author              XOOPS Module Team
+ **/
 
+$pathIcon32      = \Xmf\Module\Admin::iconUrl('', 32);
 echo "<div class='adminfooter'>\n"
-    ."  <div style='text-align: center;'>\n"
-    ."    <a href='http://www.xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n"
-    ."  </div>\n"
-    ."  " . _AM_MODULEADMIN_ADMIN_FOOTER . "\n"
-    ."</div>";
+     . "  <div style='text-align: center;'>\n"
+     . "    <a href='https://xoops.org' rel='external'><img src='{$pathIcon32}/xoopsmicrobutton.gif' alt='XOOPS' title='XOOPS'></a>\n"
+     . "  </div>\n"
+     . '  '
+     . _AM_MODULEADMIN_ADMIN_FOOTER
+     . "\n"
+     . '</div>';
 
 xoops_cp_footer();
