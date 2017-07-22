@@ -1,49 +1,50 @@
 <?php
 
 /**
- * Permet à l'utilisateur courant de modifier sa fiche (si l'option adéquate est activée)
+ * Permet Ã  l'utilisateur courant de modifier sa fiche (si l'option adÃ©quate est activÃ©e)
  */
-require 'header.php';
-$xoopsOption['template_main'] = 'birthday_index.html';
-require_once XOOPS_ROOT_PATH.'/header.php';
-require XOOPS_ROOT_PATH.'/modules/birthday/include/function.php';
+require_once __DIR__ . '/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'birthday_index.tpl';
+require_once XOOPS_ROOT_PATH . '/header.php';
+require XOOPS_ROOT_PATH . '/modules/birthday/include/function.php';
 
-$baseurl = BIRTHDAY_URL.basename(__FILE__);    // URL de ce script
-$uid = 0;
-if (is_object($xoopsUser) && birthday_utils::getModuleOption('enable_users')) {
-    $uid = intval($xoopsUser->getVar('uid'));
+$baseurl = BIRTHDAY_URL . basename(__FILE__);    // URL de ce script
+$uid     = 0;
+if (is_object($xoopsUser) && BirthdayUtility::getModuleOption('enable_users')) {
+    $uid = (int)$xoopsUser->getVar('uid');
 } else {
-    birthday_utils::redirect(_BIRTHDAY_ERROR1, 'users.php', 4);
+    BirthdayUtility::redirect(_BIRTHDAY_ERROR1, 'users.php', 4);
 }
 
 $op = isset($_POST['op']) ? $_POST['op'] : 'default';
 
-switch($op) {
+switch ($op) {
     case 'default':
-        $item = $hBdUsersBirthday->getFromUid($uid);
+        $item    = $hBdUsersBirthday->getFromUid($uid);
         $captcha = '';
-        if(birthday_utils::getModuleOption('use_captcha')) {
-            require_once BIRTHDAY_PATH.'class/Numeral.php';
-            $numcap = new birthday_Text_CAPTCHA_Numeral;
+        if (BirthdayUtility::getModuleOption('use_captcha')) {
+            require_once BIRTHDAY_PATH . 'class/Numeral.php';
+            $numcap                      = new birthday_Text_CAPTCHA_Numeral;
             $_SESSION['birthday_answer'] = $numcap->getAnswer();
-            $captcha = $numcap->getOperation();
+            $captcha                     = $numcap->getOperation();
         }
         $form = $hBdUsersBirthday->getForm($item, $baseurl, false, $captcha);
         $xoopsTpl->assign('form', $form->render());
         break;
 
     case 'saveedit':
-        if(birthday_utils::getModuleOption('use_captcha') && isset($_POST['captcha']) && isset($_SESSION['birthday_answer'])) {
+        if (isset($_POST['captcha']) && isset($_SESSION['birthday_answer'])
+            && BirthdayUtility::getModuleOption('use_captcha')) {
             if ($_POST['captcha'] != $_SESSION['birthday_answer']) {
-                birthday_utils::redirect(_BIRTHDAY_CAPTCHA_WRONG, 'index.php', 4);
+                BirthdayUtility::redirect(_BIRTHDAY_CAPTCHA_WRONG, 'index.php', 4);
             }
         }
         $result = $hBdUsersBirthday->saveUser(true);
-        if($result) {
-            birthday_utils::redirect(_AM_BIRTHDAY_SAVE_OK, 'users.php', 1);
+        if ($result) {
+            BirthdayUtility::redirect(_AM_BIRTHDAY_SAVE_OK, 'users.php', 1);
         } else {
-            birthday_utils::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
+            BirthdayUtility::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
         }
         break;
 }
-require_once XOOPS_ROOT_PATH.'/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';

@@ -2,32 +2,41 @@
 /**
  * ****************************************************************************
  * Birthday - MODULE FOR XOOPS
- * Script made by Hervé Thouzard (http://www.herve-thouzard.com/)
+ * Script made by HervÃ© Thouzard (http://www.herve-thouzard.com/)
  * Created on 10 jully. 08 at 11:32:40
  * ****************************************************************************
  */
 
-defined("XOOPS_ROOT_PATH") or die("XOOPS root path not defined");
+$moduleDirName = basename(dirname(__DIR__));
 
-$dirname = basename(dirname(dirname(__FILE__)));
-$module_handler = xoops_gethandler('module');
-$module = $module_handler->getByDirname($dirname);
-$pathIcon32 = $module->getInfo('icons32');
+if (false !== ($moduleHelper = Xmf\Module\Helper::getHelper($moduleDirName))) {
+} else {
+    $moduleHelper = Xmf\Module\Helper::getHelper('system');
+}
+$adminObject = \Xmf\Module\Admin::getInstance();
 
-$adminmenu = array();
-$i = 1;
-$adminmenu[$i]["title"] = _MI_BIRTHDAY_HOME;
-$adminmenu[$i]["link"]  = "admin/index.php";
-$adminmenu[$i]["icon"] = $pathIcon32.'/home.png';
-$i++;
-$adminmenu[$i]["title"] = _MI_BIRTHDAY_BIRTHDAYS;
-$adminmenu[$i]["link"]  = "admin/main.php";
-$adminmenu[$i]["icon"] = './images/cake.png';
-//$i++;
-//$adminmenu[$i]["title"] = _MI_BIRTHDAY_MAINTAIN;
-//$adminmenu[$i]["link"]  = "admin/main.php?op=maintain";
-//$adminmenu[$i]["icon"] = './images/maintenance.png';
-$i++;
-$adminmenu[$i]["title"] =_MI_BIRTHDAY_ABOUT;
-$adminmenu[$i]["link"]  = "admin/about.php";
-$adminmenu[$i]["icon"] = $pathIcon32.'/about.png';
+$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
+$pathModIcon32 = $moduleHelper->getModule()->getInfo('modicons32');
+
+// Load language files
+$moduleHelper->loadLanguage('admin');
+$moduleHelper->loadLanguage('modinfo');
+$moduleHelper->loadLanguage('main');
+
+$adminmenu[] = [
+    'title' => _MI_BIRTHDAY_HOME,
+    'link'  => 'admin/index.php',
+    'icon'  => $pathIcon32 . '/home.png'
+];
+
+$adminmenu[] = [
+    'title' => _MI_BIRTHDAY_BIRTHDAYS,
+    'link'  => 'admin/main.php',
+    'icon'  => './assets/images/cake.png'
+];
+
+$adminmenu[] = [
+    'title' => _AM_MODULEADMIN_ABOUT,
+    'link'  => 'admin/about.php',
+    'icon'  => $pathIcon32 . '/about.png'
+];

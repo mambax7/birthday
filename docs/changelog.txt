@@ -1,45 +1,81 @@
-2.4 Beta 1        2014-04-23
-=================================
+<h5>2.4 Beta 2        [2017-07-20]</h5>
+<hr>
+
+- Converted to XOOPS 2.5.8 Admin GUI (mamba)
+- removed @version (mamba)
+- PSR-2 code cosmetics (mamba)
+- addNavigation(basename(__FILE__))  (mamba)
+- dirname(__FILE__) to __DIR__ (mamba)
+- replaced < br /> with < br > (mamba)
+- Unnecessary double quotes (mamba)
+- reference mismatch (mamba)
+- Hardening to type safe (mamba)
+- update Help (mamba)
+- changed _handler to Handler (mamba)
+- removed '/' from void HTML elements (&lt;br&gt;, &lt;img&gt;, etc) (mamba)
+- HTML 5: removed 'selected' and 'checked' (mamba)
+- updated file headers for consistency (mamba)
+- renamed several $indexAdmin with $adminObject for consistency (mamba)
+- Updates for PayPal changes (zyspec)
+- added Contributing.md (mamba)
+- started conversion to XMF (mamba)
+    &nbsp;&nbsp;- updated addInfoBoxLine entries (mamba)
+    &nbsp;&nbsp;- displayNavigation(basename(__FILE__))  (mamba)
+    &nbsp;&nbsp;- changed to ->displayButton('left') (mamba)
+
+<h5>2.4 Beta 1        [2014-04-23]</h5>
+<hr>
+
 - moved all images, CSS, and JS files to /assets (mamba)
 - renamed .html Smarty templates to .tpl (mamba)
 
 
-2.3 Final Changes made by Michael Beck (Mamba)
-=================================
-- Converted to standard XoopsPersistableObjectHandler
-- Removed Cache Lite
-- Removed PEAR.php
-- fixed upload folder bug
+<h5>2.3 Final </h5>
+<hr>
+
+- Converted to standard XoopsPersistableObjectHandler (mamba)
+- Removed Cache Lite (mamba)
+- Removed PEAR.php (mamba)
+- fixed upload folder bug (mamba)
 
 
-2.3 Beta        Changes made by Michael Beck (Mamba)
-=================================
-- Converted to XOOPS 2.5.x GUI
-- Updated Cache Lite
-- Update PEAR.php
-- made "Editor List" dynamic based on available editors
-- updated module Logo to "Blue Move"
-- replaced BD_XoopsFormTextDateSelect back to XoopsFormTextDateSelect in users_birthday.php
+<h5>2.3 Beta        </h5>
+<hr>
+
+- Converted to XOOPS 2.5.x GUI (mamba)
+- Updated Cache Lite (mamba)
+- Update PEAR.php (mamba)
+- made "Editor List" dynamic based on available editors (mamba)
+- updated module Logo to "Blue Move" (mamba)
+- replaced BD_XoopsFormTextDateSelect back to XoopsFormTextDateSelect in users_birthday.php (mamba)
 
 
-2.2     Changes made by Herve Thouzard (http://www.herve-thouzard.com/)
-=================================
+<h5>2.2</h5>
+   <hr>
+Changes made by Herve Thouzard (http://www.herve-thouzard.com/)
+
 - The module is now Xoops 2.3 compatible
 - Minor change in the module's administration
 - The module will not add asterisks to forms under Xoops 2.3
 - Correction of a bug in the comments
 
 
-2.1     Changes made by Herve Thouzard (http://www.herve-thouzard.com/)
-=================================
+<h5>2.1 </h5>
+    <hr>
+
+Changes made by Herve Thouzard (http://www.herve-thouzard.com/)
+
 - You have a new option to select how to order the users list
 - You also have a new option to activate a captcha on the user's page
 - Addition of a lang.diff file for translators
 
 
 
-2.0     Changes made by Herve Thouzard (http://www.herve-thouzard.com/)
-=================================
+<h5>2.0</h5>
+<hr>
+
+ Changes made by Herve Thouzard (http://www.herve-thouzard.com/)
+
 - Addition of a module's administration where you can show, edit and add birthdays
 - You can add a description to each birthday
 - You can select the text editor to use
@@ -52,4 +88,4 @@
 - Now the module completly uses Smarty
 - You can prohibit users to fill out their form (this is useful in case where you use the module to present other persons than those who use your site)
 
-Notes : The modules requires Php 5 and is not compatible with previous versions of this module
+Notes : The modules requires PHP 5 and is not compatible with previous versions of this module

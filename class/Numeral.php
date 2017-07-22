@@ -1,5 +1,5 @@
 <?php
-require_once XOOPS_ROOT_PATH.'/modules/birthday/class/NumeralInterface.php';
+require_once XOOPS_ROOT_PATH . '/modules/birthday/class/NumeralInterface.php';
 // {{{ Class Text_CAPTCHA_Numeral
 // +----------------------------------------------------------------------+
 // | PHP version 5                                                        |
@@ -40,6 +40,7 @@ require_once XOOPS_ROOT_PATH.'/modules/birthday/class/NumeralInterface.php';
 // | Author: David Coallier <davidc@agoraproduction.com>                  |
 // +----------------------------------------------------------------------+
 //
+
 /**
  * Class used for numeral captchas
  *
@@ -87,7 +88,7 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      * @access private
      * @var array $operators The operations for the captcha
      */
-    private $operators = array();
+    private $operators = [];
 
     /**
      * Operator to use
@@ -99,7 +100,7 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      * @access private
      * @var string $operator The operation's operator
      */
-    private  $operator = '';
+    private $operator = '';
 
     /**
      * Mathematical Operation
@@ -176,22 +177,21 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
     /**
      * Constructor with different levels of mathematical operations sets
      *
-     * @param constant $complexityType
+     * @param \constant|int $complexityType
      */
     public function __construct($complexityType = self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY)
     {
-
         switch ($complexityType) {
-                case 2:
-                     $this->operators = array('+', '-', '*');
-                     break;
-                case 4:
-                     $this->operators = array('+', '-', '*', '%', '/');
-                     break;
-                case 1:
-                default:
-                     $this->operators = array('-', '+');
-                     break;
+            case 2:
+                $this->operators = ['+', '-', '*'];
+                break;
+            case 4:
+                $this->operators = ['+', '-', '*', '%', '/'];
+                break;
+            case 1:
+            default:
+                $this->operators = ['-', '+'];
+                break;
         }
 
         $this->generateFirstNumber();
@@ -209,7 +209,8 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      * can be bigger, smaller, etc.
      *
      * @access private
-     * @param integer $minValue The minimum value
+     *
+     * @param int|string $minValue The minimum value
      */
     private function setRangeMinimum($minValue = '1')
     {
@@ -272,7 +273,10 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      * and it will set $this->answer with it.
      *
      * @access private
+     *
      * @param integer $answerValue The answer value
+     *
+     * @return $this
      * @see    $this->answer
      */
     private function setAnswer($answerValue)
@@ -330,9 +334,7 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      */
     private function setOperation()
     {
-        $this->operation = $this->getFirstNumber() . ' ' .
-                           $this->operator . ' ' .
-                           $this->getSecondNumber();
+        $this->operation = $this->getFirstNumber() . ' ' . $this->operator . ' ' . $this->getSecondNumber();
 
         return $this;
     }
@@ -377,7 +379,7 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      * This method will multiply two numbers
      *
      * @access private
-     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer
+     * @see    $this->firstNumber, $this->secondNumber, $this->setAnswer
      *
      */
     private function doMultiplication()
@@ -392,8 +394,8 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      * This function executes a division based on the two
      * numbers.
      *
-     * @param integer $firstNumber The first number of the operation.
-     *                             This is by default set to null.
+     * @param integer $firstNumber  The first number of the operation.
+     *                              This is by default set to null.
      *
      * @param integer $secondNumber The second number of the operation
      *                              This is by default set to null.
@@ -401,11 +403,11 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      */
     private function doDivision($firstNumber = null, $secondNumber = null)
     {
-        if (is_null($firstNumber)) {
+        if (null === $firstNumber) {
             $firstNumber = $this->getFirstNumber();
         }
 
-        if (is_null($secondNumber)) {
+        if (null === $secondNumber) {
             $secondNumber = $this->getSecondNumber();
         }
 
@@ -425,10 +427,7 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
             return;
         }
 
-        $this->setFirstNumber($firstNumber)
-             ->setSecondNumber($secondNumber)
-             ->setOperation()
-             ->setAnswer($this->getFirstNumber() / $this->getSecondNumber());
+        $this->setFirstNumber($firstNumber)->setSecondNumber($secondNumber)->setOperation()->setAnswer($this->getFirstNumber() / $this->getSecondNumber());
     }
     // }}}
     // {{{ private function doModulus
@@ -439,12 +438,12 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      *
      *
      * @access private
-     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
+     * @see    $this->firstNumber, $this->secondNumber, $this->setAnswer()
      *
      */
     private function doModulus()
     {
-       $this->setAnswer($this->getFirstNumber() % $this->getSecondNumber());
+        $this->setAnswer($this->getFirstNumber() % $this->getSecondNumber());
     }
     // }}}
     // {{{ private function doSubstract
@@ -463,16 +462,14 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
      */
     private function doSubstract()
     {
-         $first  = $this->getFirstNumber();
-         $second = $this->getSecondNumber();
+        $first  = $this->getFirstNumber();
+        $second = $this->getSecondNumber();
 
         /**
          * Check if firstNumber is smaller than secondNumber
          */
         if ($first < $second) {
-            $this->setFirstNumber($second)
-                 ->setSecondNumber($first)
-                 ->setOperation();
+            $this->setFirstNumber($second)->setSecondNumber($first)->setOperation();
         }
 
         $answer = $this->getFirstNumber() - $this->getSecondNumber();
@@ -496,24 +493,24 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
         $this->setOperation();
 
         switch ($this->operator) {
-        case '+':
-            $this->doAdd();
-            break;
-        case '-':
-            $this->doSubstract();
-            break;
-        case '*':
-            $this->doMultiplication();
-            break;
-        case '%':
-            $this->doModulus();
-            break;
-        case '/':
-            $this->doDivision();
-            break;
-        default:
-            $this->doAdd();
-            break;
+            case '+':
+                $this->doAdd();
+                break;
+            case '-':
+                $this->doSubstract();
+                break;
+            case '*':
+                $this->doMultiplication();
+                break;
+            case '%':
+                $this->doModulus();
+                break;
+            case '/':
+                $this->doDivision();
+                break;
+            default:
+                $this->doAdd();
+                break;
         }
     }
     // }}}
@@ -579,4 +576,3 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
     // }}}
 }
 // }}}
-;
