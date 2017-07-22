@@ -22,4 +22,4 @@ define("_AM_BIRTHDAY_NOT_FOUND","Error, item not found !");
 //ModuleAdmin
 define('_AM_BIRTHDAY_MODULEADMIN_MISSING','Error: The ModuleAdmin class is missing. Please install the ModuleAdmin Class into /Frameworks (see /docs/readme.txt)');
 // Text for Admin footer
-//define("_AM_BIRTHDAY_FOOTER","<div class='center smallsmall italic pad5'>Module Birthday is maintained by the <a class='tooltip' rel='external' href='http://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
+//define("_AM_BIRTHDAY_FOOTER","<div class='center smallsmall italic pad5'>Module Birthday is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
