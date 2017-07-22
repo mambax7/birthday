@@ -1,3 +1,3 @@
 <h2><{$smarty.const._MI_BD_TITRE_2}>
-<br />
-<{$form}>
+    <br>
+    <{$form}>
