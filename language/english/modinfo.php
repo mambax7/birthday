@@ -35,3 +35,16 @@ define('_MI_BIRTHDAY_USE_CAPTCHA', "Use CAPTCHA on user's page?");
 define('_MI_BIRTHDAY_BIRTHDAYS', 'Birthdays');
 define('_MI_BIRTHDAY_MAINTAIN', 'Maintain cache/tables');
 define('_MI_BIRTHDAY_ABOUT', 'About');
+//2.4
+//Help
+define('_MI_BIRTHDAY_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_BIRTHDAY_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_BIRTHDAY_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_BIRTHDAY_OVERVIEW', 'Overview');
+
+//define('_MI_BIRTHDAY_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_BIRTHDAY_DISCLAIMER', 'Disclaimer');
+define('_MI_BIRTHDAY_LICENSE', 'License');
+define('_MI_BIRTHDAY_SUPPORT', 'Support');

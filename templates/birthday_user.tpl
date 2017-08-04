@@ -5,12 +5,12 @@
     <div style="margin-left: 10px; text-align: justify;">
         <{if trim($birthday_user.birthday_full_imgurl) != ''}>
             <div style="margin: 5px 10px;float: left;">
-                <img src="<{$birthday_user.birthday_full_imgurl}>" alt="<{$birthday_user.birthday_href_title}>"/>
+                <img src="<{$birthday_user.birthday_full_imgurl}>" alt="<{$birthday_user.birthday_href_title}>">
             </div>
         <{elseif trim($birthday_user.birthday_user_user_avatar) != ''}>
             <div style="margin: 5px 10px;float: left;">
                 <img src="<{$xoops_url}>/uploads/<{$birthday_user.birthday_user_user_avatar}>"
-                     alt="<{$birthday_user.birthday_href_title}>"/>
+                     alt="<{$birthday_user.birthday_href_title}>">
             </div>
         <{/if}>
         <h3><{$birthday_user.birthday_fullname}></h3>

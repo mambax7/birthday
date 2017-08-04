@@ -22,3 +22,11 @@ define('_AM_BIRTHDAY_NOT_FOUND', 'Error, item not found !');
 define('_AM_BIRTHDAY_MODULEADMIN_MISSING', 'Error: The ModuleAdmin class is missing. Please install the ModuleAdmin Class into /Frameworks (see /docs/readme.txt)');
 // Text for Admin footer
 //define("_AM_BIRTHDAY_FOOTER","<div class='center smallsmall italic pad5'>Module Birthday is maintained by the <a class='tooltip' rel='external' href='https://xoops.org/' title='Visit XOOPS Community'>XOOPS Community</a></div>");
+//2.4
+define('_AM_BIRTHDAY_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('_AM_BIRTHDAY_UPGRADEFAILED1', "Update failed - couldn't add new fields");
+define('_AM_BIRTHDAY_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
+define('_AM_BIRTHDAY_ERROR_COLUMN', 'Could not create column in database : %s');
+define('_AM_BIRTHDAY_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+define('_AM_BIRTHDAY_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_BIRTHDAY_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');

@@ -29,7 +29,7 @@ class BirthdayUtility extends XoopsObject
         //            }
         //        }
         //        catch (Exception $e) {
-        //            echo 'Caught exception: ', $e->getMessage(), "\n", '<br/>';
+        //            echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         //        }
         try {
             if (!file_exists($folder)) {
@@ -40,7 +40,7 @@ class BirthdayUtility extends XoopsObject
                 }
             }
         } catch (Exception $e) {
-            echo 'Caught exception: ', $e->getMessage(), "\n", '<br/>';
+            echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
     }
 
@@ -59,7 +59,7 @@ class BirthdayUtility extends XoopsObject
         //                return copy($file, $folder);
         //            }
         //        } catch (Exception $e) {
-        //            echo 'Caught exception: ', $e->getMessage(), "\n", "<br/>";
+        //            echo 'Caught exception: ', $e->getMessage(), "\n", "<br>";
         //        }
         //        return false;
     }
@@ -119,7 +119,7 @@ class BirthdayUtility extends XoopsObject
                     break;
                 }
             } else {
-                if ((int)$v > 0) { // handles things like x.x.x.0_RC2
+                if ((int)$v > 0) { // handles versions like x.x.x.0_RC2
                     $success = false;
                     break;
                 }
@@ -127,7 +127,7 @@ class BirthdayUtility extends XoopsObject
         }
 
         if (!$success) {
-            $module->setErrors(sprintf(_AM_XXXXX_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
+            $module->setErrors(sprintf(_AM_BIRTHDAY_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 
         return $success;
@@ -150,7 +150,7 @@ class BirthdayUtility extends XoopsObject
         $reqVer  = $module->getInfo('min_php');
         if (false !== $reqVer && '' !== $reqVer) {
             if (version_compare($verNum, $reqVer, '<')) {
-                $module->setErrors(sprintf(_AM_XXXXX_ERROR_BAD_PHP, $reqVer, $verNum));
+                $module->setErrors(sprintf(_AM_BIRTHDAY_ERROR_BAD_PHP, $reqVer, $verNum));
                 $success = false;
             }
         }

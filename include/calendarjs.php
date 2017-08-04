@@ -2,7 +2,7 @@
 // defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 require_once XOOPS_ROOT_PATH . '/language/' . $GLOBALS['xoopsConfig']['language'] . '/calendar.php';
 ?>
-<link rel="stylesheet" type="text/css" media="all" href="<?php echo XOOPS_URL; ?>/include/calendar-blue.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="<?php echo XOOPS_URL; ?>/include/calendar-blue.css">
 <script type="text/javascript" src="<?php echo XOOPS_URL . '/include/calendar.js'; ?>"></script>
 <script type="text/javascript">
     <!--
