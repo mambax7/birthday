@@ -6,7 +6,7 @@
  * Created on 10 juil. 08 at 13:35:06
  * ****************************************************************************
  */
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 if (!defined('BIRTHDAY_DIRNAME')) {
     define('BIRTHDAY_DIRNAME', 'birthday');

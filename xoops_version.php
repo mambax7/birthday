@@ -1,5 +1,5 @@
 <?php
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 $modversion['version']             = 2.4;
 $modversion['module_status']       = 'Beta 2';
@@ -32,12 +32,12 @@ $modversion['adminmenu']   = 'admin/menu.php';
 $modversion['system_menu'] = 1;
 
 // ------------------- Help files ------------------- //
-$modversion['helpsection'] = array(
+$modversion['helpsection'] = [
     ['name' => _MI_BIRTHDAY_OVERVIEW, 'link' => 'page=help'],
     ['name' => _MI_BIRTHDAY_DISCLAIMER, 'link' => 'page=disclaimer'],
     ['name' => _MI_BIRTHDAY_LICENSE, 'link' => 'page=license'],
     ['name' => _MI_BIRTHDAY_SUPPORT, 'link' => 'page=support'],
-);
+];
 
 // ********************************************************************************************************************
 // Blocks *************************************************************************************************************

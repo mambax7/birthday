@@ -6,7 +6,7 @@
  * Created on 10 juil. 08 at 13:27:45
  * ****************************************************************************
  */
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 require_once XOOPS_ROOT_PATH . '/kernel/object.php';
 //if (!class_exists('Birthday_XoopsPersistableObjectHandler')) {
