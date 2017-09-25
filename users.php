@@ -25,7 +25,7 @@ if (isset($xoopsConfig) && file_exists(BIRTHDAY_PATH . 'language/' . $xoopsConfi
     require_once BIRTHDAY_PATH . 'language/english/blocks.php';
 }
 
-if (isset($_GET['op']) && $_GET['op'] === 'today') {    // Les utilisateurs dont l'anniversaire est aujourd'hui
+if (isset($_GET['op']) && 'today' === $_GET['op']) {    // Les utilisateurs dont l'anniversaire est aujourd'hui
     $itemsCount = $hBdUsersBirthday->getTodayBirthdaysCount();
     if ($itemsCount > $limit) {
         $pagenav = new XoopsPageNav($itemsCount, $limit, $start, 'start', 'op=today');
@@ -36,7 +36,7 @@ if (isset($_GET['op']) && $_GET['op'] === 'today') {    // Les utilisateurs dont
     if ($itemsCount > $limit) {
         $pagenav = new XoopsPageNav($itemsCount, $limit, $start, 'start');
     }
-    if (BirthdayUtility::getModuleOption('userslist_sortorder') == 1) {    // Sort by date
+    if (1 == BirthdayUtility::getModuleOption('userslist_sortorder')) {    // Sort by date
         $sort  = 'birthday_date';
         $order = 'ASC';
     } else {

@@ -20,7 +20,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
 
     // Recherche dans les produits
     $sql = 'SELECT birthday_id, birthday_firstname, birthday_lastname, birthday_date, birthday_uid FROM ' . $xoopsDB->prefix('users_birthday') . ' WHERE (birthday_id <> 0 ';
-    if ($userid != 0) {
+    if (0 != $userid) {
         $sql .= '  AND birthday_uid = ' . $userid;
     }
     $sql .= ') ';
@@ -30,8 +30,8 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
     $tblFields = [];
     $cnt       = 0;
     foreach ($datas as $key => $value) {
-        if ($value['data_type'] == XOBJ_DTYPE_TXTBOX || $value['data_type'] == XOBJ_DTYPE_TXTAREA) {
-            if ($cnt == 0) {
+        if (XOBJ_DTYPE_TXTBOX == $value['data_type'] || XOBJ_DTYPE_TXTAREA == $value['data_type']) {
+            if (0 == $cnt) {
                 $tblFields[] = $key;
             } else {
                 $tblFields[] = ' OR ' . $key;

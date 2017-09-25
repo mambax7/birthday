@@ -41,7 +41,7 @@ class users_birthday extends XoopsObject //Birthday_Object
      */
     public function getPictureUrl()
     {
-        if (xoops_trim($this->getVar('birthday_photo')) != '') {
+        if ('' != xoops_trim($this->getVar('birthday_photo'))) {
             return BirthdayUtility::getModuleOption('folder_url') . '/' . $this->getVar('birthday_photo');
         } else {
             return '';
@@ -54,7 +54,7 @@ class users_birthday extends XoopsObject //Birthday_Object
      */
     public function getPicturePath()
     {
-        if (xoops_trim($this->getVar('birthday_photo')) != '') {
+        if ('' != xoops_trim($this->getVar('birthday_photo'))) {
             return BirthdayUtility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo');
         } else {
             return '';
@@ -69,7 +69,7 @@ class users_birthday extends XoopsObject //Birthday_Object
     public function pictureExists()
     {
         $return = false;
-        if (xoops_trim($this->getVar('birthday_photo')) != ''
+        if ('' != xoops_trim($this->getVar('birthday_photo'))
             && file_exists(BirthdayUtility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'))) {
             $return = true;
         }
@@ -265,7 +265,7 @@ class BirthdayUsers_birthdayHandler extends XoopsPersistableObjectHandler //Birt
             unset($pictureTray, $deleteCheckbox);
         }
         $sform->addElement(new XoopsFormFile(_AM_BIRTHDAY_PICTURE, 'attachedfile', BirthdayUtility::getModuleOption('maxuploadsize')), false);
-        if (xoops_trim($captcha) != '') {
+        if ('' != xoops_trim($captcha)) {
             $captcaField = new XoopsFormText(_BIRTHDAY_PLEASESOLVE, 'captcha', 30, 30, '');
             $captcaField->setDescription($captcha);
             $sform->addElement($captcaField, true);
@@ -308,7 +308,7 @@ class BirthdayUsers_birthdayHandler extends XoopsPersistableObjectHandler //Birt
             global $xoopsUser;
             $item->setVar('birthday_uid', $xoopsUser->getVar('uid'));
         }
-        if (isset($_POST['delpicture']) && (int)$_POST['delpicture'] == 1) {
+        if (isset($_POST['delpicture']) && 1 == (int)$_POST['delpicture']) {
             if ($item->pictureExists() && '' != trim($item->getVar('birthday_photo'))) {
                 $item->deletePicture();
             }
@@ -319,14 +319,14 @@ class BirthdayUsers_birthdayHandler extends XoopsPersistableObjectHandler //Birt
 
         $return = BirthdayUtility::uploadFile(0, $uploadFolder);
 
-        if ($return === true) {
+        if (true === $return) {
             $newDestName = BirthdayUtility::createUploadName($uploadFolder, basename($destname), true);
             $retval      = BirthdayUtility::resizePicture($uploadFolder . '/' . $destname, $uploadFolder . '/' . $newDestName, $images_width, $images_height);
-            if ($retval == 1 || $retval == 3) {
+            if (1 == $retval || 3 == $retval) {
                 $item->setVar('birthday_photo', $newDestName);
             }
         } else {
-            if ($return !== false) {
+            if (false !== $return) {
                 echo $return;
             }
         }

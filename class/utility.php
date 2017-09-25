@@ -73,7 +73,7 @@ class BirthdayUtility extends XoopsObject
         $dir = opendir($src);
         //    @mkdir($dst);
         while (false !== ($file = readdir($dir))) {
-            if (($file !== '.') && ($file !== '..')) {
+            if (('.' !== $file) && ('..' !== $file)) {
                 if (is_dir($src . '/' . $file)) {
                     self::recurseCopy($src . '/' . $file, $dst . '/' . $file);
                 } else {
@@ -308,7 +308,7 @@ class BirthdayUtility extends XoopsObject
         xoops_template_clear_module_cache($xoopsModule->getVar('mid'));            // Clear module's blocks cache
 
         foreach ($tpllist as $onetemplate) {    // Remove cache for each page.
-            if ($onetemplate->getVar('tpl_type') === 'module') {
+            if ('module' === $onetemplate->getVar('tpl_type')) {
                 //  Note, I've been testing all the other methods (like the one of Smarty) and none of them run, that's why I have used this code
                 $files_del = [];
                 $files_del = glob(XOOPS_CACHE_PATH . '/*' . $onetemplate->getVar('tpl_file') . '*');
@@ -345,7 +345,7 @@ class BirthdayUtility extends XoopsObject
         static $mymodule;
         if (!isset($mymodule)) {
             global $xoopsModule;
-            if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == BIRTHDAY_DIRNAME) {
+            if (isset($xoopsModule) && is_object($xoopsModule) && BIRTHDAY_DIRNAME == $xoopsModule->getVar('dirname')) {
                 $mymodule =& $xoopsModule;
             } else {
                 $hModule  = xoops_getHandler('module');
@@ -432,7 +432,7 @@ class BirthdayUtility extends XoopsObject
      */
     public static function SQLDateToHuman($date, $format = 's')
     {
-        if ($date != '0000-00-00' && xoops_trim($date) != '') {
+        if ('0000-00-00' != $date && '' != xoops_trim($date)) {
             return formatTimestamp(strtotime($date), $format);
         } else {
             return '';
@@ -510,7 +510,7 @@ class BirthdayUtility extends XoopsObject
     public static function createUploadName($folder, $fileName, $trimName = false)
     {
         $workingfolder = $folder;
-        if (xoops_substr($workingfolder, strlen($workingfolder) - 1, 1) !== '/') {
+        if ('/' !== xoops_substr($workingfolder, strlen($workingfolder) - 1, 1)) {
             $workingfolder .= '/';
         }
         $ext  = basename($fileName);
@@ -638,7 +638,7 @@ class BirthdayUtility extends XoopsObject
                 break;
         }
         // Remove black listed words
-        if (xoops_trim(self::getModuleOption('metagen_blacklist')) != '') {
+        if ('' != xoops_trim(self::getModuleOption('metagen_blacklist'))) {
             $metagen_blacklist = str_replace("\r", '', self::getModuleOption('metagen_blacklist'));
             $metablack         = explode("\n", $metagen_blacklist);
             array_walk($metablack, 'trim');
@@ -684,16 +684,16 @@ class BirthdayUtility extends XoopsObject
             $fldname = '';
             $fldname = $_FILES[$_POST['xoops_upload_file'][$indice]];
             $fldname = get_magic_quotes_gpc() ? stripslashes($fldname['name']) : $fldname['name'];
-            if (xoops_trim($fldname != '')) {
+            if (xoops_trim('' != $fldname)) {
                 $destname = self::createUploadName($dstpath, $fldname, true);
-                if ($mimeTypes === null) {
+                if (null === $mimeTypes) {
                     $permittedtypes = explode("\n", str_replace("\r", '', self::getModuleOption('mimetypes')));
                     array_walk($permittedtypes, 'trim');
                 } else {
                     $permittedtypes = $mimeTypes;
                 }
                 $uploadSize = $uploadMaxSize;
-                if ($uploadMaxSize === null) {
+                if (null === $uploadMaxSize) {
                     $uploadSize = self::getModuleOption('maxuploadsize');
                 }
                 $uploader = new XoopsMediaUploader($dstpath, $permittedtypes, $uploadSize);
@@ -855,7 +855,7 @@ class BirthdayUtility extends XoopsObject
      */
     public function truncate_tagsafe($string, $length = 80, $etc = '...', $break_words = false)
     {
-        if ($length == 0) {
+        if (0 == $length) {
             return '';
         }
 

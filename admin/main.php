@@ -71,7 +71,7 @@ switch ($op) {
             echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
             echo "<tr><th align='center'>" . _BIRTHDAY_DATE . "</th><th align='center'>" . _BIRTHDAY_USERNAME . "</th><th align='center'>" . _BIRTHDAY_LASTNAME . ', ' . _BIRTHDAY_FIRSTNAME . "</th><th align='center'>" . _AM_BIRTHDAY_ACTION . '</th></tr>';
             foreach ($items as $item) {
-                $class = ($class === 'even') ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
                 $id    = $item->getVar('birthday_id');
                 $user  = null;
                 $user  = $item->getXoopsUser();
