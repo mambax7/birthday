@@ -2,8 +2,8 @@
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 $modversion['version']             = 2.4;
-$modversion['module_status']       = 'Beta 2';
-$modversion['release_date']        = '2017/07/20';
+$modversion['module_status']       = 'Beta 3';
+$modversion['release_date']        = '2017/11/22';
 $modversion['name']                = _MI_BD_TITRE;
 $modversion['description']         = _MI_BD_DESC;
 $modversion['author']              = 'Hervé Thouzard';

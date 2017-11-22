@@ -1,3 +1,8 @@
+<h5>2.4 Beta 3        [NOT RELEASED]</h5>
+<hr>
+- namespaces (mamba)
+WORK IN PROGRESS
+
 <h5>2.4 Beta 2        [2017-07-20]</h5>
 <hr>
 
@@ -12,7 +17,7 @@
 - Hardening to type safe (mamba)
 - update Help (mamba)
 - changed _handler to Handler (mamba)
-- removed '/' from void HTML elements (&lt;br&gt;, &lt;img&gt;, etc) (mamba)
+- removed '/' from void HTML elements (&lt;br>, &lt;img>, etc) (mamba)
 - HTML 5: removed 'selected' and 'checked' (mamba)
 - updated file headers for consistency (mamba)
 - renamed several $indexAdmin with $adminObject for consistency (mamba)

@@ -1,4 +1,4 @@
-<?php
+<?php namespace Xoopsmodules\birthday;
 
 /**
  * A set of useful and common functions
@@ -10,7 +10,7 @@
  * Note: You should be able to use it without the need to instanciate it.
  *
  */
-class BirthdayUtility extends XoopsObject
+class Utility extends \XoopsObject
 {
     /**
      * Function responsible for checking if a directory exists, we can also write in and create an index.html file
@@ -100,33 +100,16 @@ class BirthdayUtility extends XoopsObject
             $module = XoopsModule::getByDirname($moduleDirName);
         }
         xoops_loadLanguage('admin', $moduleDirName);
+
         //check for minimum XOOPS version
         $currentVer = substr(XOOPS_VERSION, 6); // get the numeric part of string
-        $currArray  = explode('.', $currentVer);
         if (null === $requiredVer) {
             $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
         }
-        $reqArray = explode('.', $requiredVer);
-        $success  = true;
-        foreach ($reqArray as $k => $v) {
-            if (isset($currArray[$k])) {
-                if ($currArray[$k] > $v) {
-                    break;
-                } elseif ($currArray[$k] == $v) {
-                    continue;
-                } else {
-                    $success = false;
-                    break;
-                }
-            } else {
-                if ((int)$v > 0) { // handles versions like x.x.x.0_RC2
-                    $success = false;
-                    break;
-                }
-            }
-        }
+        $success     = true;
 
-        if (false === $success) {
+        if (version_compare($currentVer, $module->getInfo('min_xoops'), '<')) {
+            $success     = false;
             $module->setErrors(sprintf(_AM_BIRTHDAY_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 
