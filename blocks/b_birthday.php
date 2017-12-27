@@ -11,8 +11,8 @@ function b_birthday_show($options)
     include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
     $start      = 0;
     $limit      = (int)$options[0];
-    $itemsCount = $hBdUsersBirthday->getTodayBirthdaysCount();
-    $users      = $hBdUsersBirthday->getTodayBirthdays($start, $limit);
+    $itemsCount = $birthdayHandler->getTodayBirthdaysCount();
+    $users      = $birthdayHandler->getTodayBirthdays($start, $limit);
     if (count($users) > 0) {
         foreach ($users as $user) {
             $block['birthday_today_users'][] = $user->toArray();
@@ -24,7 +24,7 @@ function b_birthday_show($options)
         $block['birthday_today_more'] = false;
     }
 
-    if (is_object($xoopsUser) && BirthdayUtility::getModuleOption('enable_users')) {
+    if (is_object($xoopsUser) && $utility::getModuleOption('enable_users')) {
         $block['birthday_today_mypage'] = true;
     } else {
         $block['birthday_today_mypage'] = false;

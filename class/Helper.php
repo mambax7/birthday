@@ -38,7 +38,7 @@ class Helper extends \Xmf\Module\Helper
     /**
      * @param bool $debug
      *
-     * @return \Helper
+     * @return \Xmf\Module\Helper
      */
     public static function getInstance($debug = false)
     {

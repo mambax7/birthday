@@ -16,7 +16,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
-$limit = BirthdayUtility::getModuleOption('perpage');    // Nombre maximum d'éléments à afficher
+$limit = $utility::getModuleOption('perpage');    // Nombre maximum d'éléments à afficher
 $users = [];
 
 if (isset($xoopsConfig) && file_exists(BIRTHDAY_PATH . 'language/' . $xoopsConfig['language'] . '/blocks.php')) {
@@ -26,24 +26,24 @@ if (isset($xoopsConfig) && file_exists(BIRTHDAY_PATH . 'language/' . $xoopsConfi
 }
 
 if (isset($_GET['op']) && 'today' === $_GET['op']) {    // Les utilisateurs dont l'anniversaire est aujourd'hui
-    $itemsCount = $hBdUsersBirthday->getTodayBirthdaysCount();
+    $itemsCount = $birthdayHandler->getTodayBirthdaysCount();
     if ($itemsCount > $limit) {
-        $pagenav = new XoopsPageNav($itemsCount, $limit, $start, 'start', 'op=today');
+        $pagenav = new \XoopsPageNav($itemsCount, $limit, $start, 'start', 'op=today');
     }
-    $users = $hBdUsersBirthday->getTodayBirthdays($start, $limit);
+    $users = $birthdayHandler->getTodayBirthdays($start, $limit);
 } else {    // Tous les utilisateurs
-    $itemsCount = $hBdUsersBirthday->getAllUsersCount();
+    $itemsCount = $birthdayHandler->getAllUsersCount();
     if ($itemsCount > $limit) {
-        $pagenav = new XoopsPageNav($itemsCount, $limit, $start, 'start');
+        $pagenav = new \XoopsPageNav($itemsCount, $limit, $start, 'start');
     }
-    if (1 == BirthdayUtility::getModuleOption('userslist_sortorder')) {    // Sort by date
+    if (1 == $utility::getModuleOption('userslist_sortorder')) {    // Sort by date
         $sort  = 'birthday_date';
         $order = 'ASC';
     } else {
         $sort  = 'birthday_lastname';
         $order = 'ASC';
     }
-    $users = $hBdUsersBirthday->getAllUsers($start, $limit, $sort, $order);
+    $users = $birthdayHandler->getAllUsers($start, $limit, $sort, $order);
 }
 if (count($users) > 0) {
     foreach ($users as $user) {
@@ -53,12 +53,12 @@ if (count($users) > 0) {
 if (isset($pagenav) && is_object($pagenav)) {
     $xoopsTpl->assign('pagenav', $pagenav->renderNav());
 }
-$pageTitle       = _BIRTHDAY_USERS_LIST . ' - ' . BirthdayUtility::getModuleName();
+$pageTitle       = _BIRTHDAY_USERS_LIST . ' - ' . $utility::getModuleName();
 $metaDescription = $pageTitle;
 $metaKeywords    = '';
-BirthdayUtility::setMetas($pageTitle, $metaDescription, $metaKeywords);
+$utility::setMetas($pageTitle, $metaDescription, $metaKeywords);
 
 $path       = [BIRTHDAY_URL . 'users.php' => _BIRTHDAY_USERS_LIST];
-$breadcrumb = BirthdayUtility::breadcrumb($path);
+$breadcrumb = $utility::breadcrumb($path);
 $xoopsTpl->assign('breadcrumb', $breadcrumb);
 require_once XOOPS_ROOT_PATH . '/footer.php';

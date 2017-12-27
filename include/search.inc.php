@@ -12,20 +12,23 @@
  * @param $userid
  * @return array
  */
+
+use Xoopsmodules\birthday;
+
 function birthday_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
     include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
-    require_once XOOPS_ROOT_PATH . '/modules/birthday/class/users_birthday.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/birthday/class/UserBirthday.php';
 
     // Recherche dans les produits
-    $sql = 'SELECT birthday_id, birthday_firstname, birthday_lastname, birthday_date, birthday_uid FROM ' . $xoopsDB->prefix('users_birthday') . ' WHERE (birthday_id <> 0 ';
+    $sql = 'SELECT birthday_id, birthday_firstname, birthday_lastname, birthday_date, birthday_uid FROM ' . $xoopsDB->prefix('users_birthday') . ' WHERE (birthday_id) <> 0 ';
     if (0 != $userid) {
         $sql .= '  AND birthday_uid = ' . $userid;
     }
     $sql .= ') ';
 
-    $tmpObject = new users_birthday();
+    $tmpObject = new birthday\UserBirthday();
     $datas     = $tmpObject->getVars();
     $tblFields = [];
     $cnt       = 0;
@@ -59,7 +62,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
     $sql    .= $more . ' ORDER BY birthday_date DESC';
     $i      = 0;
     $ret    = [];
-    $myts   = MyTextSanitizer::getInstance();
+    $myts   = \MyTextSanitizer::getInstance();
     $result = $xoopsDB->query($sql, $limit, $offset);
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $ret[$i]['image'] = 'assets/images/crown.png';

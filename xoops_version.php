@@ -1,35 +1,111 @@
 <?php
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
-$modversion['version']             = 2.4;
-$modversion['module_status']       = 'Beta 3';
-$modversion['release_date']        = '2017/11/22';
-$modversion['name']                = _MI_BD_TITRE;
-$modversion['description']         = _MI_BD_DESC;
-$modversion['author']              = 'Hervé Thouzard';
-$modversion['credits']             = 'XOOPS Project';
-$modversion['help']                = 'page=help';
-$modversion['license']             = 'GNU GPL 2.0';
-$modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html';
-$modversion['official']            = 0; //1 indicates supported by XOOPS Dev Team, 0 means 3rd party supported
-$modversion['image']               = 'assets/images/logoModule.png';
-$modversion['dirname']             = basename(__DIR__);
-$modversion['modicons16']          = 'assets/images/icons/16';
-$modversion['modicons32']          = 'assets/images/icons/32';
-$modversion['module_website_url']  = 'www.xoops.org/';
-$modversion['module_website_name'] = 'XOOPS';
-$modversion['min_php']             = '5.5';
-$modversion['min_xoops']           = '2.5.9';
-$modversion['min_admin']           = '1.2';
-$modversion['min_db']              = ['mysql' => '5.5'];
+use Xoopsmodules\birthday;
 
-// ********************************************************************************************************************
-// Administration *****************************************************************************************************
-// ********************************************************************************************************************
-$modversion['hasAdmin']    = 1;
-$modversion['adminindex']  = 'admin/index.php';
-$modversion['adminmenu']   = 'admin/menu.php';
-$modversion['system_menu'] = 1;
+require_once __DIR__ . '/preloads/autoloader.php';
+
+$moduleDirName = basename(__DIR__);
+
+// ------------------- Informations ------------------- //
+$modversion = [
+    'version'             => 2.4,
+    'module_status'       => 'Beta 3',
+    'release_date'        => '2017/12/26',
+    'name'                => _MI_BD_TITRE,
+    'description'         => _MI_BD_DESC,
+    'official'            => 0,
+    //1 indicates official XOOPS module supported by XOOPS Dev Team, 0 means 3rd party supported
+    'author'              => 'Hervé Thouzard',
+    'credits'             => 'XOOPS Development Team',
+    'author_mail'         => 'author-email',
+    'author_website_url'  => 'https://xoops.org',
+    'author_website_name' => 'XOOPS',
+    'license'             => 'GPL 2.0 or later',
+    'license_url'         => 'www.gnu.org/licenses/gpl-2.0.html/',
+    'help'                => 'page=help',
+    // ------------------- Folders & Files -------------------
+    'release_info'        => 'Changelog',
+    'release_file'        => XOOPS_URL . "/modules/$moduleDirName/docs/changelog.txt",
+    //
+    'manual'              => 'link to manual file',
+    'manual_file'         => XOOPS_URL . "/modules/$moduleDirName/docs/install.txt",
+    // images
+    'image'               => 'assets/images/logoModule.png',
+    'iconsmall'           => 'assets/images/iconsmall.png',
+    'iconbig'             => 'assets/images/iconbig.png',
+    'dirname'             => $moduleDirName,
+    //Frameworks
+    //    'dirmoduleadmin'      => 'Frameworks/moduleclasses/moduleadmin',
+    //    'sysicons16'          => 'Frameworks/moduleclasses/icons/16',
+    //    'sysicons32'          => 'Frameworks/moduleclasses/icons/32',
+    // Local path icons
+    'modicons16'          => 'assets/images/icons/16',
+    'modicons32'          => 'assets/images/icons/32',
+    //About
+    'demo_site_url'       => 'https://xoops.org',
+    'demo_site_name'      => 'XOOPS Demo Site',
+    'support_url'         => 'https://xoops.org/modules/newbb/viewforum.php?forum=28/',
+    'support_name'        => 'Support Forum',
+    'submit_bug'          => 'https://github.com/XoopsModules25x/' . $moduleDirName . '/issues',
+    'module_website_url'  => 'www.xoops.org',
+    'module_website_name' => 'XOOPS Project',
+    // ------------------- Min Requirements -------------------
+    'min_php'             => '5.5',
+    'min_xoops'           => '2.5.9',
+    'min_admin'           => '1.2',
+    'min_db'              => ['mysql' => '5.5'],
+    // ------------------- Admin Menu -------------------
+    'system_menu'         => 1,
+    'hasAdmin'            => 1,
+    'adminindex'          => 'admin/index.php',
+    'adminmenu'           => 'admin/menu.php',
+    // ------------------- Main Menu -------------------
+    'hasMain'             => 1,
+    'sub'                 => [
+        [
+            'name' => _MI_BIRTHDAY_USERS_LIST,
+            'url'  => 'users.php'
+        ],
+    ],
+
+    // ------------------- Install/Update -------------------
+    'onInstall'           => 'include/oninstall.php',
+    'onUpdate'            => 'include/onupdate.php',
+    'onUninstall'         => 'include/onuninstall.php',
+    // -------------------  PayPal ---------------------------
+    'paypal'              => [
+        'business'      => 'foundation@xoops.org',
+        'item_name'     => 'Donation : ' . _MI_BD_TITRE,
+        'amount'        => 0,
+        'currency_code' => 'USD'
+    ],
+    // ------------------- Search ---------------------------
+    'hasSearch'           => 1,
+    'search'              => [
+        'file' => 'include/search.inc.php',
+        'func' => 'birthday_search'
+    ],
+    // ------------------- Comments -------------------------
+    'hasComments'         => 1,
+    'comments'            => [
+        'pageName'     => 'user.php',
+        'itemName'     => 'birthday_id',
+        'callbackFile' => 'include/comment_functions.php',
+        'callback'     => [
+            'approve' => 'birthday_com_approve',
+            'update'  => 'birthday_com_update'
+        ],
+    ],
+    // ------------------- Mysql -----------------------------
+    'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
+    // ------------------- Tables ----------------------------
+    'tables'              => [
+        //        $moduleDirName . '_' . 'XXX',
+        'users_birthday'
+
+    ],
+];
 
 // ------------------- Help files ------------------- //
 $modversion['helpsection'] = [
@@ -39,169 +115,138 @@ $modversion['helpsection'] = [
     ['name' => _MI_BIRTHDAY_SUPPORT, 'link' => 'page=support'],
 ];
 
-// ********************************************************************************************************************
-// Blocks *************************************************************************************************************
-// ********************************************************************************************************************
-$cptb = 0;
+// ------------------- Blocks ------------------- //
+$modversion['blocks'][] = [
+    'file'        => 'b_birthday.php',
+    'name'        => _MI_BD_TITRE,
+    'description' => '_MI_BD_DESC',
+    'show_func'   => 'b_birthday_show',
+    'edit_func'   => 'b_birthday_edit',
+    'options'     => '5', // nombre d'éléments visibles
+    'template'    => 'birthday_block_birthday.tpl',
+];
 
-++$cptb;
-$modversion['blocks'][$cptb]['file']        = 'b_birthday.php';
-$modversion['blocks'][$cptb]['name']        = _MI_BD_TITRE;
-$modversion['blocks'][$cptb]['description'] = '_MI_BD_DESC';
-$modversion['blocks'][$cptb]['show_func']   = 'b_birthday_show';
-$modversion['blocks'][$cptb]['edit_func']   = 'b_birthday_edit';
-$modversion['blocks'][$cptb]['options']     = '5'; // nombre d'éléments visibles
-$modversion['blocks'][$cptb]['template']    = 'birthday_block_birthday.tpl';
+// ------------------- Templates ------------------- //
 
-// ********************************************************************************************************************
-// Search *************************************************************************************************************
-// ********************************************************************************************************************
-$modversion['hasSearch']      = 1;
-$modversion['search']['file'] = 'include/search.inc.php';
-$modversion['search']['func'] = 'birthday_search';
+$modversion['templates'] = [
+    ['file' => 'birthday_index.tpl', 'description' => 'Index page'],
+    ['file' => 'birthday_user.tpl', 'description' => 'Display a user page'],
+    ['file' => 'birthday_users.tpl', 'description' => 'List of Users'],
+];
 
-// ********************************************************************************************************************
-// Templates **********************************************************************************************************
-// ********************************************************************************************************************
-$cptt = 0;
-
-++$cptt;
-$modversion['templates'][$cptt]['file']        = 'birthday_index.tpl';
-$modversion['templates'][$cptt]['description'] = 'Index page';
-
-++$cptt;
-$modversion['templates'][$cptt]['file']        = 'birthday_user.tpl';
-$modversion['templates'][$cptt]['description'] = 'Display a user page';
-
-++$cptt;
-$modversion['templates'][$cptt]['file']        = 'birthday_users.tpl';
-$modversion['templates'][$cptt]['description'] = 'List of Users';
-
-// ********************************************************************************************************************
-// Menu ***************************************************************************************************************
-// ********************************************************************************************************************
-$modversion['hasMain'] = 1;
-
-$cptm = 0;
-++$cptm;
-$modversion['sub'][$cptm]['name'] = _MI_BIRTHDAY_USERS_LIST;
-$modversion['sub'][$cptm]['url']  = 'users.php';
-
-// ********************************************************************************************************************
-// Tables *************************************************************************************************************
-// ********************************************************************************************************************
-$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-$modversion['tables'][0]        = 'users_birthday';
-
-// ********************************************************************************************************************
-// Preferences ********************************************************************************************************
-// ********************************************************************************************************************
-$cpto = 0;
+// ------------------- Preferences Options ------------------- //
 
 /**
  * Images width
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'images_width';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_IMAGES_WIDTH';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'textbox';
-$modversion['config'][$cpto]['valuetype']   = 'int';
-$modversion['config'][$cpto]['default']     = 150;
 
+$modversion['config'][] = [
+    'name'        => 'images_width',
+    'title'       => '_MI_BIRTHDAY_IMAGES_WIDTH',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 150,
+];
 /**
  * Images height
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'images_height';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_IMAGES_HEIGHT';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'textbox';
-$modversion['config'][$cpto]['valuetype']   = 'int';
-$modversion['config'][$cpto]['default']     = 150;
 
+$modversion['config'][] = [
+    'name'        => 'images_height',
+    'title'       => '_MI_BIRTHDAY_IMAGES_HEIGHT',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 150,
+];
 /**
  * Folder's path (where to save pictures)
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'folder_path';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_FOLDER_PATH';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'textbox';
-$modversion['config'][$cpto]['valuetype']   = 'text';
-$modversion['config'][$cpto]['default']     = XOOPS_UPLOAD_PATH . '/birthday';
 
+$modversion['config'][] = [
+    'name'        => 'folder_path',
+    'title'       => '_MI_BIRTHDAY_FOLDER_PATH',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => XOOPS_UPLOAD_PATH . '/birthday',
+];
 /**
  * Folder's url (where to save pictures)
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'folder_url';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_FOLDER_URL';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'textbox';
-$modversion['config'][$cpto]['valuetype']   = 'text';
-$modversion['config'][$cpto]['default']     = XOOPS_UPLOAD_URL . '/birthday';
 
+$modversion['config'][] = [
+    'name'        => 'folder_url',
+    'title'       => '_MI_BIRTHDAY_FOLDER_URL',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'text',
+    'default'     => XOOPS_UPLOAD_URL . '/birthday',
+];
 /**
  * Items count per page
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'perpage';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_PERPAGE';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'textbox';
-$modversion['config'][$cpto]['valuetype']   = 'int';
-$modversion['config'][$cpto]['default']     = 15;
-
+$modversion['config'][] = [
+    'name'        => 'perpage',
+    'title'       => '_MI_BIRTHDAY_PERPAGE',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 15,
+];
 /**
  * Mime Types
  * Default values : Web pictures (png, jpeg)
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'mimetypes';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_MIMETYPES';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'textarea';
-$modversion['config'][$cpto]['valuetype']   = 'text';
-$modversion['config'][$cpto]['default']     = 'image/jpeg\nimage/pjpeg\nimage/x-png\nimage/png';
+//$modversion['config'][] = [
+//    'name'        => 'mimetypes',
+//    'title'       => '_MI_BIRTHDAY_MIMETYPES',
+//    'description' => '',
+//    'formtype'    => 'textarea',
+//    'valuetype'   => 'text',
+//    'default'     => "image/jpeg\nimage/pjpeg\nimage/x-png\nimage/png",
+//];
+
+//Uploads : mimetypes of images
+$modversion['config'][] = [
+    'name'        => 'mimetypes',
+    'title'       => '_MI_BIRTHDAY_MIMETYPES',
+    'description' => '',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'],
+    'options'     => [
+        'bmp'   => 'image/bmp',
+        'gif'   => 'image/gif',
+        'pjpeg' => 'image/pjpeg',
+        'jpeg'  => 'image/jpeg',
+        'jpg'   => 'image/jpg',
+        'jpe'   => 'image/jpe',
+        'png'   => 'image/png'
+    ]
+];
 
 /**
  * MAX Filesize Upload in kilo bytes
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'maxuploadsize';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_UPLOADFILESIZE';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'textbox';
-$modversion['config'][$cpto]['valuetype']   = 'int';
-$modversion['config'][$cpto]['default']     = 1048576;
-
+$modversion['config'][] = [
+    'name'        => 'maxuploadsize',
+    'title'       => '_MI_BIRTHDAY_UPLOADFILESIZE',
+    'description' => '',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 1048576,
+];
 /**
  * Editor to use
  */
-// ++$cpto;
-// $modversion['config'][$cpto]['name'] = 'form_options';
-// $modversion['config'][$cpto]['title'] = '_MI_BIRTHDAY_FORM_OPTIONS';
-// $modversion['config'][$cpto]['description'] = '_MI_BIRTHDAY_FORM_OPTIONS_DESC';
-// $modversion['config'][$cpto]['formtype'] = 'select';
-// $modversion['config'][$cpto]['valuetype'] = 'text';
-// $modversion['config'][$cpto]['options'] = array(
-// _MI_BIRTHDAY_FORM_DHTML=>'dhtml',
-// _MI_BIRTHDAY_FORM_COMPACT=>'textarea',
-// _MI_BIRTHDAY_FORM_SPAW=>'spaw',
-// _MI_BIRTHDAY_FORM_HTMLAREA=>'htmlarea',
-// _MI_BIRTHDAY_FORM_KOIVI=>'koivi',
-// _MI_BIRTHDAY_FORM_FCK=>'fck',
-// _MI_BIRTHDAY_FORM_TINYEDITOR=>'tinyeditor'
-// );
-// $modversion['config'][$cpto]['default'] = 'dhtml';
 
-++$cpto;
 xoops_load('XoopsEditorHandler');
-$editorHandler = XoopsEditorHandler::getInstance();
+$editorHandler = \XoopsEditorHandler::getInstance();
 $editorList    = array_flip($editorHandler->getList());
 
-$modversion['config'][$cpto] = [
+$modversion['config'][] = [
     'name'        => 'form_options',
     'title'       => '_MI_BIRTHDAY_FORM_OPTIONS',
     'description' => '_MI_BIRTHDAY_FORM_OPTIONS_DESC',
@@ -214,48 +259,37 @@ $modversion['config'][$cpto] = [
 /**
  * Enable users of your site to fill their form ?
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'enable_users';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_ENABLE_USERS';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'yesno';
-$modversion['config'][$cpto]['valuetype']   = 'int';
-$modversion['config'][$cpto]['default']     = 1;
-
+$modversion['config'][] = [
+    'name'        => 'enable_users',
+    'title'       => '_MI_BIRTHDAY_ENABLE_USERS',
+    'description' => '',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
+];
 /**
  * Sort order
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'userslist_sortorder';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_SORT_ORDER';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'select';
-$modversion['config'][$cpto]['valuetype']   = 'int';
-$modversion['config'][$cpto]['options']     = [
-    _MI_BIRTHDAY_SORT_ORDER1 => 1,
-    _MI_BIRTHDAY_SORT_ORDER2 => 2
+$modversion['config'][] = [
+    'name'        => 'userslist_sortorder',
+    'title'       => '_MI_BIRTHDAY_SORT_ORDER',
+    'description' => '',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'options' => [
+        _MI_BIRTHDAY_SORT_ORDER1 => 1,
+        _MI_BIRTHDAY_SORT_ORDER2 => 2
+    ],
+    'default'     => 2,
 ];
-$modversion['config'][$cpto]['default']     = 2;
-
 /**
  * Activate CAPTCHA ?
  */
-++$cpto;
-$modversion['config'][$cpto]['name']        = 'use_captcha';
-$modversion['config'][$cpto]['title']       = '_MI_BIRTHDAY_USE_CAPTCHA';
-$modversion['config'][$cpto]['description'] = '';
-$modversion['config'][$cpto]['formtype']    = 'yesno';
-$modversion['config'][$cpto]['valuetype']   = 'int';
-$modversion['config'][$cpto]['default']     = 0;
-
-// ********************************************************************************************************************
-// Comments ***********************************************************************************************************
-// ********************************************************************************************************************
-$modversion['hasComments']          = 1;
-$modversion['comments']['itemName'] = 'birthday_id';
-$modversion['comments']['pageName'] = 'user.php';
-
-// Comment callback functions
-$modversion['comments']['callbackFile']        = 'include/comment_functions.php';
-$modversion['comments']['callback']['approve'] = 'birthday_com_approve';
-$modversion['comments']['callback']['update']  = 'birthday_com_update';
+$modversion['config'][] = [
+    'name'        => 'use_captcha',
+    'title'       => '_MI_BIRTHDAY_USE_CAPTCHA',
+    'description' => '',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0,
+];

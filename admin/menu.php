@@ -9,8 +9,6 @@
 
 use Xoopsmodules\birthday;
 
-require_once __DIR__ . '/../class/Helper.php';
-//require_once __DIR__ . '/../include/common.php';
 $helper = birthday\Helper::getInstance();
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
@@ -29,7 +27,7 @@ $adminmenu[] = [
 ];
 
 $adminmenu[] = [
-    'title' => _AM_MODULEADMIN_ABOUT,
+    'title' => _MI_BIRTHDAY_ABOUT,
     'link'  => 'admin/about.php',
     'icon'  => $pathIcon32 . '/about.png'
 ];

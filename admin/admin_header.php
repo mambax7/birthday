@@ -16,14 +16,20 @@
  * @author              XOOPS Module Team
  **/
 
+
+use Xoopsmodules\birthday;
+
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 
+include __DIR__ . '/../preloads/autoloader.php';
+
 $moduleDirName = basename(dirname(__DIR__));
 
-//require_once __DIR__ . '/../class/utility.php';
-//require_once __DIR__ . '/../include/common.php';
-$helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+
+/** @var birthday\Helper $helper */
+$helper = birthday\Helper::getInstance();
+/** @var Xmf\Module\Admin $adminObject */
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 $pathIcon16    = \Xmf\Module\Admin::iconUrl('', 16);
@@ -35,9 +41,9 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }

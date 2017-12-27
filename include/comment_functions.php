@@ -9,18 +9,18 @@
 
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
+use Xoopsmodules\birthday;
+
 /**
  * @param $userId
  * @param $total_num
  */
 function birthday_com_update($userId, $total_num)
 {
-    include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
-    global $hBdUsersBirthday;
-    if (!is_object($hBdUsersBirthday)) {
-        $hBdUsersBirthday = xoops_getModuleHandler('users_birthday', BIRTHDAY_DIRNAME);
-    }
-    $hBdUsersBirthday->updateCommentsCount($userId, $total_num);
+
+    $birthdayHandler = new birthday\UserBirthdayHandler($db);
+
+    $birthdayHandler->updateCommentsCount($userId, $total_num);
 }
 
 /**

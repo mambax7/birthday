@@ -29,30 +29,30 @@ if (isset($_GET['birthday_id'])) {
 $user = null;
 switch ($case) {
     case 0:    // Unknow user
-        BirthdayUtility::redirect(_BIRTHDAY_ERROR2, 'users.php', 3);
+        $utility::redirect(_BIRTHDAY_ERROR2, 'users.php', 3);
         break;
 
     case 1:    // birthday_id
-        $user = $hBdUsersBirthday->get($uid);
+        $user = $birthdayHandler->get($uid);
         break;
 
     case 2:    // birthday_uid
     case 3:    // uid
-        $user = $hBdUsersBirthday->getFromUid($uid);
+        $user = $birthdayHandler->getFromUid($uid);
         break;
 }
 if (is_object($user)) {
     $xoopsTpl->assign('birthday_user', $user->toArray());
-    $pageTitle       = $user->getFullName() . ' - ' . BirthdayUtility::getModuleName();
+    $pageTitle       = $user->getFullName() . ' - ' . $utility::getModuleName();
     $metaDescription = $pageTitle;
-    $metaKeywords    = BirthdayUtility::createMetaKeywords($user->getVar('birthday_description'));
-    BirthdayUtility::setMetas($pageTitle, $metaDescription, $metaKeywords);
+    $metaKeywords    = $utility::createMetaKeywords($user->getVar('birthday_description'));
+    $utility::setMetas($pageTitle, $metaDescription, $metaKeywords);
 }
 $path       = [
     BIRTHDAY_URL . 'users.php' => _BIRTHDAY_USERS_LIST,
     BIRTHDAY_URL . 'user.php'  => $user->getFullName()
 ];
-$breadcrumb = BirthdayUtility::breadcrumb($path);
+$breadcrumb = $utility::breadcrumb($path);
 $xoopsTpl->assign('breadcrumb', $breadcrumb);
 require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
 require_once XOOPS_ROOT_PATH . '/footer.php';

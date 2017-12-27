@@ -177,7 +177,7 @@ class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Int
     /**
      * Constructor with different levels of mathematical operations sets
      *
-     * @param \constant|int $complexityType
+     * @param constant|int $complexityType
      */
     public function __construct($complexityType = self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY)
     {

@@ -7,13 +7,18 @@
 
  * ****************************************************************************
  */
-require_once __DIR__ . '/../../../include/cp_header.php';
+
+use Xoopsmodules\birthday;
+
 require_once __DIR__ . '/admin_header.php';
+//require_once __DIR__ . '/../../../include/cp_header.php';
+
 require_once __DIR__ . '/../include/common.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
+$utility = new birthday\Utility();
 
 $op = 'default';
 if (isset($_POST['op'])) {
@@ -23,11 +28,11 @@ if (isset($_POST['op'])) {
 }
 
 // Lecture de certains param�tres de l'application ********************************************************************
-$limit         = BirthdayUtility::getModuleOption('perpage');    // Nombre maximum d'�l�ments � afficher
+$limit         = $utility::getModuleOption('perpage');    // Nombre maximum d'�l�ments � afficher
 $baseurl       = BIRTHDAY_URL . 'admin/' . basename(__FILE__);    // URL de ce script
-$conf_msg      = BirthdayUtility::javascriptLinkConfirm(_AM_BIRTHDAY_CONF_DELITEM);
-$images_width  = BirthdayUtility::getModuleOption('images_width');
-$images_height = BirthdayUtility::getModuleOption('images_height');
+$conf_msg      = $utility::javascriptLinkConfirm(_AM_BIRTHDAY_CONF_DELITEM);
+$images_width  = $utility::getModuleOption('images_width');
+$images_height = $utility::getModuleOption('images_height');
 $destname      = '';
 
 $cacheFolder = XOOPS_UPLOAD_PATH . '/' . BIRTHDAY_DIRNAME;
@@ -41,13 +46,14 @@ switch ($op) {
     case 'default':    // List birthdays and show form to add a someone
         // ****************************************************************************************************************
         xoops_cp_header();
-        //echo '<h1>'.BirthdayUtility::getModuleName().'</h1>';
+        //echo '<h1>'.$utility::getModuleName().'</h1>';
         $adminObject->displayNavigation(basename(__FILE__));
 
         $start      = isset($_GET['start']) ? (int)$_GET['start'] : 0;
-        $itemsCount = $hBdUsersBirthday->getCount();
+//        $birthdayHandler = new birthday\BirthdayHandler($db);
+        $itemsCount = $birthdayHandler->getCount();
         if ($itemsCount > $limit) {
-            $pagenav = new XoopsPageNav($itemsCount, $limit, $start, 'start');
+            $pagenav = new \XoopsPageNav($itemsCount, $limit, $start, 'start');
         }
         if (isset($pagenav) && is_object($pagenav)) {
             echo "<div align='right'>" . $pagenav->renderNav() . '</div>';
@@ -55,18 +61,19 @@ switch ($op) {
         if ($itemsCount > 0) {
             global $birthdayIcons;
             $class = '';
-            //$items = $hBdUsersBirthday->getItems($start, $limit, 'birthday_lastname');
+            //$items = $birthdayHandler->getItems($start, $limit, 'birthday_lastname');
 
             $tblItems = [];
-            //$critere = new Criteria($this->keyName, 0 ,'<>');
-            $critere = new Criteria('birthday_id', 0, '<>');
+            //$critere = new \Criteria($this->keyName, 0 ,'<>');
+            $critere = new \Criteria('birthday_id', 0, '<>');
             $critere->setLimit($limit);
             $critere->setStart($start);
             $critere->setSort('birthday_lastname');
             //                  $critere->setOrder($order);
             //                  $tblItems = $this->getObjects($critere, $idAsKey);
 
-            $items = $hBdUsersBirthday->getObjects($start, $limit, 'birthday_lastname');
+//            $items = $birthdayHandler->getObjects($start, $limit, 'birthday_lastname');
+            $items = $birthdayHandler->getObjects($critere, $start, $limit, 'birthday_lastname');
 
             echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
             echo "<tr><th align='center'>" . _BIRTHDAY_DATE . "</th><th align='center'>" . _BIRTHDAY_USERNAME . "</th><th align='center'>" . _BIRTHDAY_LASTNAME . ', ' . _BIRTHDAY_FIRSTNAME . "</th><th align='center'>" . _AM_BIRTHDAY_ACTION . '</th></tr>';
@@ -83,7 +90,7 @@ switch ($op) {
                 $action_delete = "<a href='$baseurl?op=delete&id=" . $id . '\' title=\'' . _DELETE . '\'' . $conf_msg . '>' . $birthdayIcons['delete'] . '</a>';
 
                 echo "<tr class='" . $class . "'>\n";
-                echo "<td align='center'>" . BirthdayUtility::SQLDateToHuman($item->getVar('birthday_date')) . '</td>';
+                echo "<td align='center'>" . $utility::SQLDateToHuman($item->getVar('birthday_date')) . '</td>';
                 echo "<td align='center'>" . $uname . '</td>';
                 echo "<td align='center'>" . $item->getFullName() . '</td>';
                 echo "<td align='center'>" . $action_edit . ' ' . $action_delete . '</td>';
@@ -95,8 +102,8 @@ switch ($op) {
             }
             echo "<br><br>\n";
         }
-        $item = $hBdUsersBirthday->create(true);
-        $form = $hBdUsersBirthday->getForm($item, $baseurl);
+        $item = $birthdayHandler->create(true);
+        $form = $birthdayHandler->getForm($item, $baseurl);
         $form->display();
         break;
 
@@ -104,6 +111,7 @@ switch ($op) {
     case 'maintain':    // Maintenance des tables et du cache
         // ****************************************************************************************************************
         xoops_cp_header();
+        $adminObject->displayNavigation(basename(__FILE__));
         require_once __DIR__ . '/../xoops_version.php';
         $tables = [];
         foreach ($modversion['tables'] as $table) {
@@ -115,9 +123,9 @@ switch ($op) {
             $xoopsDB->queryF('ANALYZE TABLE ' . $list);
             $xoopsDB->queryF('OPTIMIZE TABLE ' . $list);
         }
-        BirthdayUtility::updateCache();
-        $hBdUsersBirthday->forceCacheClean();
-        BirthdayUtility::redirect(_AM_BIRTHDAY_SAVE_OK, $baseurl, 2);
+        $utility::updateCache();
+        $birthdayHandler->forceCacheClean();
+        $utility::redirect(_AM_BIRTHDAY_SAVE_OK, $baseurl, 2);
         break;
 
     // ****************************************************************************************************************
@@ -127,15 +135,15 @@ switch ($op) {
         $adminObject->displayNavigation(basename(__FILE__));
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         if (empty($id)) {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_ERROR_1, $baseurl, 5);
+            $utility::redirect(_AM_BIRTHDAY_ERROR_1, $baseurl, 5);
         }
         // Item exits ?
         $item = null;
-        $item = $hBdUsersBirthday->get($id);
+        $item = $birthdayHandler->get($id);
         if (!is_object($item)) {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_NOT_FOUND, $baseurl, 5);
+            $utility::redirect(_AM_BIRTHDAY_NOT_FOUND, $baseurl, 5);
         }
-        $form = $hBdUsersBirthday->getForm($item, $baseurl);
+        $form = $birthdayHandler->getForm($item, $baseurl);
         $form->display();
         break;
 
@@ -144,11 +152,11 @@ switch ($op) {
         // ****************************************************************************************************************
         xoops_cp_header();
         $adminObject->displayNavigation(basename(__FILE__));
-        $result = $hBdUsersBirthday->saveUser();
+        $result = $birthdayHandler->saveUser();
         if ($result) {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_SAVE_OK, $baseurl, 1);
+            $utility::redirect(_AM_BIRTHDAY_SAVE_OK, $baseurl, 1);
         } else {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
+            $utility::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
         }
         break;
 
@@ -157,19 +165,19 @@ switch ($op) {
         // ****************************************************************************************************************
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         if (empty($id)) {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_ERROR_1, $baseurl, 5);
+            $utility::redirect(_AM_BIRTHDAY_ERROR_1, $baseurl, 5);
         }
         // Item exits ?
         $item = null;
-        $item = $hBdUsersBirthday->get($id);
+        $item = $birthdayHandler->get($id);
         if (!is_object($item)) {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_NOT_FOUND, $baseurl, 5);
+            $utility::redirect(_AM_BIRTHDAY_NOT_FOUND, $baseurl, 5);
         }
-        $result = $hBdUsersBirthday->deleteUser($item);
+        $result = $birthdayHandler->deleteUser($item);
         if ($result) {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_SAVE_OK, $baseurl, 1);
+            $utility::redirect(_AM_BIRTHDAY_SAVE_OK, $baseurl, 1);
         } else {
-            BirthdayUtility::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
+            $utility::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
         }
 
 }

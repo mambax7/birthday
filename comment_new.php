@@ -13,7 +13,7 @@ $com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 if ($com_itemid > 0) {
     include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
     $user = null;
-    $user = $hBdUsersBirthday->get($com_itemid);
+    $user = $birthdayHandler->get($com_itemid);
     if (is_object($user)) {
         $com_replytitle = $user->getFullName();
         require XOOPS_ROOT_PATH . '/include/comment_new.php';

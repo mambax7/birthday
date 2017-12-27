@@ -35,6 +35,7 @@ define('_MI_BIRTHDAY_USE_CAPTCHA', "Use CAPTCHA on user's page?");
 define('_MI_BIRTHDAY_BIRTHDAYS', 'Birthdays');
 define('_MI_BIRTHDAY_MAINTAIN', 'Maintain cache/tables');
 define('_MI_BIRTHDAY_ABOUT', 'About');
+
 //2.4
 //Help
 define('_MI_BIRTHDAY_DIRNAME', basename(dirname(dirname(__DIR__))));
