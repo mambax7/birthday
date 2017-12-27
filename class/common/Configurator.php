@@ -1,4 +1,5 @@
 <?php namespace Xoopsmodules\birthday\common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -19,7 +20,7 @@
  *
  */
 
-require_once __DIR__ . '/../../include/common.php';
+//require_once __DIR__ . '/../../include/common.php';
 
 /**
  * Class Configurator
@@ -55,6 +56,5 @@ class Configurator
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;
         $this->modCopyright    = $config->modCopyright;
-
     }
 }

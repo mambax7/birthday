@@ -17,7 +17,6 @@ use Xoopsmodules\birthday;
  */
 function birthday_com_update($userId, $total_num)
 {
-
     $birthdayHandler = new birthday\UserBirthdayHandler($db);
 
     $birthdayHandler->updateCommentsCount($userId, $total_num);

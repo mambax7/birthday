@@ -7,6 +7,8 @@
  * ****************************************************************************
  */
 
+use Xoopsmodules\birthday;
+
 /**
  * Affichage de la page d'un utilisateur
  */

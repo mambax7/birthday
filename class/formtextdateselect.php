@@ -39,8 +39,9 @@
 class BD_XoopsFormTextDateSelect extends \XoopsFormText
 {
     /**
-     * @param     $caption
-     * @param     $name
+     * BD_XoopsFormTextDateSelect constructor.
+     * @param string $caption
+     * @param string $name
      * @param int $size
      * @param int $value
      */
@@ -62,15 +63,15 @@ class BD_XoopsFormTextDateSelect extends \XoopsFormText
 
         return "<input type='text' name='"
                . $ele_name
-               . '\' id=\''
+               . "' id='"
                . $ele_name
-               . '\' size=\''
+               . "' size='"
                . $this->getSize()
-               . '\' maxlength=\''
+               . "' maxlength='"
                . $this->getMaxlength()
-               . '\' value=\''
+               . "' value='"
                . date('Y-m-d', $ele_value)
-               . '\''
+               . "'"
                . $this->getExtra()
                . "><input type='reset' value=' ... ' onclick='return showCalendar(\""
                . $ele_name

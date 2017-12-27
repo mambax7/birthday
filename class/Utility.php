@@ -1,9 +1,7 @@
 <?php namespace Xoopsmodules\birthday;
 
-use Xmf\Request;
 use Xoopsmodules\birthday;
 use Xoopsmodules\birthday\common;
-
 
 //require_once __DIR__ . '/../include/common.php';
 
@@ -33,14 +31,12 @@ class Utility
 
     //--------------- Custom module methods -----------------------------
 
-
-
     const MODULE_NAME = 'birthday';
 
     /**
      * Access the only instance of this class
      *
-     * @return object
+     * @return \XoopsObject
      *
      * @static
      * @staticvar   object
@@ -81,6 +77,7 @@ class Utility
             /** @var \XoopsModuleHandler $moduleHandler */
             $moduleHandler = xoops_getHandler('module');
             $module        = $moduleHandler->getByDirname($repmodule);
+            /** @var \XoopsConfigHandler $configHandler */
             $configHandler = xoops_getHandler('config');
             if ($module) {
                 $moduleConfig = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
@@ -93,7 +90,6 @@ class Utility
 
         return $retval;
     }
-
 
     /**
      * Create (in a link) a javascript confirmation's box
@@ -186,7 +182,7 @@ class Utility
     /**
      * Internal function used to get the handler of the current module
      *
-     * @return object The module
+     * @return \XoopsModule The module
      */
     protected static function _getModule()
     {

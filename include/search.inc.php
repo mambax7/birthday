@@ -15,11 +15,19 @@
 
 use Xoopsmodules\birthday;
 
+/**
+ * @param $queryarray
+ * @param $andor
+ * @param $limit
+ * @param $offset
+ * @param $userid
+ * @return array
+ */
 function birthday_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
     include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
-//    require_once XOOPS_ROOT_PATH . '/modules/birthday/class/UserBirthday.php';
+    //    require_once XOOPS_ROOT_PATH . '/modules/birthday/class/UserBirthday.php';
 
     // Recherche dans les produits
     $sql = 'SELECT birthday_id, birthday_firstname, birthday_lastname, birthday_date, birthday_uid FROM ' . $xoopsDB->prefix('users_birthday') . ' WHERE (birthday_id) <> 0 ';
@@ -29,7 +37,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
     $sql .= ') ';
 
     $tmpObject = new birthday\UserBirthday();
-    $datas     = $tmpObject->getVars();
+    $datas     =& $tmpObject->getVars();
     $tblFields = [];
     $cnt       = 0;
     foreach ($datas as $key => $value) {

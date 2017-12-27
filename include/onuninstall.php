@@ -19,7 +19,7 @@ use Xoopsmodules\birthday;
 
 function xoops_module_pre_uninstall_birthday(\XoopsModule $module)
 {
-  // Do some synchronization if needed
+    // Do some synchronization if needed
     return true;
 }
 
@@ -34,13 +34,13 @@ function xoops_module_uninstall_birthday(\XoopsModule $module)
 {
     include __DIR__ . '/../preloads/autoloader.php';
 
-    $moduleDirName = basename(dirname(__DIR__));
-    $moduleDirNameUpper   = strtoupper($moduleDirName); //$capsDirName
+    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
     /** @var birthday\Helper $helper */
     /** @var birthday\Utility $utility */
     $helper  = birthday\Helper::getInstance();
-    $utility     = new birthday\Utility();
-//    $configurator = new xoopstube\common\Configurator();
+    $utility = new birthday\Utility();
+    //    $configurator = new xoopstube\common\Configurator();
 
     // Load language files
     $helper->loadLanguage('admin');
@@ -50,20 +50,20 @@ function xoops_module_uninstall_birthday(\XoopsModule $module)
     //------------------------------------------------------------------
     // Remove uploads folder (and all subfolders) if they exist
     //------------------------------------------------------------------
-/*
-    $old_directories = [$GLOBALS['xoops']->path("uploads/{$moduleDirName}")];
-    foreach ($old_directories as $old_dir) {
-        $dirInfo = new SplFileInfo($old_dir);
-        if ($dirInfo->isDir()) {
-            // The directory exists so delete it
-            if (false === $utility::rrmdir($old_dir)) {
-                $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_DEL_PATH'), $old_dir));
-                $success = false;
+    /*
+        $old_directories = [$GLOBALS['xoops']->path("uploads/{$moduleDirName}")];
+        foreach ($old_directories as $old_dir) {
+            $dirInfo = new SplFileInfo($old_dir);
+            if ($dirInfo->isDir()) {
+                // The directory exists so delete it
+                if (false === $utility::rrmdir($old_dir)) {
+                    $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_DEL_PATH'), $old_dir));
+                    $success = false;
+                }
             }
+            unset($dirInfo);
         }
-        unset($dirInfo);
-    }
-*/
+    */
     /*
     //------------ START ----------------
     //------------------------------------------------------------------
@@ -80,6 +80,4 @@ function xoops_module_uninstall_birthday(\XoopsModule $module)
 
     return $success;
     //------------ END  ----------------
-
 }
-

@@ -16,10 +16,8 @@
 
 use Xmf\Request;
 use Xoopsmodules\birthday;
-use Xoopsmodules\birthday\common;
 
 //require_once __DIR__ . '/../include/common.php';
-
 
 /**
  * Class BirthdayBirthdayHandler
@@ -38,14 +36,14 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
      * Retourne un utilisateur � partir de son uid
      *
      * @param  integer $uid L'ID Xoops recherch�
-     * @return object
+     * @return \XoopsObject
      */
     public function getFromUid($uid)
     {
         $criteria = new \Criteria('birthday_uid', (int)$uid, '=');
         if ($this->getCount($criteria) > 0) {
             $temp = [];
-            $temp = $this->getObjects($criteria);
+            $temp =& $this->getObjects($criteria);
             if (count($temp) > 0) {
                 return $temp[0];
             }
@@ -62,7 +60,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
      * @param boolean      $withUserSelect Indique s'il faut inclure la liste de s�lection de l'utilisateur
      * @param bool|string  $captcha        Indique s'il faut utiliser un captcha
      *
-     * @return object Le formulaire � utiliser
+     * @return \XoopsObject Le formulaire � utiliser
      */
     public function getForm(UserBirthday $item, $baseurl, $withUserSelect = true, $captcha = '')
     {
@@ -153,7 +151,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     public function saveUser($withCurrentUser = false)
     {
         global $destname;
-        $utility = new birthday\Utility();
+        $utility       = new birthday\Utility();
         $images_width  = $utility::getModuleOption('images_width');
         $images_height = $utility::getModuleOption('images_height');
         $id            = isset($_POST['birthday_id']) ? (int)$_POST['birthday_id'] : 0;
@@ -196,12 +194,9 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             }
         }
 
-
         $tempDate = date(_SHORTDATESTRING, strtotime(Request::getString('birthday_date', '', 'POST')));
 
         $item->setVar('birthday_date', $tempDate);
-
-
 
         $res = $this->insert($item);
         if ($res) {

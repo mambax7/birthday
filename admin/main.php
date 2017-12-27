@@ -4,7 +4,6 @@
  * birthday - MODULE FOR XOOPS
  * Copyright (c) Hervé Thouzard of Instant Zero (http://www.herve-thouzard.com/)
  * Created on 10 juil. 08 at 11:38:52
-
  * ****************************************************************************
  */
 
@@ -18,7 +17,7 @@ require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$utility = new birthday\Utility();
+$utility     = new birthday\Utility();
 
 $op = 'default';
 if (isset($_POST['op'])) {
@@ -37,7 +36,7 @@ $destname      = '';
 
 $cacheFolder = XOOPS_UPLOAD_PATH . '/' . BIRTHDAY_DIRNAME;
 if (!is_dir($cacheFolder)) {
-    mkdir($cacheFolder, 0777);
+    mkdir($cacheFolder);
     file_put_contents($cacheFolder . '/index.html', '<script>history.go(-1);</script>');
 }
 
@@ -49,8 +48,8 @@ switch ($op) {
         //echo '<h1>'.$utility::getModuleName().'</h1>';
         $adminObject->displayNavigation(basename(__FILE__));
 
-        $start      = isset($_GET['start']) ? (int)$_GET['start'] : 0;
-//        $birthdayHandler = new birthday\BirthdayHandler($db);
+        $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+        //        $birthdayHandler = new birthday\BirthdayHandler($db);
         $itemsCount = $birthdayHandler->getCount();
         if ($itemsCount > $limit) {
             $pagenav = new \XoopsPageNav($itemsCount, $limit, $start, 'start');
@@ -72,8 +71,8 @@ switch ($op) {
             //                  $critere->setOrder($order);
             //                  $tblItems = $this->getObjects($critere, $idAsKey);
 
-//            $items = $birthdayHandler->getObjects($start, $limit, 'birthday_lastname');
-            $items = $birthdayHandler->getObjects($critere, $start, $limit, 'birthday_lastname');
+            //            $items = $birthdayHandler->getObjects($start, $limit, 'birthday_lastname');
+            $items =& $birthdayHandler->getObjects($critere, $start, $limit, 'birthday_lastname');
 
             echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
             echo "<tr><th align='center'>" . _BIRTHDAY_DATE . "</th><th align='center'>" . _BIRTHDAY_USERNAME . "</th><th align='center'>" . _BIRTHDAY_LASTNAME . ', ' . _BIRTHDAY_FIRSTNAME . "</th><th align='center'>" . _AM_BIRTHDAY_ACTION . '</th></tr>';
@@ -102,7 +101,7 @@ switch ($op) {
             }
             echo "<br><br>\n";
         }
-        $item = $birthdayHandler->create(true);
+        $item = $birthdayHandler->create();
         $form = $birthdayHandler->getForm($item, $baseurl);
         $form->display();
         break;

@@ -21,8 +21,7 @@ use Xoopsmodules\birthday;
 use Xoopsmodules\birthday\common;
 
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
-    || !$GLOBALS['xoopsUser']->IsAdmin()
-) {
+    || !$GLOBALS['xoopsUser']->IsAdmin()) {
     exit('Restricted access' . PHP_EOL);
 }
 
@@ -49,8 +48,8 @@ function xoops_module_pre_update_birthday(\XoopsModule $module)
 {
     /** @var birthday\Helper $helper */
     /** @var birthday\Utility $utility */
-    $helper       = birthday\Helper::getInstance();
-    $utility      = new birthday\Utility();
+    $helper  = birthday\Helper::getInstance();
+    $utility = new birthday\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
@@ -61,40 +60,40 @@ function xoops_module_pre_update_birthday(\XoopsModule $module)
  *
  * Performs tasks required during update of the module
  * @param \XoopsModule $module {@link XoopsModule}
- * @param null        $previousVersion
+ * @param null         $previousVersion
  *
  * @return bool true if update successful, false if not
  */
 
 function xoops_module_update_birthday(\XoopsModule $module, $previousVersion = null)
 {
-    $moduleDirName = basename(dirname(__DIR__));
+    $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName);
 
     /** @var birthday\Helper $helper */
     /** @var birthday\Utility $utility */
     /** @var common\Configurator $configurator */
-    $helper  = birthday\Helper::getInstance();
-    $utility = new birthday\Utility();
+    $helper       = birthday\Helper::getInstance();
+    $utility      = new birthday\Utility();
     $configurator = new common\Configurator();
 
     $helper->loadLanguage('common');
 
     if ($previousVersion < 240) {
-/*
-        //rename column EXAMPLE
-        $tables     = new Tables();
-        $table      = 'obituariesx_categories';
-        $column     = 'ordre';
-        $newName    = 'order';
-        $attributes = "INT(5) NOT NULL DEFAULT '0'";
-        if ($tables->useTable($table)) {
-            $tables->alterColumn($table, $column, $attributes, $newName);
-            if (!$tables->executeQueue()) {
-                echo '<br>' . _AM_XXXXX_UPGRADEFAILED0 . ' ' . $migrate->getLastError();
-            }
-        }
-*/
+        /*
+                //rename column EXAMPLE
+                $tables     = new Tables();
+                $table      = 'obituariesx_categories';
+                $column     = 'ordre';
+                $newName    = 'order';
+                $attributes = "INT(5) NOT NULL DEFAULT '0'";
+                if ($tables->useTable($table)) {
+                    $tables->alterColumn($table, $column, $attributes, $newName);
+                    if (!$tables->executeQueue()) {
+                        echo '<br>' . _AM_XXXXX_UPGRADEFAILED0 . ' ' . $migrate->getLastError();
+                    }
+                }
+        */
         //delete old HTML templates
         if (count($configurator->templateFolders) > 0) {
             foreach ($configurator->templateFolders as $folder) {
@@ -160,8 +159,6 @@ function xoops_module_update_birthday(\XoopsModule $module, $previousVersion = n
         /** @var XoopsGroupPermHandler $gpermHandler */
         $gpermHandler = xoops_getHandler('groupperm');
         return $gpermHandler->deleteByModule($module->getVar('mid'), 'item_read');
-
     }
     return true;
 }
-

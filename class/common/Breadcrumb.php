@@ -1,4 +1,5 @@
 <?php namespace Xoopsmodules\birthday\common;
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,7 +15,7 @@
  * @copyright   The XOOPS Project http://sourceforge.net/projects/xoops/
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      lucio <lucio.rota@gmail.com>
- * @package     xxxxx
+ * @package     birthday
  *
  * Example:
  * $breadcrumb = new PedigreeBreadcrumb();
@@ -26,7 +27,7 @@
 defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 /**
- * Class PedigreeBreadcrumb
+ * Class Breadcrumb
  */
 class Breadcrumb
 {

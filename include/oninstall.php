@@ -29,7 +29,6 @@ use Xoopsmodules\birthday\common;
  */
 function xoops_module_pre_install_birthday(\XoopsModule $module)
 {
-
     include __DIR__ . '/../preloads/autoloader.php';
     /** @var birthday\Utility $utility */
     $utility = new birthday\Utility();
@@ -38,9 +37,9 @@ function xoops_module_pre_install_birthday(\XoopsModule $module)
     $xoopsSuccess = $utility::checkVerXoops($module);
 
     // check for minimum PHP version
-    $phpSuccess   = $utility::checkVerPhp($module);
+    $phpSuccess = $utility::checkVerPhp($module);
 
-    if (false !== $xoopsSuccess && false !==  $phpSuccess) {
+    if (false !== $xoopsSuccess && false !== $phpSuccess) {
         $moduleTables =& $module->getInfo('tables');
         foreach ($moduleTables as $table) {
             $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
@@ -65,7 +64,7 @@ function xoops_module_install_birthday(\XoopsModule $module)
 
     /** @var birthday\Helper $helper */
     /** @var birthday\Utility $utility */
-   /** @var common\Configurator $configurator */
+    /** @var common\Configurator $configurator */
     $helper       = birthday\Helper::getInstance();
     $utility      = new birthday\Utility();
     $configurator = new common\Configurator();
@@ -73,10 +72,9 @@ function xoops_module_install_birthday(\XoopsModule $module)
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');
 
-
     // default Permission Settings ----------------------
-    $moduleId     = $module->getVar('mid');
-    $moduleId2    = $helper->getModule()->mid();
+    $moduleId  = $module->getVar('mid');
+    $moduleId2 = $helper->getModule()->mid();
     //$moduleName = $module->getVar('name');
     $gpermHandler = xoops_getHandler('groupperm');
     // access rights ------------------------------------------
@@ -102,7 +100,6 @@ function xoops_module_install_birthday(\XoopsModule $module)
             $utility::copyFile($file, $dest);
         }
     }
-
 
     //  ---  COPY test folder files ---------------
     if (count($configurator->copyTestFolders) > 0) {

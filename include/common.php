@@ -10,19 +10,18 @@
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 use Xoopsmodules\birthday;
+
 include __DIR__ . '/../preloads/autoloader.php';
 
-
-$moduleDirName = basename(dirname(__DIR__));
-$moduleDirNameUpper   = strtoupper($moduleDirName); //$capsDirName
-
+$moduleDirName      = basename(dirname(__DIR__));
+$moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
 
 /** @var \XoopsDatabase $db */
 /** @var birthday\Helper $helper */
 /** @var birthday\Utility $utility */
 
-$db     = \XoopsDatabaseFactory::getDatabaseConnection();
-$helper = birthday\Helper::getInstance();
+$db      = \XoopsDatabaseFactory::getDatabaseConnection();
+$helper  = birthday\Helper::getInstance();
 $utility = new birthday\Utility();
 //$configurator = new birthday\common\Configurator();
 
@@ -30,7 +29,6 @@ $helper->loadLanguage('common');
 
 //handlers
 $birthdayHandler = new birthday\UserBirthdayHandler($db);
-
 
 if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
@@ -52,10 +50,8 @@ if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_THUMB', 'thumb_');
 }
 
-
-
-$pathIcon16    = Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32    = Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16 = Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32 = Xmf\Module\Admin::iconUrl('', 32);
 //$pathModIcon16 = $helper->getModule()->getInfo('modicons16');
 //$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
@@ -96,15 +92,10 @@ if (is_object($helper->getModule())) {
     $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
 }
 
-
 //---------------------------------------------------------
-
-
-
 
 // Definition of images
 if (!defined('_BIRTHDAY_EDIT')) {
-
     $helper->loadLanguage('main');
 
     $birthdayIcons = [

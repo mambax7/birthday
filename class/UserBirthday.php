@@ -9,6 +9,7 @@
  */
 
 use Xoopsmodules\birthday;
+
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 //use Xoopsmodules\birthday\common;
@@ -73,7 +74,7 @@ class UserBirthday extends \XoopsObject
     public function pictureExists()
     {
         $utility = new birthday\Utility();
-        $return = false;
+        $return  = false;
         if ('' != xoops_trim($this->getVar('birthday_photo'))
             && file_exists($utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'))) {
             $return = true;
@@ -165,4 +166,3 @@ class UserBirthday extends \XoopsObject
         return $ret;
     }
 }
-

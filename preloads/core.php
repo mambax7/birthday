@@ -18,7 +18,7 @@
 defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
 /**
- * Class UserlogCorePreload
+ * Class BirthdayCorePreload
  */
 class BirthdayCorePreload extends XoopsPreloadItem
 {

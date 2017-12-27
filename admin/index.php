@@ -29,13 +29,12 @@ xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 //check or upload folders
-$utility = new birthday\Utility();
+$utility      = new birthday\Utility();
 $configurator = new common\Configurator();
 foreach (array_keys($configurator->uploadFolders) as $i) {
     $utility::createFolder($configurator->uploadFolders[$i]);
     $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
 }
-
 
 $adminObject->displayNavigation(basename(__FILE__));
 

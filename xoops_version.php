@@ -1,8 +1,6 @@
 <?php
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
-use Xoopsmodules\birthday;
-
 require_once __DIR__ . '/preloads/autoloader.php';
 
 $moduleDirName = basename(__DIR__);
@@ -276,7 +274,7 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'select',
     'valuetype'   => 'int',
-    'options' => [
+    'options'     => [
         _MI_BIRTHDAY_SORT_ORDER1 => 1,
         _MI_BIRTHDAY_SORT_ORDER2 => 2
     ],
