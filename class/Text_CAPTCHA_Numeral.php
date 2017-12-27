@@ -1,5 +1,5 @@
-<?php
-require_once XOOPS_ROOT_PATH . '/modules/birthday/class/NumeralInterface.php';
+<?php namespace Xoopsmodules\birthday;
+
 // {{{ Class Text_CAPTCHA_Numeral
 // +----------------------------------------------------------------------+
 // | PHP version 5                                                        |
@@ -41,6 +41,8 @@ require_once XOOPS_ROOT_PATH . '/modules/birthday/class/NumeralInterface.php';
 // +----------------------------------------------------------------------+
 //
 
+use Xoopsmodules\birthday;
+
 /**
  * Class used for numeral captchas
  *
@@ -53,7 +55,7 @@ require_once XOOPS_ROOT_PATH . '/modules/birthday/class/NumeralInterface.php';
  * @package  Text_CAPTCHA_Numeral
  * @category CAPTCHA
  */
-class birthday_Text_CAPTCHA_Numeral implements birthday_Text_CAPTCHA_Numeral_Interface
+class Text_CAPTCHA_Numeral implements birthday\Text_CAPTCHA_Numeral_Interface
 {
     // {{{ Variables
     /**

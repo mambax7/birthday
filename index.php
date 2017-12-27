@@ -29,7 +29,7 @@ switch ($op) {
         $captcha = '';
         if ($utility::getModuleOption('use_captcha')) {
             require_once BIRTHDAY_PATH . 'class/Numeral.php';
-            $numcap                      = new birthday_Text_CAPTCHA_Numeral;
+            $numcap                      = new birthday\Text_CAPTCHA_Numeral;
             $_SESSION['birthday_answer'] = $numcap->getAnswer();
             $captcha                     = $numcap->getOperation();
         }
