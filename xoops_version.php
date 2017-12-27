@@ -168,7 +168,7 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => XOOPS_UPLOAD_PATH . '/birthday',
+    'default'     => XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
 ];
 /**
  * Folder's url (where to save pictures)
@@ -180,7 +180,7 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => XOOPS_UPLOAD_URL . '/birthday',
+    'default'     => XOOPS_UPLOAD_URL . '/' . $moduleDirName . '/images',
 ];
 /**
  * Items count per page
@@ -290,4 +290,17 @@ $modversion['config'][] = [
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 0,
+];
+
+
+/**
+ * Make Sample button visible?
+ */
+$modversion['config'][] = [
+    'name'        => 'displaySampleButton',
+    'title'       => '_MI_BIRTHDAY_SHOW_SAMPLE_BUTTON',
+    'description' => '_MI_BIRTHDAY_SHOW_SAMPLE_BUTTON_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 1,
 ];

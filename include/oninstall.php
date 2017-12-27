@@ -101,6 +101,7 @@ function xoops_module_install_birthday(\XoopsModule $module)
         }
     }
 
+    /*
     //  ---  COPY test folder files ---------------
     if (count($configurator->copyTestFolders) > 0) {
         //        $file = __DIR__ . '/../testdata/images/';
@@ -110,6 +111,9 @@ function xoops_module_install_birthday(\XoopsModule $module)
             $utility::xcopy($src, $dest);
         }
     }
+    */
+
+
     //delete .html entries from the tpl table
     $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
     $GLOBALS['xoopsDB']->queryF($sql);

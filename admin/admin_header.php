@@ -24,6 +24,7 @@ require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
 include __DIR__ . '/../preloads/autoloader.php';
 
 $moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
 
 /** @var birthday\Helper $helper */
 $helper = birthday\Helper::getInstance();

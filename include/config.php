@@ -19,6 +19,7 @@
 
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = strtoupper($moduleDirName);
+require_once __DIR__ . '/common.php';
 
 //Configurator
 return (object)[
@@ -32,24 +33,27 @@ return (object)[
         'uploadUrl'  => XOOPS_UPLOAD_URL . '/' . $moduleDirName,
     ],
     'uploadFolders'  => [
-        constant($moduleDirNameUpper . '_UPLOAD_PATH'),
-        constant($moduleDirNameUpper . '_UPLOAD_PATH') . '/category',
-        constant($moduleDirNameUpper . '_UPLOAD_PATH') . '/screenshots',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/thumbs',
         //XOOPS_UPLOAD_PATH . '/flags'
     ],
     'copyBlankFiles' => [
-        constant($moduleDirNameUpper . '_UPLOAD_PATH'),
-        constant($moduleDirNameUpper . '_UPLOAD_PATH') . '/category',
-        constant($moduleDirNameUpper . '_UPLOAD_PATH') . '/screenshots',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/thumbs',
         //XOOPS_UPLOAD_PATH . '/flags'
     ],
 
     'copyTestFolders' => [
-        //        constant($moduleDirNameUpper . '_UPLOAD_PATH'),
-        //[
-        //    constant($moduleDirNameUpper . '_PATH') . '/testdata/images',
-        //    constant($moduleDirNameUpper . '_UPLOAD_PATH') . '/images',
-        //]
+        [
+            XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/images',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        ],
+        [
+            XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/thumbs',
+            XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/thumbs',
+        ]
     ],
 
     'templateFolders' => [
