@@ -1,6 +1,8 @@
-<h5>2.4 Beta 3        [NOT RELEASED]</h5>
+<h5>2.4 Beta 3        [2017-12-26]</h5>  Dev: Xoops 2.5.9, PHP 7.2.0
 <hr>
 - namespaces (mamba)
+- added test data (mamba)
+- added Bootstrap templates from Obituaries (mamba)
 WORK IN PROGRESS
 
 <h5>2.4 Beta 2        [2017-07-20]</h5>
