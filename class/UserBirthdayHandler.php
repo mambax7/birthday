@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\birthday;
+<?php namespace XoopsModules\Birthday;
 
 /**
  * ****************************************************************************
@@ -15,7 +15,7 @@
 //}
 
 use Xmf\Request;
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 //require_once __DIR__ . '/../include/common.php';
 
@@ -69,7 +69,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
 
         global $xoopsModuleConfig;
 
-        $utility = new birthday\Utility();
+        $utility = new Birthday\Utility();
 
         $edit = true;
         if ($item->isNew()) {
@@ -151,7 +151,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     public function saveUser($withCurrentUser = false)
     {
         global $destname;
-        $utility       = new birthday\Utility();
+        $utility       = new Birthday\Utility();
         $images_width  = $utility::getModuleOption('images_width');
         $images_height = $utility::getModuleOption('images_height');
         $id            = isset($_POST['birthday_id']) ? (int)$_POST['birthday_id'] : 0;
@@ -214,7 +214,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
      */
     public function deleteUser(UserBirthday $user)
     {
-        $utility = new birthday\Utility();
+        $utility = new Birthday\Utility();
         $user->deletePicture();
         $res = $this->delete($user, true);
         if ($res) {

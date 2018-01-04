@@ -17,8 +17,8 @@
  * @author       XOOPS Development Team
  */
 
-use Xoopsmodules\birthday;
-use Xoopsmodules\birthday\common;
+use XoopsModules\Birthday;
+use XoopsModules\Birthday\Common;
 
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
     || !$GLOBALS['xoopsUser']->IsAdmin()) {
@@ -46,10 +46,10 @@ function tableExists($tablename)
  */
 function xoops_module_pre_update_birthday(\XoopsModule $module)
 {
-    /** @var birthday\Helper $helper */
-    /** @var birthday\Utility $utility */
-    $helper  = birthday\Helper::getInstance();
-    $utility = new birthday\Utility();
+    /** @var Birthday\Helper $helper */
+    /** @var Birthday\Utility $utility */
+    $helper  = Birthday\Helper::getInstance();
+    $utility = new Birthday\Utility();
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
@@ -70,11 +70,11 @@ function xoops_module_update_birthday(\XoopsModule $module, $previousVersion = n
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName);
 
-    /** @var birthday\Helper $helper */
-    /** @var birthday\Utility $utility */
+    /** @var Birthday\Helper $helper */
+    /** @var Birthday\Utility $utility */
     /** @var common\Configurator $configurator */
-    $helper       = birthday\Helper::getInstance();
-    $utility      = new birthday\Utility();
+    $helper       = Birthday\Helper::getInstance();
+    $utility      = new Birthday\Utility();
     $configurator = new common\Configurator();
 
     $helper->loadLanguage('common');

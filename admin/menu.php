@@ -7,11 +7,11 @@
  * ****************************************************************************
  */
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 include __DIR__ . '/../preloads/autoloader.php';
 
-$helper = birthday\Helper::getInstance();
+$helper = Birthday\Helper::getInstance();
 
 $pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
 $pathModIcon32 = $helper->getModule()->getInfo('modicons32');

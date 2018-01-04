@@ -9,7 +9,7 @@
 
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 /**
  * @param $userId
@@ -17,7 +17,7 @@ use Xoopsmodules\birthday;
  */
 function birthday_com_update($userId, $total_num)
 {
-    $birthdayHandler = new birthday\UserBirthdayHandler($db);
+    $birthdayHandler = new Birthday\UserBirthdayHandler($db);
 
     $birthdayHandler->updateCommentsCount($userId, $total_num);
 }

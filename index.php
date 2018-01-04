@@ -4,14 +4,14 @@
  * Permet à l'utilisateur courant de modifier sa fiche (si l'option adéquate est activée)
  */
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'birthday_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require XOOPS_ROOT_PATH . '/modules/birthday/include/function.php';
 
-$utility = new birthday\Utility();
+$utility = new Birthday\Utility();
 
 $baseurl = BIRTHDAY_URL . basename(__FILE__);    // URL de ce script
 $uid     = 0;
@@ -29,7 +29,7 @@ switch ($op) {
         $captcha = '';
         if ($utility::getModuleOption('use_captcha')) {
             require_once BIRTHDAY_PATH . 'class/Numeral.php';
-            $numcap                      = new birthday\Text_CAPTCHA_Numeral;
+            $numcap                      = new Birthday\Text_CAPTCHA_Numeral;
             $_SESSION['birthday_answer'] = $numcap->getAnswer();
             $captcha                     = $numcap->getOperation();
         }

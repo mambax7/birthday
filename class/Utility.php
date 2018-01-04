@@ -1,7 +1,7 @@
-<?php namespace Xoopsmodules\birthday;
+<?php namespace XoopsModules\Birthday;
 
-use Xoopsmodules\birthday;
-use Xoopsmodules\birthday\common;
+use XoopsModules\Birthday;
+use XoopsModules\Birthday\Common;
 
 //require_once __DIR__ . '/../include/common.php';
 

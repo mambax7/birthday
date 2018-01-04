@@ -17,8 +17,8 @@
  * @author       XOOPS Development Team
  */
 
-use Xoopsmodules\birthday;
-use Xoopsmodules\birthday\common;
+use XoopsModules\Birthday;
+use XoopsModules\Birthday\Common;
 
 /**
  *
@@ -30,8 +30,8 @@ use Xoopsmodules\birthday\common;
 function xoops_module_pre_install_birthday(\XoopsModule $module)
 {
     include __DIR__ . '/../preloads/autoloader.php';
-    /** @var birthday\Utility $utility */
-    $utility = new birthday\Utility();
+    /** @var Birthday\Utility $utility */
+    $utility = new Birthday\Utility();
 
     //check for minimum XOOPS version
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -62,11 +62,11 @@ function xoops_module_install_birthday(\XoopsModule $module)
 
     $moduleDirName = basename(dirname(__DIR__));
 
-    /** @var birthday\Helper $helper */
-    /** @var birthday\Utility $utility */
+    /** @var Birthday\Helper $helper */
+    /** @var Birthday\Utility $utility */
     /** @var common\Configurator $configurator */
-    $helper       = birthday\Helper::getInstance();
-    $utility      = new birthday\Utility();
+    $helper       = Birthday\Helper::getInstance();
+    $utility      = new Birthday\Utility();
     $configurator = new common\Configurator();
     // Load language files
     $helper->loadLanguage('admin');

@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\birthday;
+<?php namespace XoopsModules\Birthday;
 
 /**
  * ****************************************************************************
@@ -8,11 +8,11 @@
  * ****************************************************************************
  */
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
-//use Xoopsmodules\birthday\common;
+//use XoopsModules\Birthday\Common;
 
 //require_once __DIR__ . '/../include/common.php';
 
@@ -44,7 +44,7 @@ class UserBirthday extends \XoopsObject
      */
     public function getPictureUrl()
     {
-        $utility = new birthday\Utility();
+        $utility = new Birthday\Utility();
         if ('' != xoops_trim($this->getVar('birthday_photo'))) {
             return $utility::getModuleOption('folder_url') . '/' . $this->getVar('birthday_photo');
         } else {
@@ -58,7 +58,7 @@ class UserBirthday extends \XoopsObject
      */
     public function getPicturePath()
     {
-        $utility = new birthday\Utility();
+        $utility = new Birthday\Utility();
         if ('' != xoops_trim($this->getVar('birthday_photo'))) {
             return $utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo');
         } else {
@@ -73,7 +73,7 @@ class UserBirthday extends \XoopsObject
      */
     public function pictureExists()
     {
-        $utility = new birthday\Utility();
+        $utility = new Birthday\Utility();
         $return  = false;
         if ('' != xoops_trim($this->getVar('birthday_photo'))
             && file_exists($utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'))) {
@@ -89,7 +89,7 @@ class UserBirthday extends \XoopsObject
      */
     public function deletePicture()
     {
-        $utility = new birthday\Utility();
+        $utility = new Birthday\Utility();
         if ($this->pictureExists()) {
             @unlink($utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'));
         }
@@ -103,7 +103,7 @@ class UserBirthday extends \XoopsObject
      */
     public function getHrefTitle()
     {
-        $utility = new birthday\Utility();
+        $utility = new Birthday\Utility();
         return $utility::makeHrefTitle(xoops_trim($this->getVar('birthday_lastname')) . ' ' . xoops_trim($this->getVar('birthday_firstname')));
     }
 

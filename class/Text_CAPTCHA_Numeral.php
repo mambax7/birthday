@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\birthday;
+<?php namespace XoopsModules\Birthday;
 
 // {{{ Class Text_CAPTCHA_Numeral
 // +----------------------------------------------------------------------+
@@ -41,7 +41,7 @@
 // +----------------------------------------------------------------------+
 //
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 /**
  * Class used for numeral captchas
@@ -55,7 +55,7 @@ use Xoopsmodules\birthday;
  * @package  Text_CAPTCHA_Numeral
  * @category CAPTCHA
  */
-class Text_CAPTCHA_Numeral implements birthday\Text_CAPTCHA_Numeral_Interface
+class Text_CAPTCHA_Numeral implements Birthday\Text_CAPTCHA_Numeral_Interface
 {
     // {{{ Variables
     /**

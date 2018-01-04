@@ -7,7 +7,7 @@
  * ****************************************************************************
  */
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 require_once __DIR__ . '/admin_header.php';
 //require_once __DIR__ . '/../../../include/cp_header.php';
@@ -17,7 +17,7 @@ require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$utility     = new birthday\Utility();
+$utility     = new Birthday\Utility();
 
 $op = 'default';
 if (isset($_POST['op'])) {
@@ -49,7 +49,7 @@ switch ($op) {
         $adminObject->displayNavigation(basename(__FILE__));
 
         $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
-        //        $birthdayHandler = new birthday\BirthdayHandler($db);
+        //        $birthdayHandler = new Birthday\BirthdayHandler($db);
         $itemsCount = $birthdayHandler->getCount();
         if ($itemsCount > $limit) {
             $pagenav = new \XoopsPageNav($itemsCount, $limit, $start, 'start');

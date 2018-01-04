@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\birthday;
+<?php namespace XoopsModules\Birthday;
 
 /*
  * You may not change or alter any portion of this comment or credits

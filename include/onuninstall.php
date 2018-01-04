@@ -8,7 +8,7 @@
  * @link            https://xoops.org XOOPS
  */
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 /**
  * Prepares system prior to attempting to uninstall module
@@ -36,11 +36,11 @@ function xoops_module_uninstall_birthday(\XoopsModule $module)
 
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
-    /** @var birthday\Helper $helper */
-    /** @var birthday\Utility $utility */
-    $helper  = birthday\Helper::getInstance();
-    $utility = new birthday\Utility();
-    //    $configurator = new xoopstube\common\Configurator();
+    /** @var Birthday\Helper $helper */
+    /** @var Birthday\Utility $utility */
+    $helper  = Birthday\Helper::getInstance();
+    $utility = new Birthday\Utility();
+    //    $configurator = new xoopstube\Common\Configurator();
 
     // Load language files
     $helper->loadLanguage('admin');

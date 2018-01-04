@@ -13,7 +13,7 @@
  * @return array
  */
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 /**
  * @param $queryarray
@@ -36,7 +36,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
     }
     $sql .= ') ';
 
-    $tmpObject = new birthday\UserBirthday();
+    $tmpObject = new Birthday\UserBirthday();
     $datas     =& $tmpObject->getVars();
     $tblFields = [];
     $cnt       = 0;

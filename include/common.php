@@ -9,7 +9,7 @@
 
 // defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 include __DIR__ . '/../preloads/autoloader.php';
 
@@ -17,18 +17,18 @@ $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
 
 /** @var \XoopsDatabase $db */
-/** @var birthday\Helper $helper */
-/** @var birthday\Utility $utility */
+/** @var Birthday\Helper $helper */
+/** @var Birthday\Utility $utility */
 
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
-$helper  = birthday\Helper::getInstance();
-$utility = new birthday\Utility();
-//$configurator = new birthday\common\Configurator();
+$helper  = Birthday\Helper::getInstance();
+$utility = new Birthday\Utility();
+//$configurator = new Birthday\Common\Configurator();
 
 $helper->loadLanguage('common');
 
 //handlers
-$birthdayHandler = new birthday\UserBirthdayHandler($db);
+$birthdayHandler = new Birthday\UserBirthdayHandler($db);
 
 if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));

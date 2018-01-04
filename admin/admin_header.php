@@ -16,7 +16,7 @@
  * @author              XOOPS Module Team
  **/
 
-use Xoopsmodules\birthday;
+use XoopsModules\Birthday;
 
 require_once __DIR__ . '/../../../include/cp_header.php';
 require_once $GLOBALS['xoops']->path('www/class/xoopsformloader.php');
@@ -26,8 +26,8 @@ include __DIR__ . '/../preloads/autoloader.php';
 $moduleDirName = basename(dirname(__DIR__));
 $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
 
-/** @var birthday\Helper $helper */
-$helper = birthday\Helper::getInstance();
+/** @var Birthday\Helper $helper */
+$helper = Birthday\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = \Xmf\Module\Admin::getInstance();
 

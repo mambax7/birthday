@@ -19,8 +19,8 @@
  * ****************************************************************************
  */
 
-use Xoopsmodules\birthday;
-use Xoopsmodules\birthday\common;
+use XoopsModules\Birthday;
+use XoopsModules\Birthday\Common;
 
 require_once __DIR__ . '/admin_header.php';
 // Display Admin header
@@ -29,7 +29,7 @@ xoops_cp_header();
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 //check or upload folders
-$utility      = new birthday\Utility();
+$utility      = new Birthday\Utility();
 $configurator = new common\Configurator();
 foreach (array_keys($configurator->uploadFolders) as $i) {
     $utility::createFolder($configurator->uploadFolders[$i]);
