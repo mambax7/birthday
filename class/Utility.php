@@ -23,11 +23,11 @@ if (!class_exists(ucfirst($moduleDirName) . 'DummyObject')) {
  */
 class Utility
 {
-    use common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+    use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
 
-    use common\ServerStats; // getServerStats Trait
+    use Common\ServerStats; // getServerStats Trait
 
-    use common\FilesManagement; // Files Management Trait
+    use Common\FilesManagement; // Files Management Trait
 
     //--------------- Custom module methods -----------------------------
 
@@ -547,10 +547,10 @@ class Utility
                     if ($uploader->upload()) {
                         return true;
                     } else {
-                        return _ERRORS . ' ' . htmlentities($uploader->getErrors());
+                        return _ERRORS . ' ' . htmlentities($uploader->getErrors(), ENT_QUOTES | ENT_HTML5);
                     }
                 } else {
-                    return htmlentities($uploader->getErrors());
+                    return htmlentities($uploader->getErrors(), ENT_QUOTES | ENT_HTML5);
                 }
             } else {
                 return false;

@@ -7,15 +7,20 @@
  * Created on 10 juil. 08 at 13:27:45
  * ****************************************************************************
  */
-// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+use Xmf\Request;
+use XoopsModules\Birthday;
+
+/** @var Birthday\Helper $helper */
+$helper = Birthday\Helper::getInstance();
+
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 //require_once XOOPS_ROOT_PATH . '/kernel/object.php';
 //if (!class_exists('Birthday_XoopsPersistableObjectHandler')) {
 //  require_once XOOPS_ROOT_PATH.'/modules/birthday/class/PersistableObjectHandler.php';
 //}
 
-use Xmf\Request;
-use XoopsModules\Birthday;
+
 
 //require_once __DIR__ . '/../include/common.php';
 
@@ -109,7 +114,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             $options['cols']      = '100%';
             $options['width']     = '100%';
             $options['height']    = '600px';
-            $birthday_description = new \XoopsFormEditor('', $xoopsModuleConfig['form_options'], $options, $nohtml = false, $onfailure = 'textarea');
+            $birthday_description = new \XoopsFormEditor('', $helper->getConfig('form_options'), $options, $nohtml = false, $onfailure = 'textarea');
             $options_tray->addElement($birthday_description);
         } else {
             $birthday_description = new \XoopsFormDhtmlTextArea('', 'birthday_description', $item->getVar('birthday_description', 'e'), '100%', '100%');

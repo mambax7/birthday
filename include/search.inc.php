@@ -26,7 +26,7 @@ use XoopsModules\Birthday;
 function birthday_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
-    include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
+    require_once __DIR__ . '/common.php';
     //    require_once XOOPS_ROOT_PATH . '/modules/birthday/class/UserBirthday.php';
 
     // Recherche dans les produits
@@ -72,7 +72,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
     $ret    = [];
     $myts   = \MyTextSanitizer::getInstance();
     $result = $xoopsDB->query($sql, $limit, $offset);
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'assets/images/crown.png';
         $ret[$i]['link']  = 'user.php?birthday_id=' . $myrow['birthday_id'];
         $ret[$i]['title'] = $myts->htmlSpecialChars($myrow['birthday_lastname'] . ' ' . $myrow['birthday_firstname']);

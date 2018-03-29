@@ -69,7 +69,7 @@ switch ($op) {
             $critere->setStart($start);
             $critere->setSort('birthday_lastname');
             //                  $critere->setOrder($order);
-            //                  $tblItems = $this->getObjects($critere, $idAsKey);
+            //                  $tblItems =& $this->getObjects($critere, $idAsKey);
 
             //            $items = $birthdayHandler->getObjects($start, $limit, 'birthday_lastname');
             $items =& $birthdayHandler->getObjects($critere, $start, $limit, 'birthday_lastname');

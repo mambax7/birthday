@@ -7,7 +7,7 @@
  * ****************************************************************************
  */
 
-// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 use XoopsModules\Birthday;
 
@@ -50,8 +50,8 @@ if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_THUMB', 'thumb_');
 }
 
-$pathIcon16 = Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32 = Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
 //$pathModIcon16 = $helper->getModule()->getInfo('modicons16');
 //$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
