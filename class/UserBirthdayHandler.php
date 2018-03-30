@@ -159,7 +159,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         $utility       = new Birthday\Utility();
         $images_width  = $utility::getModuleOption('images_width');
         $images_height = $utility::getModuleOption('images_height');
-        $id            = isset($_POST['birthday_id']) ? (int)$_POST['birthday_id'] : 0;
+        $id            = \Xmf\Request::getInt('birthday_id', 0, 'POST');
         if (!empty($id)) {
             $edit = true;
             $item = $this->get($id);
