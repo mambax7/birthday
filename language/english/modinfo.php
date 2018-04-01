@@ -52,3 +52,13 @@ define('_MI_BIRTHDAY_SUPPORT', 'Support');
 //2.4.0
 define('_MI_BIRTHDAY_SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
 define('_MI_BIRTHDAY_SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
+
+//Tag
+define('_MI_BIRTHDAY_USETAG', 'Use tags?');
+define('_MI_BIRTHDAY_USETAGDSC', 'Tags module required \"TAG\"');
+
+//Editors
+define('MI_BIRTHDAY_EDITOR_ADMIN', 'Editor: Admin');
+define('MI_BIRTHDAY_EDITOR_ADMIN_DESC', 'Select the Editor to use by the Admin');
+define('MI_BIRTHDAY_EDITOR_USER', 'Editor: User');
+define('MI_BIRTHDAY_EDITOR_USER_DESC', 'Select the Editor to use by the User');

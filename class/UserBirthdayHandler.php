@@ -10,9 +10,6 @@
 use Xmf\Request;
 use XoopsModules\Birthday;
 
-/** @var Birthday\Helper $helper */
-$helper = Birthday\Helper::getInstance();
-
 // defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 //require_once XOOPS_ROOT_PATH . '/kernel/object.php';
@@ -70,10 +67,11 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     public function getForm(UserBirthday $item, $baseurl, $withUserSelect = true, $captcha = '')
     {
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-        require_once XOOPS_ROOT_PATH . '/modules/birthday/class/formtextdateselect.php';
+//        require_once XOOPS_ROOT_PATH . '/modules/birthday/class/formtextdateselect.php';
 
         global $xoopsModuleConfig;
-
+        /** @var Birthday\Helper $helper */
+        $helper = Birthday\Helper::getInstance();
         $utility = new Birthday\Utility();
 
         $edit = true;
@@ -106,21 +104,20 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         //      if ($editor) {
         //            $sform->addElement($editor, false);
         //        }
-        $options_tray = new \XoopsFormElementTray(_BIRTHDAY_DESCRIPTION, '<br>');
-        if (class_exists('XoopsFormEditor')) {
-            $options['name']      = 'birthday_description';
-            $options['value']     = $item->getVar('birthday_description', 'e');
-            $options['rows']      = 25;
-            $options['cols']      = '100%';
-            $options['width']     = '100%';
-            $options['height']    = '600px';
-            $birthday_description = new \XoopsFormEditor('', $helper->getConfig('form_options'), $options, $nohtml = false, $onfailure = 'textarea');
-            $options_tray->addElement($birthday_description);
-        } else {
-            $birthday_description = new \XoopsFormDhtmlTextArea('', 'birthday_description', $item->getVar('birthday_description', 'e'), '100%', '100%');
-            $options_tray->addElement($birthday_description);
-        }
-        $sform->addElement($options_tray);
+        $editor_tray = new \XoopsFormElementTray(_BIRTHDAY_DESCRIPTION, '<br>');
+
+        //set Editor options
+        $options['name']      = 'birthday_description';
+        $options['value']     = $item->getVar('birthday_description', 'e');
+        $options['rows']      = 25;
+        $options['cols']      = '100%';
+        $options['width']     = '100%';
+        $options['height']    = '600px';
+
+        $editor = $utility::getEditor( $helper, $options);
+        $editor_tray->addElement($editor);
+        $sform->addElement($editor_tray);
+
 
         if ($edit && $item->pictureExists() && '' != trim($item->getVar('birthday_photo'))) {
             $pictureTray = new \XoopsFormElementTray(_AM_BIRTHDAY_CURRENT_PICTURE, '<br>');

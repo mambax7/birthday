@@ -15,18 +15,23 @@
  * @author          Michael Beck (aka Mamba)
  */
 
+use Xmf\Request;
 use XoopsModules\Birthday;
 use XoopsModules\Birthday\Common;
 
 require_once __DIR__ . '/../../../mainfile.php';
-
 include __DIR__ . '/../preloads/autoloader.php';
-
-$op = \Xmf\Request::getCmd('op', '');
+$op = Request::getCmd('op', '');
 
 switch ($op) {
     case 'load':
         loadSampleData();
+        break;
+    case 'save':
+        saveSampleData();
+        break;
+    case 'export':
+        exportSchema();
         break;
 }
 
@@ -34,24 +39,34 @@ switch ($op) {
 
 function loadSampleData()
 {
-    $moduleDirName = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+
+    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirNameUpper = strtoupper($moduleDirName);
+
     $helper       = Birthday\Helper::getInstance();
     $utility      = new Birthday\Utility();
-    $configurator = new common\Configurator();
+    $configurator = new Common\Configurator();
+
     // Load language files
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');
     $helper->loadLanguage('common');
 
-    $items = \Xmf\Yaml::readWrapped('birthday_data.yml');
-    \Xmf\Database\TableLoad::truncateTable('users_birthday');
-    \Xmf\Database\TableLoad::loadTableFromArray('users_birthday', $items);
+    $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
 
-
+    foreach ($tables as $table) {
+        try {
+            $tabledata = \Xmf\Yaml::readWrapped($table . '.yml');
+            \Xmf\Database\TableLoad::truncateTable($table);
+            \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
+        }
+        catch (\Exception $e) {
+            exit(constant('CO_' . $moduleDirNameUpper . '_' . 'IMPORT_ERROR'));
+        }
+    }
 
     //  ---  COPY test folder files ---------------
-    if (count($configurator->copyTestFolders) > 0) {
+    if (is_array ($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
         //        $file = __DIR__ . '/../testdata/images/';
         foreach (array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
@@ -60,5 +75,35 @@ function loadSampleData()
         }
     }
 
-    redirect_header('../admin/index.php', 0, constant('CO_' . $moduleDirNameUpper . '_SAMPLEDATA_SUCCESS'));
+    redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
+}
+
+function saveSampleData()
+{
+    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirNameUpper = strtoupper($moduleDirName);
+
+    $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+
+    foreach ($tables as $table) {
+        \Xmf\Database\TableLoad::saveTableToYamlFile($table, $table . '_' . date("Y-m-d H-i-s") . '.yml');
+    }
+
+    redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'SAMPLEDATA_SUCCESS'));
+}
+
+function exportSchema()
+{
+    try {
+        $moduleDirName      = basename(dirname(__DIR__));
+        $moduleDirNameUpper = strtoupper($moduleDirName);
+
+        $migrate = new  \Xmf\Database\Migrate($moduleDirName);
+        $migrate->saveCurrentSchema();
+
+        redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
+    }
+    catch (\Exception $e) {
+        exit(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
+    }
 }

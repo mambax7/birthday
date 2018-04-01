@@ -762,4 +762,40 @@ class Utility
 
         return $breadcrumb;
     }
+
+    /**
+     * @param \Xmf\Module\Helper $helper
+     * @param array|null $options
+     * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
+     */
+    public static function getEditor($helper = null, $options)
+    {
+        /** @var Birthday\Helper $helper */
+        if (null === $options){
+            $options = [];
+            $options['name']   = 'Editor';
+            $options['value']  = 'Editor';
+            $options['rows']   = 10;
+            $options['cols']   = '100%';
+            $options['width']  = '100%';
+            $options['height'] = '400px';
+        }
+
+        $isAdmin = $helper->isUserAdmin();
+
+        if (class_exists('XoopsFormEditor')) {
+
+            if ($isAdmin) {
+                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editorAdmin'), $options, $nohtml = false, $onfailure = 'textarea');
+            } else {
+                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editorUser'), $options, $nohtml = false, $onfailure = 'textarea');
+            }
+        } else {
+            $descEditor = new \XoopsFormDhtmlTextArea(ucfirst($options['name']), $options['name'], $options['value'], '100%', '100%');
+        }
+
+        //        $form->addElement($descEditor);
+
+        return $descEditor;
+    }
 }

@@ -245,13 +245,23 @@ $editorHandler = \XoopsEditorHandler::getInstance();
 $editorList    = array_flip($editorHandler->getList());
 
 $modversion['config'][] = [
-    'name'        => 'form_options',
-    'title'       => '_MI_BIRTHDAY_FORM_OPTIONS',
-    'description' => '_MI_BIRTHDAY_FORM_OPTIONS_DESC',
+    'name'        => 'editorAdmin',
+    'title'       => 'MI_BIRTHDAY_EDITOR_ADMIN',
+    'description' => 'MI_BIRTHDAY_EDITOR_DESC_ADMIN',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'options'     => $editorList,
-    'default'     => 'dhtml'
+    'default'     => 'tinymce'
+];
+
+$modversion['config'][] = [
+    'name'        => 'editorUser',
+    'title'       => 'MI_BIRTHDAY_EDITOR_USER',
+    'description' => 'MI_BIRTHDAY_EDITOR_DESC_USER',
+    'formtype'    => 'select',
+    'valuetype'   => 'text',
+    'options'     => $editorList,
+    'default'     => 'dhtmltextarea'
 ];
 
 /**
