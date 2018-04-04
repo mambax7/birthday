@@ -16,11 +16,11 @@
 use XoopsModules\Birthday;
 
 /**
- * @param $queryarray
- * @param $andor
- * @param $limit
- * @param $offset
- * @param $userid
+ * @param array $queryarray
+ * @param       $andor
+ * @param       $limit
+ * @param       $offset
+ * @param       $userid
  * @return array
  */
 function birthday_search($queryarray, $andor, $limit, $offset, $userid)
@@ -51,7 +51,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
         }
     }
 
-    $count = count($queryarray);
+    $count = is_array($queryarray) ? count($queryarray) : 0;
     $more  = '';
     if (is_array($queryarray) && $count > 0) {
         $cnt  = 0;

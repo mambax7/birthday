@@ -36,7 +36,7 @@ class Utility
     /**
      * Access the only instance of this class
      *
-     * @return \XoopsObject
+     * @return \XoopsModules\Birthday\Utility
      *
      * @static
      * @staticvar   object

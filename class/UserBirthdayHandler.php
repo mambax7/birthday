@@ -62,7 +62,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
      * @param boolean      $withUserSelect Indique s'il faut inclure la liste de s�lection de l'utilisateur
      * @param bool|string  $captcha        Indique s'il faut utiliser un captcha
      *
-     * @return \XoopsObject Le formulaire � utiliser
+     * @return \XoopsThemeForm Le formulaire � utiliser
      */
     public function getForm(UserBirthday $item, $baseurl, $withUserSelect = true, $captcha = '')
     {
