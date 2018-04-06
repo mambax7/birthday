@@ -45,7 +45,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         $criteria = new \Criteria('birthday_uid', (int)$uid, '=');
         if ($this->getCount($criteria) > 0) {
             $temp = [];
-            $temp =& $this->getObjects($criteria);
+            $temp = $this->getObjects($criteria);
             if (count($temp) > 0) {
                 return $temp[0];
             }
@@ -173,7 +173,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             global $xoopsUser;
             $item->setVar('birthday_uid', $xoopsUser->getVar('uid'));
         }
-        if (isset($_POST['delpicture']) && 1 == (int)$_POST['delpicture']) {
+        if (isset($_POST['delpicture']) && 1 == \Xmf\Request::getInt('delpicture', 0, 'POST')) {
             if ($item->pictureExists() && '' != trim($item->getVar('birthday_photo'))) {
                 $item->deletePicture();
             }

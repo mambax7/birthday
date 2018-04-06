@@ -19,12 +19,7 @@ require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $adminObject = \Xmf\Module\Admin::getInstance();
 $utility     = new Birthday\Utility();
 
-$op = 'default';
-if (isset($_POST['op'])) {
-    $op = $_POST['op'];
-} elseif (isset($_GET['op'])) {
-    $op = $_GET['op'];
-}
+$op    = \Xmf\Request::getCmd('op', 'default');
 
 // Lecture de certains param�tres de l'application ********************************************************************
 $limit         = $utility::getModuleOption('perpage');    // Nombre maximum d'�l�ments � afficher
@@ -69,7 +64,7 @@ switch ($op) {
             $critere->setStart($start);
             $critere->setSort('birthday_lastname');
             //                  $critere->setOrder($order);
-            //                  $tblItems =& $this->getObjects($critere, $idAsKey);
+            //                  $tblItems = $this->getObjects($critere, $idAsKey);
 
             //            $items = $birthdayHandler->getObjects($start, $limit, 'birthday_lastname');
             $items =& $birthdayHandler->getObjects($critere, $start, $limit, 'birthday_lastname');

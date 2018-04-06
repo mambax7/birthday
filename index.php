@@ -21,7 +21,7 @@ if (is_object($xoopsUser) && $utility::getModuleOption('enable_users')) {
     $utility::redirect(_BIRTHDAY_ERROR1, 'users.php', 4);
 }
 
-$op = isset($_POST['op']) ? $_POST['op'] : 'default';
+$op    = \Xmf\Request::getCmd('op', 'default');
 
 switch ($op) {
     case 'default':

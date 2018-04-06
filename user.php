@@ -18,10 +18,10 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 
 $case = 0;
 if (isset($_GET['birthday_id'])) {
-    $uid  = (int)$_GET['birthday_id'];
+    $uid  = \Xmf\Request::getInt('birthday_id', 0, 'GET');
     $case = 1;
 } elseif (isset($_GET['birthday_uid'])) {
-    $uid  = (int)$_GET['birthday_uid'];
+    $uid  = \Xmf\Request::getInt('birthday_uid', 0, 'GET');
     $case = 2;
 } elseif (isset($xoopsUser) && is_object($xoopsUser)) {
     $uid  = $xoopsUser->getVar('uid');
