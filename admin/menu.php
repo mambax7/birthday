@@ -9,7 +9,7 @@
 
 use XoopsModules\Birthday;
 
-include __DIR__ . '/../preloads/autoloader.php';
+include  dirname(__DIR__) . '/preloads/autoloader.php';
 
 $helper = Birthday\Helper::getInstance();
 

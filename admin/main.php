@@ -10,9 +10,9 @@
 use XoopsModules\Birthday;
 
 require_once __DIR__ . '/admin_header.php';
-//require_once __DIR__ . '/../../../include/cp_header.php';
+//require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
-require_once __DIR__ . '/../include/common.php';
+require_once  dirname(__DIR__) . '/include/common.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
@@ -106,7 +106,7 @@ switch ($op) {
         // ****************************************************************************************************************
         xoops_cp_header();
         $adminObject->displayNavigation(basename(__FILE__));
-        require_once __DIR__ . '/../xoops_version.php';
+        require_once  dirname(__DIR__) . '/xoops_version.php';
         $tables = [];
         foreach ($modversion['tables'] as $table) {
             $tables[] = $xoopsDB->prefix($table);

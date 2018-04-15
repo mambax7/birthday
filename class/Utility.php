@@ -3,8 +3,6 @@
 use XoopsModules\Birthday;
 use XoopsModules\Birthday\Common;
 
-//require_once __DIR__ . '/../include/common.php';
-
 $moduleDirName = basename(dirname(__DIR__));
 xoops_loadLanguage('admin', $moduleDirName);
 if (!class_exists(ucfirst($moduleDirName) . 'DummyObject')) {

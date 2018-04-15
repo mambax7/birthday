@@ -32,7 +32,7 @@ function xoops_module_pre_uninstall_birthday(\XoopsModule $module)
  */
 function xoops_module_uninstall_birthday(\XoopsModule $module)
 {
-    include __DIR__ . '/../preloads/autoloader.php';
+    include  dirname(__DIR__) . '/preloads/autoloader.php';
 
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
