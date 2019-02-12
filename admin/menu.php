@@ -9,27 +9,30 @@
 
 use XoopsModules\Birthday;
 
-include  dirname(__DIR__) . '/preloads/autoloader.php';
+require_once dirname(__DIR__) . '/preloads/autoloader.php';
 
-$helper = Birthday\Helper::getInstance();
+/** @var \XoopsModules\Birthday\Helper $helper */
+$helper = \XoopsModules\Birthday\Helper::getInstance();
 
-$pathIcon32    = \Xmf\Module\Admin::menuIconPath('');
-$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
+if (is_object($helper->getModule())) {
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+}
 
 $adminmenu[] = [
     'title' => _MI_BIRTHDAY_HOME,
     'link'  => 'admin/index.php',
-    'icon'  => $pathIcon32 . '/home.png'
+    'icon'  => $pathIcon32 . '/home.png',
 ];
 
 $adminmenu[] = [
     'title' => _MI_BIRTHDAY_BIRTHDAYS,
     'link'  => 'admin/main.php',
-    'icon'  => './assets/images/cake.png'
+    'icon'  => './assets/images/cake.png',
 ];
 
 $adminmenu[] = [
     'title' => _MI_BIRTHDAY_ABOUT,
     'link'  => 'admin/about.php',
-    'icon'  => $pathIcon32 . '/about.png'
+    'icon'  => $pathIcon32 . '/about.png',
 ];

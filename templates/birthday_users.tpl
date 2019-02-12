@@ -11,7 +11,7 @@
     }
 </style>
 
-<{if count($birthday_users) > 0}>
+<{if $birthday_users|is_array && count($birthday_users) > 0}>
     <ol class="breadcrumb">
         <li><a href="index.php"><{$breadcrumb}></a></li>
     </ol>

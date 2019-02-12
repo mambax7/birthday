@@ -25,7 +25,7 @@ $modversion = [
     // ------------------- Folders & Files -------------------
     'release_info'        => 'Changelog',
     'release_file'        => XOOPS_URL . "/modules/$moduleDirName/docs/changelog.txt",
-    //
+
     'manual'              => 'link to manual file',
     'manual_file'         => XOOPS_URL . "/modules/$moduleDirName/docs/install.txt",
     // images
@@ -63,7 +63,7 @@ $modversion = [
     'sub'                 => [
         [
             'name' => _MI_BIRTHDAY_USERS_LIST,
-            'url'  => 'users.php'
+            'url'  => 'users.php',
         ],
     ],
 
@@ -76,13 +76,13 @@ $modversion = [
         'business'      => 'foundation@xoops.org',
         'item_name'     => 'Donation : ' . _MI_BD_TITRE,
         'amount'        => 0,
-        'currency_code' => 'USD'
+        'currency_code' => 'USD',
     ],
     // ------------------- Search ---------------------------
     'hasSearch'           => 1,
     'search'              => [
         'file' => 'include/search.inc.php',
-        'func' => 'birthday_search'
+        'func' => 'birthday_search',
     ],
     // ------------------- Comments -------------------------
     'hasComments'         => 1,
@@ -92,7 +92,7 @@ $modversion = [
         'callbackFile' => 'include/comment_functions.php',
         'callback'     => [
             'approve' => 'birthday_com_approve',
-            'update'  => 'birthday_com_update'
+            'update'  => 'birthday_com_update',
         ],
     ],
     // ------------------- Mysql -----------------------------
@@ -100,8 +100,7 @@ $modversion = [
     // ------------------- Tables ----------------------------
     'tables'              => [
         //        $moduleDirName . '_' . 'XXX',
-        'users_birthday'
-
+        'users_birthday',
     ],
 ];
 
@@ -137,7 +136,6 @@ $modversion['templates'] = [
 /**
  * Images width
  */
-
 $modversion['config'][] = [
     'name'        => 'images_width',
     'title'       => '_MI_BIRTHDAY_IMAGES_WIDTH',
@@ -149,7 +147,6 @@ $modversion['config'][] = [
 /**
  * Images height
  */
-
 $modversion['config'][] = [
     'name'        => 'images_height',
     'title'       => '_MI_BIRTHDAY_IMAGES_HEIGHT',
@@ -161,7 +158,6 @@ $modversion['config'][] = [
 /**
  * Folder's path (where to save pictures)
  */
-
 $modversion['config'][] = [
     'name'        => 'folder_path',
     'title'       => '_MI_BIRTHDAY_FOLDER_PATH',
@@ -173,7 +169,6 @@ $modversion['config'][] = [
 /**
  * Folder's url (where to save pictures)
  */
-
 $modversion['config'][] = [
     'name'        => 'folder_url',
     'title'       => '_MI_BIRTHDAY_FOLDER_URL',
@@ -221,8 +216,8 @@ $modversion['config'][] = [
         'jpeg'  => 'image/jpeg',
         'jpg'   => 'image/jpg',
         'jpe'   => 'image/jpe',
-        'png'   => 'image/png'
-    ]
+        'png'   => 'image/png',
+    ],
 ];
 
 /**
@@ -239,7 +234,6 @@ $modversion['config'][] = [
 /**
  * Editor to use
  */
-
 xoops_load('XoopsEditorHandler');
 $editorHandler = \XoopsEditorHandler::getInstance();
 $editorList    = array_flip($editorHandler->getList());
@@ -251,7 +245,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'options'     => $editorList,
-    'default'     => 'tinymce'
+    'default'     => 'tinymce',
 ];
 
 $modversion['config'][] = [
@@ -261,7 +255,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'options'     => $editorList,
-    'default'     => 'dhtmltextarea'
+    'default'     => 'dhtmltextarea',
 ];
 
 /**
@@ -286,7 +280,7 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'options'     => [
         _MI_BIRTHDAY_SORT_ORDER1 => 1,
-        _MI_BIRTHDAY_SORT_ORDER2 => 2
+        _MI_BIRTHDAY_SORT_ORDER2 => 2,
     ],
     'default'     => 2,
 ];
@@ -301,7 +295,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 
 /**
  * Make Sample button visible?

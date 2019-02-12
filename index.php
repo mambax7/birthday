@@ -21,7 +21,7 @@ if (is_object($xoopsUser) && $utility::getModuleOption('enable_users')) {
     $utility::redirect(_BIRTHDAY_ERROR1, 'users.php', 4);
 }
 
-$op    = \Xmf\Request::getCmd('op', 'default');
+$op = \Xmf\Request::getCmd('op', 'default');
 
 switch ($op) {
     case 'default':
@@ -29,16 +29,15 @@ switch ($op) {
         $captcha = '';
         if ($utility::getModuleOption('use_captcha')) {
             require_once BIRTHDAY_PATH . 'class/Numeral.php';
-            $numcap                      = new Birthday\Text_CAPTCHA_Numeral;
+            $numcap                      = new Birthday\Text_CAPTCHA_Numeral();
             $_SESSION['birthday_answer'] = $numcap->getAnswer();
             $captcha                     = $numcap->getOperation();
         }
         $form = $birthdayHandler->getForm($item, $baseurl, false, $captcha);
         $xoopsTpl->assign('form', $form->render());
         break;
-
     case 'saveedit':
-        if (isset($_POST['captcha']) && isset($_SESSION['birthday_answer'])
+        if (\Xmf\Request::hasVar('captcha', 'POST') && isset($_SESSION['birthday_answer'])
             && $utility::getModuleOption('use_captcha')) {
             if ($_POST['captcha'] != $_SESSION['birthday_answer']) {
                 $utility::redirect(_BIRTHDAY_CAPTCHA_WRONG, 'index.php', 4);

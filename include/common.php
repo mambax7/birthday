@@ -11,15 +11,14 @@
 
 use XoopsModules\Birthday;
 
-include  dirname(__DIR__) . '/preloads/autoloader.php';
+require dirname(__DIR__) . '/preloads/autoloader.php';
 
 $moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+$moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
 /** @var \XoopsDatabase $db */
 /** @var Birthday\Helper $helper */
 /** @var Birthday\Utility $utility */
-
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
 $helper  = Birthday\Helper::getInstance();
 $utility = new Birthday\Utility();
@@ -69,7 +68,7 @@ $icons = [
 
 $birthdayIcons = [
     'edit'   => "<img src='" . BIRTHDAY_IMAGES_URL . "edit.png' alt='" . _EDIT . '\' align=\'middle\'>',
-    'delete' => "<img src='" . BIRTHDAY_IMAGES_URL . "delete.png' alt='" . _DELETE . '\' align=\'middle\'>'
+    'delete' => "<img src='" . BIRTHDAY_IMAGES_URL . "delete.png' alt='" . _DELETE . '\' align=\'middle\'>',
 ];
 
 $debug = false;
@@ -100,6 +99,6 @@ if (!defined('_BIRTHDAY_EDIT')) {
 
     $birthdayIcons = [
         'edit'   => "<img src='" . BIRTHDAY_IMAGES_URL . "edit.png' alt='" . _EDIT . '\' align=\'middle\'>',
-        'delete' => "<img src='" . BIRTHDAY_IMAGES_URL . "delete.png' alt='" . _DELETE . '\' align=\'middle\'>'
+        'delete' => "<img src='" . BIRTHDAY_IMAGES_URL . "delete.png' alt='" . _DELETE . '\' align=\'middle\'>',
     ];
 }

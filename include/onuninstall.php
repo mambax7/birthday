@@ -16,7 +16,6 @@ use XoopsModules\Birthday;
  *
  * @return bool true if ready to uninstall, false if not
  */
-
 function xoops_module_pre_uninstall_birthday(\XoopsModule $module)
 {
     // Do some synchronization if needed
@@ -24,7 +23,6 @@ function xoops_module_pre_uninstall_birthday(\XoopsModule $module)
 }
 
 /**
- *
  * Performs tasks required during uninstallation of the module
  * @param \XoopsModule $module {@link XoopsModule}
  *
@@ -32,10 +30,10 @@ function xoops_module_pre_uninstall_birthday(\XoopsModule $module)
  */
 function xoops_module_uninstall_birthday(\XoopsModule $module)
 {
-    include  dirname(__DIR__) . '/preloads/autoloader.php';
+    require dirname(__DIR__) . '/preloads/autoloader.php';
 
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
     /** @var Birthday\Helper $helper */
     /** @var Birthday\Utility $utility */
     $helper  = Birthday\Helper::getInstance();

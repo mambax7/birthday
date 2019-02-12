@@ -12,14 +12,14 @@ use XoopsModules\Birthday;
 require_once __DIR__ . '/admin_header.php';
 //require_once  dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
-require_once  dirname(__DIR__) . '/include/common.php';
+require_once dirname(__DIR__) . '/include/common.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 $utility     = new Birthday\Utility();
 
-$op    = \Xmf\Request::getCmd('op', 'default');
+$op = \Xmf\Request::getCmd('op', 'default');
 
 // Lecture de certains param�tres de l'application ********************************************************************
 $limit         = $utility::getModuleOption('perpage');    // Nombre maximum d'�l�ments � afficher
@@ -67,7 +67,7 @@ switch ($op) {
             //                  $tblItems = $this->getObjects($critere, $idAsKey);
 
             //            $items = $birthdayHandler->getObjects($start, $limit, 'birthday_lastname');
-            $items =& $birthdayHandler->getObjects($critere, $start, $limit, 'birthday_lastname');
+            $items = &$birthdayHandler->getObjects($critere, $start, $limit, 'birthday_lastname');
 
             echo "<table width='100%' cellspacing='1' cellpadding='3' border='0' class='outer'>";
             echo "<tr><th align='center'>" . _BIRTHDAY_DATE . "</th><th align='center'>" . _BIRTHDAY_USERNAME . "</th><th align='center'>" . _BIRTHDAY_LASTNAME . ', ' . _BIRTHDAY_FIRSTNAME . "</th><th align='center'>" . _AM_BIRTHDAY_ACTION . '</th></tr>';
@@ -100,13 +100,12 @@ switch ($op) {
         $form = $birthdayHandler->getForm($item, $baseurl);
         $form->display();
         break;
-
     // ****************************************************************************************************************
     case 'maintain':    // Maintenance des tables et du cache
         // ****************************************************************************************************************
         xoops_cp_header();
         $adminObject->displayNavigation(basename(__FILE__));
-        require_once  dirname(__DIR__) . '/xoops_version.php';
+        require_once dirname(__DIR__) . '/xoops_version.php';
         $tables = [];
         foreach ($modversion['tables'] as $table) {
             $tables[] = $xoopsDB->prefix($table);
@@ -121,7 +120,6 @@ switch ($op) {
         $birthdayHandler->forceCacheClean();
         $utility::redirect(_AM_BIRTHDAY_SAVE_OK, $baseurl, 2);
         break;
-
     // ****************************************************************************************************************
     case 'edit':    // Edition d'un utilisateur existant
         // ****************************************************************************************************************
@@ -140,7 +138,6 @@ switch ($op) {
         $form = $birthdayHandler->getForm($item, $baseurl);
         $form->display();
         break;
-
     // ****************************************************************************************************************
     case 'saveedit':    // Enregistrement des modifications
         // ****************************************************************************************************************
@@ -153,7 +150,6 @@ switch ($op) {
             $utility::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
         }
         break;
-
     // ****************************************************************************************************************
     case 'delete':    // Suppression d'un utilisateur
         // ****************************************************************************************************************
@@ -173,7 +169,6 @@ switch ($op) {
         } else {
             $utility::redirect(_AM_BIRTHDAY_SAVE_PB, $baseurl, 3);
         }
-
 }
 require_once __DIR__ . '/admin_footer.php';
 //xoops_cp_footer();

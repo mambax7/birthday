@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Birthday;
+<?php
+
+namespace XoopsModules\Birthday;
 
 /**
  * ****************************************************************************
@@ -7,6 +9,7 @@
  * Created on 10 juil. 08 at 13:27:45
  * ****************************************************************************
  */
+
 use Xmf\Request;
 use XoopsModules\Birthday;
 
@@ -16,8 +19,6 @@ use XoopsModules\Birthday;
 //if (!class_exists('Birthday_XoopsPersistableObjectHandler')) {
 //  require_once XOOPS_ROOT_PATH.'/modules/birthday/class/PersistableObjectHandler.php';
 //}
-
-
 
 //require_once  dirname(__DIR__) . '/include/common.php';
 
@@ -29,7 +30,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * @param null|\XoopsDatabase $db
      */
-    public function __construct(\XoopsDatabase $db)
+    public function __construct(\XoopsDatabase $db = null)
     { //                                Table           Classe          Id              Description
         parent::__construct($db, 'users_birthday', UserBirthday::class, 'birthday_id', 'birthday_lastname');
     }
@@ -37,7 +38,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Retourne un utilisateur � partir de son uid
      *
-     * @param  integer $uid L'ID Xoops recherch�
+     * @param  int $uid L'ID Xoops recherch�
      * @return \XoopsObject
      */
     public function getFromUid($uid)
@@ -59,7 +60,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
      *
      * @param UserBirthday $item           L'�l�ment � ajouter/modifier
      * @param string       $baseurl        L'url de destination
-     * @param boolean      $withUserSelect Indique s'il faut inclure la liste de s�lection de l'utilisateur
+     * @param bool         $withUserSelect Indique s'il faut inclure la liste de s�lection de l'utilisateur
      * @param bool|string  $captcha        Indique s'il faut utiliser un captcha
      *
      * @return \XoopsThemeForm Le formulaire � utiliser
@@ -67,11 +68,11 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     public function getForm(UserBirthday $item, $baseurl, $withUserSelect = true, $captcha = '')
     {
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-//        require_once XOOPS_ROOT_PATH . '/modules/birthday/class/formtextdateselect.php';
+        //        require_once XOOPS_ROOT_PATH . '/modules/birthday/class/formtextdateselect.php';
 
         global $xoopsModuleConfig;
         /** @var Birthday\Helper $helper */
-        $helper = Birthday\Helper::getInstance();
+        $helper  = Birthday\Helper::getInstance();
         $utility = new Birthday\Utility();
 
         $edit = true;
@@ -107,17 +108,16 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         $editor_tray = new \XoopsFormElementTray(_BIRTHDAY_DESCRIPTION, '<br>');
 
         //set Editor options
-        $options['name']      = 'birthday_description';
-        $options['value']     = $item->getVar('birthday_description', 'e');
-        $options['rows']      = 25;
-        $options['cols']      = '100%';
-        $options['width']     = '100%';
-        $options['height']    = '600px';
+        $options['name']   = 'birthday_description';
+        $options['value']  = $item->getVar('birthday_description', 'e');
+        $options['rows']   = 25;
+        $options['cols']   = '100%';
+        $options['width']  = '100%';
+        $options['height'] = '600px';
 
-        $editor = $utility::getEditor( $helper, $options);
+        $editor = $utility::getEditor($helper, $options);
         $editor_tray->addElement($editor);
         $sform->addElement($editor_tray);
-
 
         if ($edit && $item->pictureExists() && '' != trim($item->getVar('birthday_photo'))) {
             $pictureTray = new \XoopsFormElementTray(_AM_BIRTHDAY_CURRENT_PICTURE, '<br>');
@@ -135,10 +135,10 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             $sform->addElement($captcaField, true);
         }
 
-        $button_tray = new \XoopsFormElementTray('', '');
-        $submit_btn  = new \XoopsFormButton('', 'post', $labelSubmit, 'submit');
-        $button_tray->addElement($submit_btn);
-        $sform->addElement($button_tray);
+        $buttonTray = new \XoopsFormElementTray('', '');
+        $submit_btn = new \XoopsFormButton('', 'post', $labelSubmit, 'submit');
+        $buttonTray->addElement($submit_btn);
+        $sform->addElement($buttonTray);
 
         //$sform = $utility::formMarkRequiredFields($sform);
         return $sform;
@@ -147,8 +147,8 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Enregistre un utilisateur apr�s modification (ou ajout)
      *
-     * @param  boolean $withCurrentUser Indique s'il faut prendre l'utilisateur courant ou pas
-     * @return boolean Vrai si l'enregistrement a r�ussi sinon faux
+     * @param  bool $withCurrentUser Indique s'il faut prendre l'utilisateur courant ou pas
+     * @return bool Vrai si l'enregistrement a r�ussi sinon faux
      */
     public function saveUser($withCurrentUser = false)
     {
@@ -173,7 +173,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             global $xoopsUser;
             $item->setVar('birthday_uid', $xoopsUser->getVar('uid'));
         }
-        if (isset($_POST['delpicture']) && 1 == \Xmf\Request::getInt('delpicture', 0, 'POST')) {
+        if (\Xmf\Request::hasVar('delpicture', 'POST') && 1 == \Xmf\Request::getInt('delpicture', 0, 'POST')) {
             if ($item->pictureExists() && '' != trim($item->getVar('birthday_photo'))) {
                 $item->deletePicture();
             }
@@ -212,7 +212,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
      * Suppression d'un utilisateur
      *
      * @param  UserBirthday $user L'utilisateur � supprimer
-     * @return boolean        Le r�sultat de la suppression
+     * @return bool        Le r�sultat de la suppression
      */
     public function deleteUser(UserBirthday $user)
     {
@@ -232,7 +232,6 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
      * @param int $userId
      * @param     $commentsCount
      * @internal param int $total_num
-     * @return void
      */
     public function updateCommentsCount($userId, $commentsCount)
     {
@@ -271,7 +270,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
 
     /**
      * Retourne le nombre total d'anniversaires du jour
-     * @return integer
+     * @return int
      */
     public function getTodayBirthdaysCount()
     {
@@ -285,7 +284,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Retourne le nombre total d'utilisateurs
      *
-     * @return integer
+     * @return int
      */
     public function getAllUsersCount()
     {
@@ -295,10 +294,10 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Retourne la liste de tous les utilisateurs
      *
-     * @param  integer $start Position de d�part
-     * @param  integer $limit Nombre maximum d'enregistrements
-     * @param  string  $sort  Champ � utiliser pour le tri
-     * @param  string  $order Ordre de tri
+     * @param  int    $start Position de d�part
+     * @param  int    $limit Nombre maximum d'enregistrements
+     * @param  string $sort  Champ � utiliser pour le tri
+     * @param  string $order Ordre de tri
      * @return array   Objets de type Birthday
      */
     public function getAllUsers($start = 0, $limit = 0, $sort = 'birthday_lastname', $order = 'ASC')

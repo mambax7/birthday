@@ -38,7 +38,6 @@ function tableExists($tablename)
 }
 
 /**
- *
  * Prepares system prior to attempting to install module
  * @param \XoopsModule $module {@link XoopsModule}
  *
@@ -53,36 +52,35 @@ function xoops_module_pre_update_birthday(\XoopsModule $module)
 
     $xoopsSuccess = $utility::checkVerXoops($module);
     $phpSuccess   = $utility::checkVerPhp($module);
+
     return $xoopsSuccess && $phpSuccess;
 }
 
 /**
- *
  * Performs tasks required during update of the module
  * @param \XoopsModule $module {@link XoopsModule}
  * @param null         $previousVersion
  *
  * @return bool true if update successful, false if not
  */
-
 function xoops_module_update_birthday(\XoopsModule $module, $previousVersion = null)
 {
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName);
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     /** @var Birthday\Helper $helper */
     /** @var Birthday\Utility $utility */
-    /** @var common\Configurator $configurator */
+    /** @var Common\Configurator $configurator */
     $helper       = Birthday\Helper::getInstance();
     $utility      = new Birthday\Utility();
-    $configurator = new common\Configurator();
+    $configurator = new Common\Configurator();
 
     $helper->loadLanguage('common');
 
     if ($previousVersion < 240) {
         /*
                 //rename column EXAMPLE
-                $tables     = new Tables();
+                $tables     = new \Xmf\Database\Tables();
                 $table      = 'obituariesx_categories';
                 $column     = 'ordre';
                 $newName    = 'order';
@@ -90,7 +88,7 @@ function xoops_module_update_birthday(\XoopsModule $module, $previousVersion = n
                 if ($tables->useTable($table)) {
                     $tables->alterColumn($table, $column, $attributes, $newName);
                     if (!$tables->executeQueue()) {
-                        echo '<br>' . _AM_XXXXX_UPGRADEFAILED0 . ' ' . $migrate->getLastError();
+                        echo '<br>' . _AM_XXXXX_UPGRADEFAILED0 . ' ' . $tables->getLastError();
                     }
                 }
         */
@@ -145,7 +143,7 @@ function xoops_module_update_birthday(\XoopsModule $module, $previousVersion = n
 
         //  ---  COPY blank.png FILES ---------------
         if (count($configurator->copyBlankFiles) > 0) {
-            $file =  dirname(__DIR__) . '/assets/images/blank.png';
+            $file = dirname(__DIR__) . '/assets/images/blank.png';
             foreach (array_keys($configurator->copyBlankFiles) as $i) {
                 $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
                 $utility::copyFile($file, $dest);
@@ -156,9 +154,11 @@ function xoops_module_update_birthday(\XoopsModule $module, $previousVersion = n
         $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
         $GLOBALS['xoopsDB']->queryF($sql);
 
-        /** @var XoopsGroupPermHandler $grouppermHandler */
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
+
         return $grouppermHandler->deleteByModule($module->getVar('mid'), 'item_read');
     }
+
     return true;
 }

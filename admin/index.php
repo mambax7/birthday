@@ -30,7 +30,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 
 //check or upload folders
 $utility      = new Birthday\Utility();
-$configurator = new common\Configurator();
+$configurator = new Common\Configurator();
 foreach (array_keys($configurator->uploadFolders) as $i) {
     $utility::createFolder($configurator->uploadFolders[$i]);
     $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
@@ -38,11 +38,18 @@ foreach (array_keys($configurator->uploadFolders) as $i) {
 
 $adminObject->displayNavigation(basename(__FILE__));
 
+
+//check for latest release
+$newRelease = $utility::checkVerModule($helper);
+if (!empty($newRelease)) {
+    $adminObject->addItemButton($newRelease[0], $newRelease[1], 'download', 'style="color : Red"');
+}
+
 //------------- Test Data ----------------------------
 
 if ($helper->getConfig('displaySampleButton')) {
     xoops_loadLanguage('admin/modulesadmin', 'system');
-    require_once  dirname(__DIR__) . '/testdata/index.php';
+    require_once dirname(__DIR__) . '/testdata/index.php';
 
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
 

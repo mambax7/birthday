@@ -8,7 +8,7 @@ function b_birthday_show($options)
 {
     global $xoopsUser;
     $block = [];
-    include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
+    require XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
     $start      = 0;
     $limit      = (int)$options[0];
     $itemsCount = $birthdayHandler->getTodayBirthdaysCount();
@@ -40,7 +40,7 @@ function b_birthday_show($options)
  */
 function b_birthday_edit($options)
 {
-    include XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
+    require XOOPS_ROOT_PATH . '/modules/birthday/include/common.php';
     $form = '';
     $form .= "<table border='0'>";
     $form .= '<tr><td>' . _MB_BIRTHDAY_MAX_ITEMS . "</td><td><input type='text' name='options[]' id='options' value='" . $options[0] . "'></td></tr>\n";

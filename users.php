@@ -25,7 +25,7 @@ if (isset($xoopsConfig) && file_exists(BIRTHDAY_PATH . 'language/' . $xoopsConfi
     require_once BIRTHDAY_PATH . 'language/english/blocks.php';
 }
 
-if (isset($_GET['op']) && 'today' === $_GET['op']) {    // Les utilisateurs dont l'anniversaire est aujourd'hui
+if (\Xmf\Request::hasVar('op', 'GET') && 'today' === $_GET['op']) {    // Les utilisateurs dont l'anniversaire est aujourd'hui
     $itemsCount = $birthdayHandler->getTodayBirthdaysCount();
     if ($itemsCount > $limit) {
         $pagenav = new \XoopsPageNav($itemsCount, $limit, $start, 'start', 'op=today');

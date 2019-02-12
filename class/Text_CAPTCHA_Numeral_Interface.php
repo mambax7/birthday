@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Birthday;
+<?php
+
+namespace XoopsModules\Birthday;
 
 // {{{ Disclaimer
 // +----------------------------------------------------------------------+
@@ -56,6 +58,7 @@
 interface Text_CAPTCHA_Numeral_Interface
 {
     // {{{ public function getOperation
+
     /**
      * Get operation
      *
@@ -65,8 +68,10 @@ interface Text_CAPTCHA_Numeral_Interface
      * @access public
      */
     public function getOperation();
+
     // }}}
     // {{{ public function getAnswer
+
     /**
      * Get the answer value
      *
@@ -77,8 +82,10 @@ interface Text_CAPTCHA_Numeral_Interface
      * @access public
      */
     public function getAnswer();
+
     // }}}
     // {{{ public function getFirstNumber
+
     /**
      * Get the first number
      *
@@ -88,8 +95,10 @@ interface Text_CAPTCHA_Numeral_Interface
      * @access public
      */
     public function getFirstNumber();
+
     // }}}
     // {{{ public function getSecondNumber
+
     /**
      * Get the second number value
      *
@@ -98,6 +107,7 @@ interface Text_CAPTCHA_Numeral_Interface
      * @access public
      */
     public function getSecondNumber();
+
     // }}}
 }
 // }}}

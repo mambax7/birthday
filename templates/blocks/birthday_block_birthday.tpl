@@ -1,4 +1,4 @@
-<{if count($block.birthday_today_users) >0 }>
+<{if $block.birthday_today_users|is_array && count($block.birthday_today_users) > 0 }>
 <h3><{$smarty.const._MB_BD_TITRE}></h3>
 <ul>
     <{foreach item=user from=$block.birthday_today_users}>

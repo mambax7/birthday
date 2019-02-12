@@ -1,7 +1,8 @@
-<?php namespace XoopsModules\Birthday;
+<?php
+
+namespace XoopsModules\Birthday;
 
 use XoopsModules\Birthday;
-use XoopsModules\Birthday\Common;
 
 $moduleDirName = basename(dirname(__DIR__));
 xoops_loadLanguage('admin', $moduleDirName);
@@ -17,7 +18,6 @@ if (!class_exists(ucfirst($moduleDirName) . 'DummyObject')) {
  * @copyright (c) Instant Zero
  *
  * Note: You should be able to use it without the need to instanciate it.
- *
  */
 class Utility
 {
@@ -39,7 +39,7 @@ class Utility
      * @static
      * @staticvar   object
      */
-    public function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (null === $instance) {
@@ -92,17 +92,17 @@ class Utility
     /**
      * Create (in a link) a javascript confirmation's box
      *
-     * @param  string  $message Message to display
-     * @param  boolean $form    Is this a confirmation for a form ?
+     * @param  string $message Message to display
+     * @param  bool   $form    Is this a confirmation for a form ?
      * @return string  the javascript code to insert in the link (or in the form)
      */
     public static function javascriptLinkConfirm($message, $form = false)
     {
         if (!$form) {
             return "onclick=\"javascript:return confirm('" . str_replace('\'', ' ', $message) . '\')"';
-        } else {
-            return "onSubmit=\"javascript:return confirm('" . str_replace('\'', ' ', $message) . '\')"';
         }
+
+        return "onSubmit=\"javascript:return confirm('" . str_replace('\'', ' ', $message) . '\')"';
     }
 
     /**
@@ -112,7 +112,6 @@ class Utility
      * @param  string $pageTitle       Page's Title
      * @param  string $metaDescription Page's meta description
      * @param  string $metaKeywords    Page's meta keywords
-     * @return void
      */
     public static function setMetas($pageTitle = '', $metaDescription = '', $metaKeywords = '')
     {
@@ -154,7 +153,7 @@ class Utility
                 //  Note, I've been testing all the other methods (like the one of Smarty) and none of them run, that's why I have used this code
                 $files_del = [];
                 $files_del = glob(XOOPS_CACHE_PATH . '/*' . $onetemplate->getVar('tpl_file') . '*');
-                if (is_array($files_del) && count($files_del) > 0) {
+                if ($files_del && is_array($files_del)) {
                     foreach ($files_del as $one_file) {
                         if (is_file($one_file)) {
                             unlink($one_file);
@@ -168,9 +167,9 @@ class Utility
     /**
      * Redirect user with a message
      *
-     * @param string  $message message to display
-     * @param string  $url     The place where to go
-     * @param integer $time    Time to wait before to redirect
+     * @param string $message message to display
+     * @param string $url     The place where to go
+     * @param int    $time    Time to wait before to redirect
      */
     public static function redirect($message = '', $url = 'index.php', $time = 2)
     {
@@ -188,10 +187,10 @@ class Utility
         if (!isset($mymodule)) {
             global $xoopsModule;
             if (isset($xoopsModule) && is_object($xoopsModule) && BIRTHDAY_DIRNAME == $xoopsModule->getVar('dirname')) {
-                $mymodule =& $xoopsModule;
+                $mymodule = &$xoopsModule;
             } else {
-                $hModule  = xoops_getHandler('module');
-                $mymodule = $hModule->getByDirname(BIRTHDAY_DIRNAME);
+                $moduleHandler = xoops_getHandler('module');
+                $mymodule      = $moduleHandler->getByDirname(BIRTHDAY_DIRNAME);
             }
         }
 
@@ -236,22 +235,21 @@ class Utility
     {
         global $xoopsUser, $xoopsModule;
         if (is_object($xoopsUser)) {
-            if (in_array(XOOPS_GROUP_ADMIN, $xoopsUser->getGroups())) {
+            if (in_array(XOOPS_GROUP_ADMIN, $xoopsUser->getGroups(), true)) {
                 return true;
-            } else {
-                if (isset($xoopsModule)) {
-                    if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
             }
-        } else {
+            if (isset($xoopsModule)) {
+                if ($xoopsUser->isAdmin($xoopsModule->getVar('mid'))) {
+                    return true;
+                }
+
+                return false;
+            }
+
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -276,15 +274,15 @@ class Utility
     {
         if ('0000-00-00' != $date && '' != xoops_trim($date)) {
             return formatTimestamp(strtotime($date), $format);
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
      * Convert a timestamp to a Mysql date
      *
-     * @param  integer $timestamp The timestamp to use
+     * @param  int $timestamp The timestamp to use
      * @return string  The date in the Mysql format
      */
     public function timestampToMysqlDate($timestamp)
@@ -295,7 +293,10 @@ class Utility
     /**
      * This function indicates if the current Xoops version needs to add asterisks to required fields in forms
      *
-     * @return boolean Yes = we need to add them, false = no
+     * @param mixed $folder
+     * @param mixed $fileName
+     * @param mixed $trimName
+     * @return bool Yes = we need to add them, false = no
      */
     //  function needsAsterisk()
     //  {
@@ -344,15 +345,15 @@ class Utility
     /**
      * Create a unique upload filename
      *
-     * @param  string  $folder   The folder where the file will be saved
-     * @param  string  $fileName Original filename (coming from the user)
-     * @param  boolean $trimName Do we need to create a short unique name ?
+     * @param  string $folder   The folder where the file will be saved
+     * @param  string $fileName Original filename (coming from the user)
+     * @param  bool   $trimName Do we need to create a short unique name ?
      * @return string  The unique filename to use (with its extension)
      */
     public static function createUploadName($folder, $fileName, $trimName = false)
     {
         $workingfolder = $folder;
-        if ('/' !== xoops_substr($workingfolder, strlen($workingfolder) - 1, 1)) {
+        if ('/' !== xoops_substr($workingfolder, mb_strlen($workingfolder) - 1, 1)) {
             $workingfolder .= '/';
         }
         $ext  = basename($fileName);
@@ -362,8 +363,8 @@ class Utility
         while ($true) {
             $ipbits = explode('.', $_SERVER['REMOTE_ADDR']);
             list($usec, $sec) = explode(' ', microtime());
-            $usec = (integer)($usec * 65536);
-            $sec  = ((integer)$sec) & 0xFFFF;
+            $usec = ($usec * 65536);
+            $sec  = ((int)$sec) & 0xFFFF;
 
             if ($trimName) {
                 $uid = sprintf('%06x%04x%04x', ($ipbits[0] << 24) | ($ipbits[1] << 16) | ($ipbits[2] << 8) | $ipbits[3], $sec, $usec);
@@ -391,7 +392,7 @@ class Utility
 
         $tmp = [];
         // Search for the "Minimum keyword length"
-        if (isset($_SESSION['birthday_keywords_limit'])) {
+        if (\Xmf\Request::hasVar('birthday_keywords_limit', 'SESSION')) {
             $limit = $_SESSION['birthday_keywords_limit'];
         } else {
             $configHandler                       = xoops_getHandler('config');
@@ -403,7 +404,7 @@ class Utility
         $content         = str_replace('<br>', ' ', $content);
         $content         = $myts->undoHtmlSpecialChars($content);
         $content         = strip_tags($content);
-        $content         = strtolower($content);
+        $content         = mb_strtolower($content);
         $search_pattern  = [
             '&nbsp;',
             "\t",
@@ -431,7 +432,7 @@ class Utility
             '-',
             '_',
             '\\',
-            '*'
+            '*',
         ];
         $replace_pattern = [
             ' ',
@@ -460,7 +461,7 @@ class Utility
             '',
             '',
             '',
-            ''
+            '',
         ];
         $content         = str_replace($search_pattern, $replace_pattern, $content);
         $keywords        = explode(' ', $content);
@@ -488,40 +489,39 @@ class Utility
         }
 
         foreach ($keywords as $keyword) {
-            if (!is_numeric($keyword) && strlen($keyword) >= $limit) {
+            if (!is_numeric($keyword) && mb_strlen($keyword) >= $limit) {
                 $tmp[] = $keyword;
             }
         }
         $tmp = array_slice($tmp, 0, $keywordscount);
         if (count($tmp) > 0) {
             return implode(',', $tmp);
-        } else {
-            if (!isset($configHandler) || !is_object($configHandler)) {
-                $configHandler = xoops_getHandler('config');
-            }
-            $xoopsConfigMetaFooter = $configHandler->getConfigsByCat(XOOPS_CONF_METAFOOTER);
-            if (isset($xoopsConfigMetaFooter['meta_keywords'])) {
-                return $xoopsConfigMetaFooter['meta_keywords'];
-            } else {
-                return '';
-            }
         }
+        if (!isset($configHandler) || !is_object($configHandler)) {
+            $configHandler = xoops_getHandler('config');
+        }
+        $xoopsConfigMetaFooter = $configHandler->getConfigsByCat(XOOPS_CONF_METAFOOTER);
+        if (isset($xoopsConfigMetaFooter['meta_keywords'])) {
+            return $xoopsConfigMetaFooter['meta_keywords'];
+        }
+
+        return '';
     }
 
     /**
      * Fonction charg�e de g�rer l'upload
      *
-     * @param  integer $indice L'indice du fichier � t�l�charger
-     * @param  string  $dstpath
-     * @param  null    $mimeTypes
-     * @param  null    $uploadMaxSize
+     * @param  int    $indice L'indice du fichier � t�l�charger
+     * @param  string $dstpath
+     * @param  null   $mimeTypes
+     * @param  null   $uploadMaxSize
      * @return mixed   True si l'upload s'est bien d�roul� sinon le message d'erreur correspondant
      */
     public static function uploadFile($indice, $dstpath = XOOPS_UPLOAD_PATH, $mimeTypes = null, $uploadMaxSize = null)
     {
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         global $destname;
-        if (isset($_POST['xoops_upload_file'])) {
+        if (\Xmf\Request::hasVar('xoops_upload_file', 'POST')) {
             require_once XOOPS_ROOT_PATH . '/class/uploader.php';
             $fldname = '';
             $fldname = $_FILES[$_POST['xoops_upload_file'][$indice]];
@@ -544,18 +544,18 @@ class Utility
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][$indice])) {
                     if ($uploader->upload()) {
                         return true;
-                    } else {
-                        return _ERRORS . ' ' . htmlentities($uploader->getErrors(), ENT_QUOTES | ENT_HTML5);
                     }
-                } else {
-                    return htmlentities($uploader->getErrors(), ENT_QUOTES | ENT_HTML5);
+
+                    return _ERRORS . ' ' . htmlentities($uploader->getErrors(), ENT_QUOTES | ENT_HTML5);
                 }
-            } else {
-                return false;
+
+                return htmlentities($uploader->getErrors(), ENT_QUOTES | ENT_HTML5);
             }
-        } else {
+
             return false;
         }
+
+        return false;
     }
 
     /**
@@ -563,12 +563,12 @@ class Utility
      *
      * @author GIJOE
      *
-     * @param string  $src_path     Picture's source
-     * @param string  $dst_path     Picture's destination
-     * @param integer $param_width  Maximum picture's width
-     * @param integer $param_height Maximum picture's height
+     * @param string $src_path     Picture's source
+     * @param string $dst_path     Picture's destination
+     * @param int    $param_width  Maximum picture's width
+     * @param int    $param_height Maximum picture's height
      *
-     * @param  bool   $keep_original
+     * @param  bool  $keep_original
      * @return int
      */
     public static function resizePicture($src_path, $dst_path, $param_width, $param_height, $keep_original = false)
@@ -641,13 +641,12 @@ class Utility
             }
 
             return 3;
-        } else {
-            if (!$keep_original) {
-                @unlink($src_path);
-            }
-
-            return 1;
         }
+        if (!$keep_original) {
+            @unlink($src_path);
+        }
+
+        return 1;
     }
 
     /**
@@ -667,7 +666,7 @@ class Utility
                 $end_tags      = $end_tags[1];
 
                 foreach ($start_tags as $key => $val) {
-                    $posb = array_search($val, $end_tags);
+                    $posb = array_search($val, $end_tags, true);
                     if (is_int($posb)) {
                         unset($end_tags[$posb]);
                     } else {
@@ -701,18 +700,18 @@ class Utility
             return '';
         }
 
-        if (strlen($string) > $length) {
-            $length -= strlen($etc);
+        if (mb_strlen($string) > $length) {
+            $length -= mb_strlen($etc);
             if (!$break_words) {
-                $string = preg_replace('/\s+?(\S+)?$/', '', substr($string, 0, $length + 1));
+                $string = preg_replace('/\s+?(\S+)?$/', '', mb_substr($string, 0, $length + 1));
                 $string = preg_replace('/<[^>]*$/', '', $string);
                 $string = self::close_tags($string);
             }
 
             return $string . $etc;
-        } else {
-            return $string;
         }
+
+        return $string;
     }
 
     /**
@@ -763,14 +762,14 @@ class Utility
 
     /**
      * @param \Xmf\Module\Helper $helper
-     * @param array|null $options
+     * @param array|null         $options
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
     public static function getEditor($helper = null, $options)
     {
         /** @var Birthday\Helper $helper */
-        if (null === $options){
-            $options = [];
+        if (null === $options) {
+            $options           = [];
             $options['name']   = 'Editor';
             $options['value']  = 'Editor';
             $options['rows']   = 10;
@@ -782,7 +781,6 @@ class Utility
         $isAdmin = $helper->isUserAdmin();
 
         if (class_exists('XoopsFormEditor')) {
-
             if ($isAdmin) {
                 $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editorAdmin'), $options, $nohtml = false, $onfailure = 'textarea');
             } else {

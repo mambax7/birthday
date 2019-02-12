@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Birthday;
+<?php
+
+namespace XoopsModules\Birthday;
 
 /**
  * ****************************************************************************
@@ -21,9 +23,6 @@ use XoopsModules\Birthday;
  */
 class UserBirthday extends \XoopsObject
 {
-    /**
-     *
-     */
     public function __construct()
     {
         $this->initVar('birthday_id', XOBJ_DTYPE_INT, null, false);
@@ -47,9 +46,9 @@ class UserBirthday extends \XoopsObject
         $utility = new Birthday\Utility();
         if ('' != xoops_trim($this->getVar('birthday_photo'))) {
             return $utility::getModuleOption('folder_url') . '/' . $this->getVar('birthday_photo');
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
@@ -61,15 +60,15 @@ class UserBirthday extends \XoopsObject
         $utility = new Birthday\Utility();
         if ('' != xoops_trim($this->getVar('birthday_photo'))) {
             return $utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo');
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
      * Indique si l'image existe
      *
-     * @return boolean Vrai si l'image existe sinon faux
+     * @return bool Vrai si l'image existe sinon faux
      */
     public function pictureExists()
     {
@@ -85,7 +84,6 @@ class UserBirthday extends \XoopsObject
 
     /**
      * Supprime l'image associ�e
-     * @return void
      */
     public function deletePicture()
     {
@@ -104,12 +102,12 @@ class UserBirthday extends \XoopsObject
     public function getHrefTitle()
     {
         $utility = new Birthday\Utility();
+
         return $utility::makeHrefTitle(xoops_trim($this->getVar('birthday_lastname')) . ' ' . xoops_trim($this->getVar('birthday_firstname')));
     }
 
     /**
      * Retourne l'utilisateur Xoops li� � l'enregistrement courant
-     *
      */
     public function getXoopsUser()
     {

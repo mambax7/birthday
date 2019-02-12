@@ -37,7 +37,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
     $sql .= ') ';
 
     $tmpObject = new Birthday\UserBirthday();
-    $datas     =& $tmpObject->getVars();
+    $datas     = &$tmpObject->getVars();
     $tblFields = [];
     $cnt       = 0;
     foreach ($datas as $key => $value) {

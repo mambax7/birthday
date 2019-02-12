@@ -17,10 +17,10 @@ $GLOBALS['xoopsOption']['template_main'] = 'birthday_user.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 $case = 0;
-if (isset($_GET['birthday_id'])) {
+if (\Xmf\Request::hasVar('birthday_id', 'GET')) {
     $uid  = \Xmf\Request::getInt('birthday_id', 0, 'GET');
     $case = 1;
-} elseif (isset($_GET['birthday_uid'])) {
+} elseif (\Xmf\Request::hasVar('birthday_uid', 'GET')) {
     $uid  = \Xmf\Request::getInt('birthday_uid', 0, 'GET');
     $case = 2;
 } elseif (isset($xoopsUser) && is_object($xoopsUser)) {
@@ -33,11 +33,9 @@ switch ($case) {
     case 0:    // Unknow user
         $utility::redirect(_BIRTHDAY_ERROR2, 'users.php', 3);
         break;
-
     case 1:    // birthday_id
         $user = $birthdayHandler->get($uid);
         break;
-
     case 2:    // birthday_uid
     case 3:    // uid
         $user = $birthdayHandler->getFromUid($uid);
@@ -52,7 +50,7 @@ if (is_object($user)) {
 }
 $path       = [
     BIRTHDAY_URL . 'users.php' => _BIRTHDAY_USERS_LIST,
-    BIRTHDAY_URL . 'user.php'  => $user->getFullName()
+    BIRTHDAY_URL . 'user.php'  => $user->getFullName(),
 ];
 $breadcrumb = $utility::breadcrumb($path);
 $xoopsTpl->assign('breadcrumb', $breadcrumb);

@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -19,9 +18,9 @@ use Xmf\Request;
 use XoopsModules\Birthday;
 use XoopsModules\Birthday\Common;
 
-require_once  dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-include  dirname(__DIR__) . '/preloads/autoloader.php';
-$op = Request::getCmd('op', '');
+require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+require dirname(__DIR__) . '/preloads/autoloader.php';
+$op = Request::getString('op', '');
 
 switch ($op) {
     case 'load':
@@ -39,11 +38,11 @@ switch ($op) {
 
 function loadSampleData()
 {
-
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName);
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-    $helper       = Birthday\Helper::getInstance();
+    /** @var \XoopsModules\Birthday\Helper $helper */
+    $helper       = \XoopsModules\Birthday\Helper::getInstance();
     $utility      = new Birthday\Utility();
     $configurator = new Common\Configurator();
 
@@ -66,12 +65,12 @@ function loadSampleData()
     }
 
     //  ---  COPY test folder files ---------------
-    if (is_array ($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
+    if ($configurator->copyTestFolders && is_array($configurator->copyTestFolders)) {
         //        $file =  dirname(__DIR__) . '/testdata/images/';
         foreach (array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
-            $utility::xcopy($src, $dest);
+            $utility::rcopy($src, $dest);
         }
     }
 
@@ -81,7 +80,7 @@ function loadSampleData()
 function saveSampleData()
 {
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName);
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
 
@@ -96,7 +95,7 @@ function exportSchema()
 {
     try {
         $moduleDirName      = basename(dirname(__DIR__));
-        $moduleDirNameUpper = strtoupper($moduleDirName);
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
         $migrate = new  \Xmf\Database\Migrate($moduleDirName);
         $migrate->saveCurrentSchema();
