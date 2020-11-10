@@ -1,4 +1,5 @@
 <?php
+
 define('_MB_BD_TITRE', 'Happy Birthday');
 define('_MB_BD_DESC', "Show Members\' Birthday");
 define('_MD_DB_FELICI', 'Happy birthday ');

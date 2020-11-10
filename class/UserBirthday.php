@@ -12,7 +12,7 @@ namespace XoopsModules\Birthday;
 
 use XoopsModules\Birthday;
 
-// defined('XOOPS_ROOT_PATH') || die('Restricted access');
+
 
 //use XoopsModules\Birthday\Common;
 
@@ -25,16 +25,16 @@ class UserBirthday extends \XoopsObject
 {
     public function __construct()
     {
-        $this->initVar('birthday_id', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('birthday_uid', XOBJ_DTYPE_INT, null, false);
-        $this->initVar('birthday_date', XOBJ_DTYPE_TIMESTAMP, null, false);
-        $this->initVar('birthday_photo', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('birthday_description', XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar('birthday_firstname', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('birthday_lastname', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('birthday_comments', XOBJ_DTYPE_INT, null, false);
+        $this->initVar('birthday_id', \XOBJ_DTYPE_INT, null, false);
+        $this->initVar('birthday_uid', \XOBJ_DTYPE_INT, null, false);
+        $this->initVar('birthday_date', \XOBJ_DTYPE_TIMESTAMP, null, false);
+        $this->initVar('birthday_photo', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('birthday_description', \XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('birthday_firstname', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('birthday_lastname', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('birthday_comments', \XOBJ_DTYPE_INT, null, false);
         // Pour autoriser le html
-        $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
+        $this->initVar('dohtml', \XOBJ_DTYPE_INT, 1, false);
     }
 
     /**
@@ -44,7 +44,7 @@ class UserBirthday extends \XoopsObject
     public function getPictureUrl()
     {
         $utility = new Birthday\Utility();
-        if ('' != xoops_trim($this->getVar('birthday_photo'))) {
+        if ('' != \xoops_trim($this->getVar('birthday_photo'))) {
             return $utility::getModuleOption('folder_url') . '/' . $this->getVar('birthday_photo');
         }
 
@@ -58,7 +58,7 @@ class UserBirthday extends \XoopsObject
     public function getPicturePath()
     {
         $utility = new Birthday\Utility();
-        if ('' != xoops_trim($this->getVar('birthday_photo'))) {
+        if ('' != \xoops_trim($this->getVar('birthday_photo'))) {
             return $utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo');
         }
 
@@ -74,8 +74,8 @@ class UserBirthday extends \XoopsObject
     {
         $utility = new Birthday\Utility();
         $return  = false;
-        if ('' != xoops_trim($this->getVar('birthday_photo'))
-            && file_exists($utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'))) {
+        if ('' != \xoops_trim($this->getVar('birthday_photo'))
+            && \file_exists($utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'))) {
             $return = true;
         }
 
@@ -89,7 +89,7 @@ class UserBirthday extends \XoopsObject
     {
         $utility = new Birthday\Utility();
         if ($this->pictureExists()) {
-            @unlink($utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'));
+            @\unlink($utility::getModuleOption('folder_path') . '/' . $this->getVar('birthday_photo'));
         }
         $this->setVar('birthday_photo', '');
     }
@@ -103,7 +103,7 @@ class UserBirthday extends \XoopsObject
     {
         $utility = new Birthday\Utility();
 
-        return $utility::makeHrefTitle(xoops_trim($this->getVar('birthday_lastname')) . ' ' . xoops_trim($this->getVar('birthday_firstname')));
+        return $utility::makeHrefTitle(\xoops_trim($this->getVar('birthday_lastname')) . ' ' . \xoops_trim($this->getVar('birthday_firstname')));
     }
 
     /**
@@ -115,10 +115,10 @@ class UserBirthday extends \XoopsObject
         static $memberHandler;
         if ($this->getVar('birthday_uid') > 0) {
             if (!isset($memberHandler)) {
-                $memberHandler = xoops_getHandler('member');
+                $memberHandler = \xoops_getHandler('member');
             }
             $user = $memberHandler->getUser($this->getVar('birthday_uid'));
-            if (is_object($user)) {
+            if (\is_object($user)) {
                 $ret = $user;
             }
         }
@@ -131,13 +131,13 @@ class UserBirthday extends \XoopsObject
      */
     public function getFullName()
     {
-        return xoops_trim($this->getVar('birthday_lastname')) . ' ' . xoops_trim($this->getVar('birthday_firstname'));
+        return \xoops_trim($this->getVar('birthday_lastname')) . ' ' . \xoops_trim($this->getVar('birthday_firstname'));
     }
 
     /**
      * Retourne les �l�ments format�s pour affichage
      *
-     * @param  string $format Le format � utiliser
+     * @param string $format Le format � utiliser
      * @return array  Les donn�es formatt�es
      */
     public function toArray($format = 's')
@@ -150,7 +150,7 @@ class UserBirthday extends \XoopsObject
         $ret['birthday_href_title']  = $this->getHrefTitle();
         $user                        = null;
         $user                        = $this->getXoopsUser();
-        if (is_object($user)) {
+        if (\is_object($user)) {
             $ret['birthday_user_name']        = $user->getVar('name');
             $ret['birthday_user_uname']       = $user->getVar('uname');
             $ret['birthday_user_email']       = $user->getVar('email');
@@ -158,7 +158,7 @@ class UserBirthday extends \XoopsObject
             $ret['birthday_user_user_avatar'] = $user->getVar('user_avatar');
             $ret['birthday_user_user_from']   = $user->getVar('user_from');
         }
-        $ret['birthday_formated_date'] = formatTimestamp(strtotime($this->getVar('birthday_date')), 's');
+        $ret['birthday_formated_date'] = \formatTimestamp(\strtotime($this->getVar('birthday_date')), 's');
         $ret['birthday_fullname']      = $this->getFullName();
 
         return $ret;

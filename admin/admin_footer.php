@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Birthday module
  *
@@ -10,7 +11,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright           XOOPS Project (https://xoops.org)
- * @license             http://www.gnu.org/licenses/gpl-2.0.html GNU Public License
+ * @license             https://www.gnu.org/licenses/gpl-2.0.html GNU Public License
  * @package             birthday
  * @since               2.5.0
  * @author              XOOPS Module Team

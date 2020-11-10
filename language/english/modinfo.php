@@ -1,4 +1,5 @@
 <?php
+
 define('_MI_BD_TITRE', 'Birthdays');
 define('_MI_BD_DESC', "Show Members' Birthday");
 

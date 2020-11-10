@@ -271,7 +271,7 @@ class Text_CAPTCHA_Numeral implements Birthday\Text_CAPTCHA_Numeral_Interface
      */
     private function generateOperator()
     {
-        $this->operator = $this->operators[array_rand($this->operators)];
+        $this->operator = $this->operators[\array_rand($this->operators)];
     }
 
     // }}}
@@ -308,7 +308,7 @@ class Text_CAPTCHA_Numeral implements Birthday\Text_CAPTCHA_Numeral_Interface
      * to the value passed to the function
      *
      * @access private
-     * @param  int $value The first number value.
+     * @param int $value The first number value.
      * @return object  $this  The self object
      */
     private function setFirstNumber($value)
@@ -328,7 +328,7 @@ class Text_CAPTCHA_Numeral implements Birthday\Text_CAPTCHA_Numeral_Interface
      * with the value passed to it.
      *
      * @access private
-     * @param  int $value The second number new value.
+     * @param int $value The second number new value.
      * @return object  $this  The self object
      */
     private function setSecondNumber($value)
@@ -372,7 +372,7 @@ class Text_CAPTCHA_Numeral implements Birthday\Text_CAPTCHA_Numeral_Interface
      */
     private function generateNumber()
     {
-        return mt_rand($this->minValue, $this->maxValue);
+        return \mt_rand($this->minValue, $this->maxValue);
     }
 
     // }}}

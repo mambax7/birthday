@@ -13,6 +13,8 @@ require_once dirname(__DIR__) . '/preloads/autoloader.php';
 
 /** @var \XoopsModules\Birthday\Helper $helper */
 $helper = \XoopsModules\Birthday\Helper::getInstance();
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 if (is_object($helper->getModule())) {

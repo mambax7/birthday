@@ -1,4 +1,5 @@
 <?php
+
 define('_MI_BD_TITRE_2', "Members' Birth Dates");
 define('_MI_BD_EDITER', 'Edit your Birthday');
 define('_MI_BD_ENTRER', 'Edit your Birth Date');

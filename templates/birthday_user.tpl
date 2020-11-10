@@ -18,13 +18,13 @@
         <{elseif trim($birthday_user.birthday_user_user_avatar) != ''}>
             <div style="margin: 5px 10px;float: left;">
 
-                <img src="<{$xoops_url}>/uploads/<{$birthday_user.birthday_user_user_avatar}>" alt="<{$birthday_user.birthday_href_title}>"/>
+                <img src="<{$xoops_url}>/uploads/<{$birthday_user.birthday_user_user_avatar}>" alt="<{$birthday_user.birthday_href_title}>">
 
             </div>
         <{else}>
             <div style="margin: 5px 10px;float: left;">
 
-                <img src="<{$xoops_url}>/modules/birthday/images/nophoto.jpg" alt="<{$birthday_user.birthday_href_title}>" width="130"/>
+                <img src="<{$xoops_url}>/modules/birthday/images/nophoto.jpg" alt="<{$birthday_user.birthday_href_title}>" width="130">
 
             </div>
         <{/if}>

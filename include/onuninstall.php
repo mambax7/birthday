@@ -33,8 +33,7 @@ function xoops_module_uninstall_birthday(\XoopsModule $module)
     require dirname(__DIR__) . '/preloads/autoloader.php';
 
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
-    /** @var Birthday\Helper $helper */
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName /** @var Birthday\Helper $helper */
     /** @var Birthday\Utility $utility */
     $helper  = Birthday\Helper::getInstance();
     $utility = new Birthday\Utility();

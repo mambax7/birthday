@@ -13,7 +13,7 @@ namespace XoopsModules\Birthday;
 use Xmf\Request;
 use XoopsModules\Birthday;
 
-// defined('XOOPS_ROOT_PATH') || die('Restricted access');
+
 
 //require_once XOOPS_ROOT_PATH . '/kernel/object.php';
 //if (!class_exists('Birthday_XoopsPersistableObjectHandler')) {
@@ -38,7 +38,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Retourne un utilisateur � partir de son uid
      *
-     * @param  int $uid L'ID Xoops recherch�
+     * @param int $uid L'ID Xoops recherch�
      * @return \XoopsObject
      */
     public function getFromUid($uid)
@@ -47,7 +47,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         if ($this->getCount($criteria) > 0) {
             $temp = [];
             $temp = $this->getObjects($criteria);
-            if (count($temp) > 0) {
+            if (\count($temp) > 0) {
                 return $temp[0];
             }
         }
@@ -97,7 +97,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             $selectUser->setDescription(_AM_BIRTHDAY_USE_ANONYMOUS);
             $sform->addElement($selectUser);
         }
-        $date = strtotime($item->getVar('birthday_date'));
+        $date = \strtotime($item->getVar('birthday_date'));
         $sform->addElement(new \XoopsFormTextDateSelect(_BIRTHDAY_DATE, 'birthday_date', 15, $date));
         $sform->addElement(new \XoopsFormText(_BIRTHDAY_FIRSTNAME, 'birthday_firstname', 50, 150, $item->getVar('birthday_firstname', 'e')), false);
         $sform->addElement(new \XoopsFormText(_BIRTHDAY_LASTNAME, 'birthday_lastname', 50, 150, $item->getVar('birthday_lastname', 'e')), false);
@@ -119,7 +119,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         $editor_tray->addElement($editor);
         $sform->addElement($editor_tray);
 
-        if ($edit && $item->pictureExists() && '' != trim($item->getVar('birthday_photo'))) {
+        if ($edit && $item->pictureExists() && '' != \trim($item->getVar('birthday_photo'))) {
             $pictureTray = new \XoopsFormElementTray(_AM_BIRTHDAY_CURRENT_PICTURE, '<br>');
             $pictureTray->addElement(new \XoopsFormLabel('', "<img src='" . $item->getPictureUrl() . '\' alt=\'\' border=\'0\'>'));
             $deleteCheckbox = new \XoopsFormCheckBox('', 'delpicture');
@@ -129,7 +129,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             unset($pictureTray, $deleteCheckbox);
         }
         $sform->addElement(new \XoopsFormFile(_AM_BIRTHDAY_PICTURE, 'attachedfile', $utility::getModuleOption('maxuploadsize')), false);
-        if ('' != xoops_trim($captcha)) {
+        if ('' != \xoops_trim($captcha)) {
             $captcaField = new \XoopsFormText(_BIRTHDAY_PLEASESOLVE, 'captcha', 30, 30, '');
             $captcaField->setDescription($captcha);
             $sform->addElement($captcaField, true);
@@ -147,7 +147,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Enregistre un utilisateur apr�s modification (ou ajout)
      *
-     * @param  bool $withCurrentUser Indique s'il faut prendre l'utilisateur courant ou pas
+     * @param bool $withCurrentUser Indique s'il faut prendre l'utilisateur courant ou pas
      * @return bool Vrai si l'enregistrement a r�ussi sinon faux
      */
     public function saveUser($withCurrentUser = false)
@@ -160,7 +160,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         if (!empty($id)) {
             $edit = true;
             $item = $this->get($id);
-            if (!is_object($item)) {
+            if (!\is_object($item)) {
                 return false;
             }
             $item->unsetNew();
@@ -174,7 +174,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             $item->setVar('birthday_uid', $xoopsUser->getVar('uid'));
         }
         if (\Xmf\Request::hasVar('delpicture', 'POST') && 1 == \Xmf\Request::getInt('delpicture', 0, 'POST')) {
-            if ($item->pictureExists() && '' != trim($item->getVar('birthday_photo'))) {
+            if ($item->pictureExists() && '' != \trim($item->getVar('birthday_photo'))) {
                 $item->deletePicture();
             }
             $item->setVar('birthday_photo', '');
@@ -185,7 +185,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         $return = $utility::uploadFile(0, $uploadFolder);
 
         if (true === $return) {
-            $newDestName = $utility::createUploadName($uploadFolder, basename($destname), true);
+            $newDestName = $utility::createUploadName($uploadFolder, \basename($destname), true);
             $retval      = $utility::resizePicture($uploadFolder . '/' . $destname, $uploadFolder . '/' . $newDestName, $images_width, $images_height);
             if (1 == $retval || 3 == $retval) {
                 $item->setVar('birthday_photo', $newDestName);
@@ -196,7 +196,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
             }
         }
 
-        $tempDate = date(_SHORTDATESTRING, strtotime(Request::getString('birthday_date', '', 'POST')));
+        $tempDate = \date(_SHORTDATESTRING, \strtotime(Request::getString('birthday_date', '', 'POST')));
 
         $item->setVar('birthday_date', $tempDate);
 
@@ -211,7 +211,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Suppression d'un utilisateur
      *
-     * @param  UserBirthday $user L'utilisateur � supprimer
+     * @param UserBirthday $user L'utilisateur � supprimer
      * @return bool        Le r�sultat de la suppression
      */
     public function deleteUser(UserBirthday $user)
@@ -239,7 +239,7 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         $commentsCount = (int)$commentsCount;
         $user          = null;
         $user          = $this->get($userId);
-        if (is_object($user)) {
+        if (\is_object($user)) {
             $criteria = new \Criteria('birthday_id', $userId, '=');
             $this->updateAll('birthday_comments', $commentsCount, $criteria, true);
         }
@@ -247,17 +247,17 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
 
     /**
      * Retourne les anniversaires du jour
-     * @param  int    $start
-     * @param  int    $limit
-     * @param  string $sort
-     * @param  string $order
+     * @param int    $start
+     * @param int    $limit
+     * @param string $sort
+     * @param string $order
      * @return array  Objets de type Birthday
      */
     public function getTodayBirthdays($start = 0, $limit = 0, $sort = 'birthday_lastname', $order = 'ASC')
     {
         $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('day(birthday_date)', date('j'), '='));
-        $criteria->add(new \Criteria('month(birthday_date)', date('n'), '='));
+        $criteria->add(new \Criteria('day(birthday_date)', \date('j'), '='));
+        $criteria->add(new \Criteria('month(birthday_date)', \date('n'), '='));
         $criteria->setStart($start);
         if ($limit > 0) {
             $criteria->setLimit($limit);
@@ -275,8 +275,8 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     public function getTodayBirthdaysCount()
     {
         $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('day(birthday_date)', date('j'), '='));
-        $criteria->add(new \Criteria('month(birthday_date)', date('n'), '='));
+        $criteria->add(new \Criteria('day(birthday_date)', \date('j'), '='));
+        $criteria->add(new \Criteria('month(birthday_date)', \date('n'), '='));
 
         return $this->getCount($criteria);
     }
@@ -294,10 +294,10 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
     /**
      * Retourne la liste de tous les utilisateurs
      *
-     * @param  int    $start Position de d�part
-     * @param  int    $limit Nombre maximum d'enregistrements
-     * @param  string $sort  Champ � utiliser pour le tri
-     * @param  string $order Ordre de tri
+     * @param int    $start Position de d�part
+     * @param int    $limit Nombre maximum d'enregistrements
+     * @param string $sort  Champ � utiliser pour le tri
+     * @param string $order Ordre de tri
      * @return array   Objets de type Birthday
      */
     public function getAllUsers($start = 0, $limit = 0, $sort = 'birthday_lastname', $order = 'ASC')

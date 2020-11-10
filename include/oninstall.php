@@ -11,7 +11,7 @@
 
 /**
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
  * @author       XOOPS Development Team
@@ -60,8 +60,7 @@ function xoops_module_install_birthday(\XoopsModule $module)
 
     $moduleDirName = basename(dirname(__DIR__));
 
-    /** @var Birthday\Helper $helper */
-    /** @var Birthday\Utility $utility */
+    /** @var Birthday\Helper $helper */ /** @var Birthday\Utility $utility */
     /** @var Common\Configurator $configurator */
     $helper       = Birthday\Helper::getInstance();
     $utility      = new Birthday\Utility();
@@ -71,10 +70,11 @@ function xoops_module_install_birthday(\XoopsModule $module)
     $helper->loadLanguage('modinfo');
 
     // default Permission Settings ----------------------
-    $moduleId  = $module->getVar('mid');
-    // $moduleId2 = $helper->getModule()->mid();
+    $moduleId = $module->getVar('mid');
+
     //$moduleName = $module->getVar('name');
-    $grouppermHandler = xoops_getHandler('groupperm');
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
+$grouppermHandler = xoops_getHandler('groupperm');
     // access rights ------------------------------------------
     $grouppermHandler->addRight($moduleDirName . '_approve', 1, XOOPS_GROUP_ADMIN, $moduleId);
     $grouppermHandler->addRight($moduleDirName . '_submit', 1, XOOPS_GROUP_ADMIN, $moduleId);

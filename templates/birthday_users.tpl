@@ -16,7 +16,7 @@
         <li><a href="index.php"><{$breadcrumb}></a></li>
     </ol>
     <p align="center">
-        <a href="<{$xoops_url}>/modules/birthday/index.php"><img src="<{$xoops_url}>/modules/birthday/images/logo.png" alt="" class="img-thumbnail"/></a>
+        <a href="<{$xoops_url}>/modules/birthday/index.php"><img src="<{$xoops_url}>/modules/birthday/images/logo.png" alt="" class="img-thumbnail"></a>
     </p>
     <br>
     <ul class="heyula">
@@ -28,10 +28,10 @@
                         <img src="<{$birthday_user.birthday_full_imgurl}>" alt="<{$birthday_user.birthday_href_title}>" class="img-thumbnail">
                     <{elseif trim($birthday_user.birthday_user_user_avatar) != ''}>
                         <img src="<{$xoops_url}>/uploads/<{$birthday_user.birthday_user_user_avatar}>" alt="<{$birthday_user.birthday_href_title}>"
-                             class="img-thumbnail"/>
+                             class="img-thumbnail">
                     <{else}>
                         <img src="<{$xoops_url}>/modules/birthday/images/nophoto.jpg" alt="<{$birthday_user.birthday_href_title}>" width="130"
-                             class="img-thumbnail"/>
+                             class="img-thumbnail">
                     <{/if}>
 
                     <div class="caption">
