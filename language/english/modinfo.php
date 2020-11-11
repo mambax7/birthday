@@ -39,7 +39,7 @@ define('_MI_BIRTHDAY_ABOUT', 'About');
 
 //2.4
 //Help
-define('_MI_BIRTHDAY_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_BIRTHDAY_DIRNAME', basename(dirname(__DIR__, 2)));
 define('_MI_BIRTHDAY_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 define('_MI_BIRTHDAY_BACK_2_ADMIN', 'Back to Administration of ');
 define('_MI_BIRTHDAY_OVERVIEW', 'Overview');
