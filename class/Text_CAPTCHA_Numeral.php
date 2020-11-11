@@ -372,7 +372,7 @@ class Text_CAPTCHA_Numeral implements Birthday\Text_CAPTCHA_Numeral_Interface
      */
     private function generateNumber()
     {
-        return \mt_rand($this->minValue, $this->maxValue);
+        return \random_int($this->minValue, $this->maxValue);
     }
 
     // }}}
