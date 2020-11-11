@@ -26,7 +26,7 @@ namespace XoopsModules\Birthday\Common;
 use MyTextSanitizer;
 use XoopsFormDhtmlTextArea;
 use XoopsFormTextArea;
-use XoopsModules\Birthday;
+use XoopsModules\Birthday\Helper;
 
 /**
  * Class SysUtility
