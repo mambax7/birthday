@@ -157,21 +157,21 @@ class Text_CAPTCHA_Numeral implements Birthday\Text_CAPTCHA_Numeral_Interface
      *
      * @access public
      */
-    const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY = 1;
+    public const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY = 1;
 
     /**
      * A constant that indicates the complexity of mathematical operations
      *
      * @access public
      */
-    const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL = 2;
+    public const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL = 2;
 
     /**
      * A constant that indicates the complexity of mathematical operations
      *
      * @access public
      */
-    const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_UNIVERSITY = 4;
+    public const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_UNIVERSITY = 4;
 
     // }}}
     // {{{ Constructor
