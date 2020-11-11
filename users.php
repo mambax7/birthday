@@ -10,12 +10,15 @@
 /**
  * Affiche la liste de tous les utilisateurs (ou de tous les utilisateurs dont c'est l'anniversaire aujourd'hui)
  */
+
+use Xmf\Request;
+
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'birthday_users.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
-$start = \Xmf\Request::getInt('start', 0, 'GET');
+$start = Request::getInt('start', 0, 'GET');
 $limit = $utility::getModuleOption('perpage');    // Nombre maximum d'éléments à afficher
 $users = [];
 
@@ -25,7 +28,7 @@ if (isset($xoopsConfig) && file_exists(BIRTHDAY_PATH . 'language/' . $xoopsConfi
     require_once BIRTHDAY_PATH . 'language/english/blocks.php';
 }
 
-if (\Xmf\Request::hasVar('op', 'GET') && 'today' === $_GET['op']) {    // Les utilisateurs dont l'anniversaire est aujourd'hui
+if (Request::hasVar('op', 'GET') && 'today' === $_GET['op']) {    // Les utilisateurs dont l'anniversaire est aujourd'hui
     $itemsCount = $birthdayHandler->getTodayBirthdaysCount();
     if ($itemsCount > $limit) {
         $pagenav = new \XoopsPageNav($itemsCount, $limit, $start, 'start', 'op=today');

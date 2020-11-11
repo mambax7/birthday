@@ -7,6 +7,8 @@
  * ****************************************************************************
  */
 
+use Xmf\Module\Admin;
+use Xmf\Request;
 use XoopsModules\Birthday;
 
 require_once __DIR__ . '/admin_header.php';
@@ -16,10 +18,10 @@ require_once dirname(__DIR__) . '/include/common.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $utility     = new Birthday\Utility();
 
-$op = \Xmf\Request::getCmd('op', 'default');
+$op = Request::getCmd('op', 'default');
 
 // Lecture de certains param�tres de l'application ********************************************************************
 $limit         = $utility::getModuleOption('perpage');    // Nombre maximum d'�l�ments � afficher
@@ -43,7 +45,7 @@ switch ($op) {
         //echo '<h1>'.$utility::getModuleName().'</h1>';
         $adminObject->displayNavigation(basename(__FILE__));
 
-        $start = \Xmf\Request::getInt('start', 0, 'GET');
+        $start = Request::getInt('start', 0, 'GET');
         //        $birthdayHandler = new Birthday\BirthdayHandler($db);
         $itemsCount = $birthdayHandler->getCount();
         if ($itemsCount > $limit) {
@@ -125,7 +127,7 @@ switch ($op) {
         // ****************************************************************************************************************
         xoops_cp_header();
         $adminObject->displayNavigation(basename(__FILE__));
-        $id = \Xmf\Request::getInt('id', 0, 'GET');
+        $id = Request::getInt('id', 0, 'GET');
         if (empty($id)) {
             $utility::redirect(_AM_BIRTHDAY_ERROR_1, $baseurl, 5);
         }
@@ -153,7 +155,7 @@ switch ($op) {
     // ****************************************************************************************************************
     case 'delete':    // Suppression d'un utilisateur
         // ****************************************************************************************************************
-        $id = \Xmf\Request::getInt('id', 0, 'GET');
+        $id = Request::getInt('id', 0, 'GET');
         if (empty($id)) {
             $utility::redirect(_AM_BIRTHDAY_ERROR_1, $baseurl, 5);
         }

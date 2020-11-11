@@ -4,6 +4,7 @@
  * Permet à l'utilisateur courant de modifier sa fiche (si l'option adéquate est activée)
  */
 
+use Xmf\Request;
 use XoopsModules\Birthday;
 
 require_once __DIR__ . '/header.php';
@@ -21,7 +22,7 @@ if (is_object($xoopsUser) && $utility::getModuleOption('enable_users')) {
     $utility::redirect(_BIRTHDAY_ERROR1, 'users.php', 4);
 }
 
-$op = \Xmf\Request::getCmd('op', 'default');
+$op = Request::getCmd('op', 'default');
 
 switch ($op) {
     case 'default':
@@ -37,7 +38,7 @@ switch ($op) {
         $xoopsTpl->assign('form', $form->render());
         break;
     case 'saveedit':
-        if (\Xmf\Request::hasVar('captcha', 'POST') && isset($_SESSION['birthday_answer'])
+        if (Request::hasVar('captcha', 'POST') && isset($_SESSION['birthday_answer'])
             && $utility::getModuleOption('use_captcha')) {
             if ($_POST['captcha'] != $_SESSION['birthday_answer']) {
                 $utility::redirect(_BIRTHDAY_CAPTCHA_WRONG, 'index.php', 4);
