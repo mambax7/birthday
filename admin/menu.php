@@ -8,8 +8,17 @@
  */
 
 use XoopsModules\Birthday;
+use Xmf\Module\Admin;
+use XoopsModules\Birthday\{
+    Helper
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
 require_once dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 /** @var \XoopsModules\Birthday\Helper $helper */
 $helper = \XoopsModules\Birthday\Helper::getInstance();
@@ -31,6 +40,13 @@ $adminmenu[] = [
     'title' => _MI_BIRTHDAY_BIRTHDAYS,
     'link'  => 'admin/main.php',
     'icon'  => './assets/images/cake.png',
+];
+
+// Blocks Admin
+$adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS'),
+    'link' => 'admin/blocksadmin.php',
+    'icon' => $pathIcon32 . '/block.png',
 ];
 
 $adminmenu[] = [
