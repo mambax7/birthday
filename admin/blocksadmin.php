@@ -18,6 +18,7 @@ use Xmf\Request;
 use XoopsModules\Birthday\{
     Helper
 };
+
 /** @var Admin $adminObject */
 /** @var Helper $helper */
 

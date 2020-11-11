@@ -715,7 +715,7 @@ class Utility extends Common\SysUtility
         if ($infotips > 0) {
             $myts = \MyTextSanitizer::getInstance();
 
-            return $myts->htmlSpecialChars(\xoops_substr(\strip_tags($text), 0, $infotips));
+            return htmlspecialchars(\xoops_substr(\strip_tags($text), 0, $infotips));
         }
 
         return '';

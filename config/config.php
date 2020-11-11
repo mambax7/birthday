@@ -87,4 +87,3 @@ return (object)[
     'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
                      <img src='" . Admin::iconUrl('xoopsmicrobutton.gif') . "' alt='XOOPS Project'></a>",
 ];
-

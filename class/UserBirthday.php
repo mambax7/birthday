@@ -12,8 +12,6 @@ namespace XoopsModules\Birthday;
 
 use XoopsModules\Birthday;
 
-
-
 //use XoopsModules\Birthday\Common;
 
 //require_once  dirname(__DIR__) . '/include/common.php';

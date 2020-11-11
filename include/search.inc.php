@@ -75,7 +75,7 @@ function birthday_search($queryarray, $andor, $limit, $offset, $userid)
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'assets/images/crown.png';
         $ret[$i]['link']  = 'user.php?birthday_id=' . $myrow['birthday_id'];
-        $ret[$i]['title'] = $myts->htmlSpecialChars($myrow['birthday_lastname'] . ' ' . $myrow['birthday_firstname']);
+        $ret[$i]['title'] = htmlspecialchars($myrow['birthday_lastname'] . ' ' . $myrow['birthday_firstname']);
         $ret[$i]['time']  = strtotime($myrow['birthday_date']);
         $ret[$i]['uid']   = $myrow['birthday_uid'];
         ++$i;

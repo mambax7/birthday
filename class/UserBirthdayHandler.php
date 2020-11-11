@@ -13,8 +13,6 @@ namespace XoopsModules\Birthday;
 use Xmf\Request;
 use XoopsModules\Birthday;
 
-
-
 //require_once XOOPS_ROOT_PATH . '/kernel/object.php';
 //if (!class_exists('Birthday_XoopsPersistableObjectHandler')) {
 //  require_once XOOPS_ROOT_PATH.'/modules/birthday/class/PersistableObjectHandler.php';
