@@ -33,7 +33,9 @@ $destname      = '';
 
 $cacheFolder = XOOPS_UPLOAD_PATH . '/' . BIRTHDAY_DIRNAME;
 if (!is_dir($cacheFolder)) {
-    mkdir($cacheFolder);
+    if (!mkdir($cacheFolder) && !is_dir($cacheFolder)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $cacheFolder));
+    }
     file_put_contents($cacheFolder . '/index.html', '<script>history.go(-1);</script>');
 }
 
