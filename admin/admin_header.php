@@ -27,7 +27,6 @@ require_once dirname(__DIR__) . '/preloads/autoloader.php';
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
-/** @var Birthday\Helper $helper */
 $helper = Birthday\Helper::getInstance();
 /** @var Xmf\Module\Admin $adminObject */
 $adminObject = Admin::getInstance();

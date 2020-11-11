@@ -20,7 +20,6 @@ require_once dirname(__DIR__) . '/preloads/autoloader.php';
 $moduleDirName = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-/** @var \XoopsModules\Birthday\Helper $helper */
 $helper = \XoopsModules\Birthday\Helper::getInstance();
 $helper->loadLanguage('common');
 $helper->loadLanguage('feedback');

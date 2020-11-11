@@ -71,7 +71,6 @@ class UserBirthdayHandler extends \XoopsPersistableObjectHandler //Birthday_Xoop
         //        require_once XOOPS_ROOT_PATH . '/modules/birthday/class/formtextdateselect.php';
 
         global $xoopsModuleConfig;
-        /** @var Birthday\Helper $helper */
         $helper  = Birthday\Helper::getInstance();
         $utility = new Birthday\Utility();
 

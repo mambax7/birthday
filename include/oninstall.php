@@ -29,7 +29,6 @@ use XoopsModules\Birthday\Common;
 function xoops_module_pre_install_birthday(\XoopsModule $module)
 {
     require dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Birthday\Utility $utility */
     $utility = new Birthday\Utility();
 
     //check for minimum XOOPS version
